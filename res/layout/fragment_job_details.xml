@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E8E8E8">
+    
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:layout_marginLeft="4dip"
+    android:layout_marginRight="4dip"
+    android:layout_marginBottom="48dip"
+   >
+
+    
+    <LinearLayout
+        android:padding="12dip"
+	        android:id="@+id/first"
+	        android:orientation="vertical"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+         	android:background="@drawable/container_dropshadow"
+	        android:layout_marginTop="4dip">
+	 
+<TextView
+       android:id="@+id/post_date"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text=""
+       android:textColor="#000"
+       android:textSize="18dp" />
+
+      <ImageView
+            android:id="@+id/companyImage"
+            android:layout_width="wrap_content"
+    		android:layout_height="50dp"
+            android:layout_alignParentLeft="true"/>
+     
+	<TextView
+	    android:autoLink="web"
+		android:linksClickable="true"
+       android:id="@+id/company"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text=""
+       android:textColor="#000"
+       android:layout_marginBottom="8dip"
+       android:textSize="20dp" />
+	
+	<TextView
+       android:id="@+id/company_info"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text=""
+       android:textColor="#777777"
+       android:layout_marginBottom="8dip"
+       android:textSize="18dp" />
+	        
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text=""
+        android:layout_marginTop="8dip"
+        android:textSize="26dp" />
+
+	<TextView
+        android:id="@+id/contentTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textStyle="bold"
+        android:text="職責"
+        android:layout_marginTop="8dip"
+        android:layout_marginBottom="8dip"
+        android:textSize="20dp" />
+	
+	<TextView
+        android:id="@+id/jobDesc1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:textSize="18dp" />
+	
+	<TextView
+        android:id="@+id/jobDesc2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:textSize="18dp" />
+	<TextView
+        android:id="@+id/jobDesc3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:textSize="18dp" />
+	<TextView
+        android:id="@+id/jobDesc4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:textSize="18dp" />
+	<TextView
+        android:id="@+id/jobDesc5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:textSize="18dp" />	
+  
+    <TextView
+        android:id="@+id/contentTitle2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textStyle="bold"
+        android:text="要求"
+        android:layout_marginTop="16dip"
+        android:layout_marginBottom="8dip"
+        android:textSize="20dp" />
+		
+   
+    <TextView
+        android:id="@+id/jobReq1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:textSize="18dp" />
+	
+	<TextView
+        android:id="@+id/jobReq2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:textSize="18dp" />
+	<TextView
+        android:id="@+id/jobReq3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:textSize="18dp" />
+	<TextView
+        android:id="@+id/jobReq4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:textSize="18dp" />
+	<TextView
+        android:id="@+id/jobReq5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:textSize="18dp" />	
+     
+	
+	<TextView
+        android:id="@+id/applyDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:textSize="20dp" />	
+     </LinearLayout>
+     
+ 
+	    
+    <RelativeLayout
+       android:padding="12dip"
+         android:id="@+id/second"
+         android:background="@drawable/container_dropshadow"
+            android:orientation="vertical"
+	        android:layout_marginTop="4dip"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent">
+
+             	<TextView
+             	    android:id="@+id/text1"
+             	    android:layout_width="wrap_content"
+             	    android:layout_height="wrap_content"
+             	    android:gravity="left"
+             	    android:text="職位 (行業)"
+             	    android:textColor="#000"
+             	    android:layout_marginTop="5dp"
+             	    android:textSize="18dp" />
+          
+		        <TextView
+		            android:layout_alignTop="@+id/text1"
+		            android:layout_toRightOf="@+id/text1" 
+		            android:id="@+id/text2"
+		            android:textSize="18dp"
+		            android:layout_marginLeft="5dp"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"/>
+	
+	             <TextView
+	                 android:id="@+id/text3"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:text="地點"
+	                 android:gravity="left"
+	                 android:textColor="#000"
+	                 android:layout_below="@+id/text2"
+	                 android:layout_marginTop="5dp"
+	                 android:textSize="18dp" />
+
+	             <TextView
+		            
+		            android:id="@+id/text4"
+		            android:textSize="18dp"
+		             android:layout_alignLeft="@+id/text2"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		             android:layout_alignTop="@+id/text3"/>
+	             
+	             <TextView
+	                 android:id="@+id/text5"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:text="學歷"
+	                 android:gravity="left"
+	                 android:textColor="#000"
+	                 android:layout_below="@+id/text4"
+		             android:layout_marginTop="5dp"
+	                 android:textSize="18dp" />
+
+	             <TextView
+		            
+		            android:id="@+id/text6"
+		            android:textSize="18dp"
+		             android:layout_alignLeft="@+id/text2"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		             android:layout_alignTop="@+id/text5"/>
+	             
+	             <TextView
+	                 android:id="@+id/text7"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:text="工作經驗"
+	                 android:gravity="left"
+	                 android:textColor="#000"
+	                 android:layout_below="@+id/text6"
+		             android:layout_marginTop="5dp"
+	                 android:textSize="18dp" />
+
+	             <TextView
+		            android:textSize="18dp"
+		            android:id="@+id/text8"
+		             android:layout_alignLeft="@+id/text2"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		             android:layout_alignTop="@+id/text7"/>
+	             
+	             <TextView
+	                 android:id="@+id/text9"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:text="工作時段"
+	                 android:gravity="left"
+	                 android:textColor="#000"
+	                 android:layout_below="@+id/text8"
+		             android:layout_marginTop="5dp"
+	                 android:textSize="18dp" />
+
+	             <TextView
+		            android:textSize="18dp"
+		            android:id="@+id/text10"
+		             android:layout_alignLeft="@+id/text2"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		             android:layout_alignTop="@+id/text9"/>
+	             
+	             <TextView
+	                 android:id="@+id/text11"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:text="工時/日數"
+	                 android:gravity="left"
+	                 android:textColor="#000"
+	                 android:layout_below="@+id/text10"
+		             android:layout_marginTop="5dp"
+	                 android:textSize="18dp" />
+
+	             <TextView
+		            android:textSize="18dp"
+		            android:id="@+id/text12"
+		             android:layout_alignLeft="@+id/text2"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		             android:layout_alignTop="@+id/text11"/>
+	             
+	             <TextView
+	                 android:id="@+id/text13"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:text="薪金"
+	                 android:gravity="left"
+	                 android:textColor="#000"
+	                 android:layout_below="@+id/text12"
+		             android:layout_marginTop="5dp"
+	                 android:textSize="18dp" />
+
+	             <TextView
+		            android:textSize="18dp"
+		            android:id="@+id/text14"
+		             android:layout_alignLeft="@+id/text2"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		             android:layout_alignTop="@+id/text13"/>
+	             
+	              <TextView
+	                 android:id="@+id/text15"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:text="福利"
+	                 android:gravity="left"
+	                 android:textColor="#000"
+	                 android:layout_below="@+id/text14"
+		             android:layout_marginTop="5dp"
+	                 android:textSize="18dp" />
+
+	             <TextView
+		            android:textSize="18dp"
+		            android:id="@+id/text16"
+		             android:layout_alignLeft="@+id/text2"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		             android:layout_alignTop="@+id/text15"/>
+	             
+	             <TextView
+	                 android:id="@+id/text17"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:text="工作性質"
+	                 android:gravity="left"
+	                 android:textColor="#000"
+	                 android:layout_below="@+id/text16"
+		             android:layout_marginTop="5dp"
+	                 android:textSize="18dp" />
+
+	             <TextView
+		            android:textSize="18dp"
+		            android:id="@+id/text18"
+		             android:layout_alignLeft="@+id/text2"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		             android:layout_alignTop="@+id/text17"/>
+	             
+	             <TextView
+	                 android:id="@+id/text19"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:text="招聘人數"
+	                 android:gravity="left"
+	                 android:textColor="#000"
+	                 android:layout_below="@+id/text18"
+		             android:layout_marginTop="5dp"
+	                 android:textSize="18dp" />
+
+	             <TextView
+		            android:textSize="18dp"
+		            android:id="@+id/text20"
+		             android:layout_alignLeft="@+id/text2"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		             android:layout_alignTop="@+id/text19"/>
+	             
+	             <TextView
+	                 android:id="@+id/text21"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:text="截止日期"
+	                 android:gravity="left"
+	                 android:textColor="#000"
+	                 android:layout_below="@+id/text20"
+		             android:layout_marginTop="5dp"
+	                 android:textSize="18dp" />
+
+	             <TextView
+		            android:textSize="18dp"
+		            android:id="@+id/text22"
+		             android:layout_alignLeft="@+id/text2"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		             android:layout_alignTop="@+id/text21"/>
+     </RelativeLayout>        	
+    
+        
+ 
+    
+</LinearLayout>
+</ScrollView>

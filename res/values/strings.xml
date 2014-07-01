@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <string name="app_name">樂活網</string>
+    <string name="web_url">https://www.happy-retired.com</string>
+    <string name="action_settings">設定</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="drawer_open">Slider Menu Opened</string>
+    <string name="drawer_close">Slider Menu Closed</string>
+
+    <!-- Activity Menu -->
+
+    <string name="activity_page_started">已開始</string>
+    <string name="activity_page_notstarted">即將開始</string>
+    <string name="activity_page_tour">旅遊</string>
+    
+    <string name="volunteer_page_once">一次性</string>
+    <string name="volunteer_page_regular">持續性</string>
+    
+    <string name="please_wait">請稍候</string>
+     <string name="loading">載入中...</string>
+     
+     <string name="activityContentTitle">活動內容</string>
+     <string name="activityContentTitle2">查詢方法</string>
+     
+     <string name="forum_all">全部</string>
+     <string name="forumCategory">類別</string>
+     <string name="forum_last_poste_name">最後回覆</string>
+     
+      <string name="vacancy">人數</string>
+     
+     <string name="volunteerContentTitle1">服務詳情</string>
+     <string name="volunteerContentTitle2">職責</string>
+     <string name="volunteerContentTitle3">參加辦法</string>
+     
+     <string name="blogContentTitle1">名人專欄</string>
+     <string name="blogContentTitle2">網絡作家</string>
+     <string name="blogContentTitle3">最新文章</string>
+
+     <string name="action_share">Share</string>
+     <string name="activity">參加活動</string>
+     <string name="forum">退休論壇</string>
+     <string name="volunteer">義工招募</string>
+     <string name="blog">名人專欄</string>
+     <string name="job">再就業</string>
+     
+     <string name="activity_url">網址</string>
+     <string name="fee">費用</string>
+     <string name="activity_category">類別 </string>
+     <string name="activity_time">時間 </string>
+     <string name="activity_location">活動地區 </string>
+     <string name="activity_address">活動地點</string>
+     <string name="activity_effective_to">截止日期</string>
+     <string name="free">免費</string>
+     
+     <string name="volunteer_targetgroup">對象</string>
+     
+    <!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items">
+        <item>推薦內容</item>
+        <item>名人專欄</item>
+        <item>參加活動</item>
+        <item>義工招募</item>
+        <item>再就業</item>
+        <item>退休論壇</item>
+        <item>折扣優惠</item>
+    </string-array>
+
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_people</item>
+        <item>@drawable/ic_photos</item>
+        <item>@drawable/ic_communities</item>
+        <item>@drawable/ic_pages</item>
+        <item>@drawable/ic_whats_hot</item>
+        <item>@drawable/ic_whats_hot</item>
+    </array>
+
+    <!-- Content Description -->
+    <string name="desc_list_item_icon">Item Icon</string>
+
+    <!-- Web Service -->
+    <string name="WEBSERVICE_JOB">https://www.happy-retired.com/jobwebservice</string>
+    <string name="WEBSERVICE_ACTIVITY">https://www.happy-retired.com/activitywebservice</string>
+    <string name="WEBSERVICE_VOLUNTEER">https://www.happy-retired.com/volunteerwebservice</string>
+    <string name="WEBSERVICE_FORUM">https://www.happy-retired.com/forumwebservice</string>
+    <string name="WEBSERVICE_BLOG">https://www.happy-retired.com/blogwebservice</string>
+    <string name="WEBSERVICE_COMMON">https://www.happy-retired.com/commonwebservice</string>
+    
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_activity_for_details">ActivityForDetails</string>
+
+    
+    <!-- License checking status messages -->
+    <string name="check_license">Check license</string>
+    <string name="checking_license">Checking license...</string>
+    <string name="dont_allow">Don\'t allow the user access</string>
+    <string name="allow">Allow the user access</string>
+    <string name="application_error">Application error: %1$s</string>
+
+    <!-- Unlicensed dialog messages -->
+    <string name="unlicensed_dialog_title">Application not licensed</string>
+    <string name="unlicensed_dialog_body">This application is not licensed. Please purchase it from Android Market.</string>
+    <string name="unlicensed_dialog_retry_body">Unable to validate license. Check to see if a network connection is available.</string>
+    <string name="buy_button">Buy app</string>
+    <string name="retry_button">Retry</string>
+    <string name="quit_button">Exit</string>
+    
+    
+</resources>

@@ -1,0 +1,80 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+               >
+
+ <RelativeLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp" 
+         android:background="#ffffff"
+		 android:radius="5dp"
+         >
+
+ 	 <TextView
+            android:layout_marginLeft="5dp"
+            android:id="@+id/forum_topic"
+            android:layout_marginRight="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="topic"
+            android:textSize="22sp" />
+ 
+     
+      
+       <TextView
+            
+           android:layout_marginRight="5dp"
+           
+            android:id="@+id/reply_and_view"
+            android:layout_alignParentRight="true" 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#999999"
+            android:textSize="14sp" />
+        
+   
+          
+       <TextView
+           	android:layout_below="@id/forum_topic"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ABC"
+            android:textColor="@color/main_color"
+            android:textSize="16sp" />
+       
+        
+       
+       <TextView
+           android:layout_marginRight="5dp"
+           android:layout_alignTop="@+id/category"
+           
+            android:id="@+id/last_post_time"
+            android:layout_alignParentRight="true" 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#999999"
+            android:text=""
+            android:textSize="16sp" />
+
+    
+        <my.view.DynamicImageView
+	        android:layout_below="@+id/last_post_time"
+	        android:id="@+id/cover"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	         android:layout_marginTop="10dp"
+	        android:layout_marginLeft="5dp"
+	        android:layout_marginRight="5dp"
+	        android:layout_marginBottom="10dp"
+	        android:adjustViewBounds="true"/>
+
+    </RelativeLayout> 
+    
+</LinearLayout>

@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E8E8E8">
+	
+   
+    
+        
+    
+        <LinearLayout
+	        android:id="@+id/linlaHeaderProgress"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:gravity="center"
+	        android:orientation="vertical"
+	        android:visibility="gone" >
+	
+	        <ProgressBar
+	            android:id="@+id/pbHeaderProgress"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" >
+	        </ProgressBar>
+	        <TextView
+		        android:id="@+id/txtLabel"
+		         android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_centerInParent="true"
+		        android:textSize="16dp"
+		        android:text="@string/loading"/>
+	    </LinearLayout>
+        
+
+	    <GridView 
+	        android:layout_marginLeft="4dp"
+    	  	android:layout_marginRight="4dp"
+		    android:id="@+id/gridlist"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:numColumns="auto_fit"
+		    android:columnWidth="90dp"
+		    android:horizontalSpacing="1dp"
+		    android:verticalSpacing="1dp"
+		    android:gravity="center"
+		    android:stretchMode="columnWidth" >  
+		</GridView>    
+		
+	</RelativeLayout>

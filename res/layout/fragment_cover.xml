@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    
+    android:background="@color/logo_color">
+    
+    
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="樂活"
+            android:textColor="#ffffff"
+            android:layout_centerInParent="true"
+            android:id="@+id/firstTitle"
+            android:textSize="40sp" />
+    
+    <TextView
+        android:layout_below="@id/firstTitle"
+         android:id="@+id/firstTitle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="新中年"
+            android:textColor="#ffffff"
+            android:layout_centerInParent="true"
+            android:textSize="20sp" />
+	        
+    <TextView
+        
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="happy-retired.com | 2014"
+            android:textColor="#ffffff"
+            android:layout_centerInParent="true"
+            android:layout_gravity="bottom" 
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:textSize="18sp" />
+
+    <ProgressBar
+        android:id="@+id/pbHeaderProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/firstTitle2"
+        android:layout_marginTop="32dp" />
+
+</RelativeLayout>

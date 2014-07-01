@@ -1,0 +1,58 @@
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="10dp" 
+        android:background="@drawable/container_dropshadow">
+
+ <RelativeLayout 
+      android:id="@+id/topic_details"
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:background="#ffffff"
+	 android:radius="5dp">
+
+
+     
+       <ImageView
+            android:id="@+id/cover"
+            android:layout_width="fill_parent"
+    		android:layout_height="100dp"
+            android:scaleType="centerCrop"/>
+       
+      <TextView
+         android:layout_below="@+id/cover"
+            android:id="@+id/blog_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:singleLine="true"
+            android:textStyle="bold|italic"
+            android:textSize="18sp" />
+      
+     <TextView
+         android:layout_below="@+id/blog_name"
+            android:id="@+id/blogger_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text=""
+            
+            android:textSize="16sp" />
+     
+     <TextView
+         android:layout_below="@+id/blogger_name"
+            android:id="@+id/last_post_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="false"
+            android:lines="2"
+             
+            android:textColor="#777777"
+            android:text=""
+            android:textSize="16sp" />
+     
+     
+ 	</RelativeLayout>
+     
+</RelativeLayout>

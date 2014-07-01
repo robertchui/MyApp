@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+         android:paddingTop="5dp"
+         android:paddingBottom="5dp" 
+	 	android:radius="5dp">
+    
+    <TextView
+	    android:layout_alignParentRight="true" 
+	    android:id="@+id/blog_name"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="2dp"
+	    android:text="Subject"
+	    android:textColor="@color/red_color"
+	    android:textSize="22sp" />
+    
+     <ImageView
+          android:layout_below="@id/blog_name"
+         android:layout_alignParentLeft="true" 
+            android:id="@+id/cover"
+            android:layout_width="70dp"
+    		android:layout_height="70dp"
+             android:adjustViewBounds="true"/>
+
+	<TextView
+	    android:layout_toRightOf="@+id/cover" 
+	     android:layout_below="@id/blog_name"
+	    android:id="@+id/blogger"
+	     android:layout_marginLeft="5dp"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="Subject"
+	    android:textColor="#000"
+	    android:textSize="18sp" />
+	
+	<TextView
+	    android:layout_toRightOf="@+id/cover" 
+	    android:layout_marginLeft="5dp"
+	    android:layout_below="@id/blogger"
+	    android:id="@+id/selfintro"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="Subject"
+	    android:textColor="#999999"
+	    android:textSize="16sp" />
+	
+	<TextView
+	    android:layout_alignParentRight="true" 
+	    android:layout_marginLeft="5dp"
+	    android:layout_below="@id/selfintro"
+	    android:id="@+id/updatestatus"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="Subject"
+	    android:textColor="#999999"
+	    android:textSize="16sp" />
+    </RelativeLayout> 
