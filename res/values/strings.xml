@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <string name="app_name">樂活網</string>
+    <string name="app_name">樂活新中年</string>
     <string name="web_url">https://www.happy-retired.com</string>
     <string name="action_settings">設定</string>
     <string name="hello_world">Hello world!</string>
@@ -43,6 +43,7 @@
      <string name="volunteer">義工招募</string>
      <string name="blog">名人專欄</string>
      <string name="job">再就業</string>
+     <string name="jetso">著數情報</string>
      
      <string name="activity_url">網址</string>
      <string name="fee">費用</string>
@@ -55,6 +56,10 @@
      
      <string name="volunteer_targetgroup">對象</string>
      
+     <string name="happyretired_app">樂活新中年  Android App</string>
+     <string name="happyretired_app_url">https://play.google.com/store/apps/details?id=info.happyretired</string>
+     
+     
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
         <item>推薦內容</item>
@@ -63,7 +68,7 @@
         <item>義工招募</item>
         <item>再就業</item>
         <item>退休論壇</item>
-        <item>折扣優惠</item>
+        <item>著數情報</item>
     </string-array>
 
     <!-- Nav Drawer List Item Icons -->
@@ -88,6 +93,7 @@
     <string name="WEBSERVICE_FORUM">https://www.happy-retired.com/forumwebservice</string>
     <string name="WEBSERVICE_BLOG">https://www.happy-retired.com/blogwebservice</string>
     <string name="WEBSERVICE_COMMON">https://www.happy-retired.com/commonwebservice</string>
+    <string name="WEBSERVICE_JETSO">https://www.happy-retired.com/jetsowebservice</string>
     
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_activity_for_details">ActivityForDetails</string>

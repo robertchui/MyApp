@@ -73,8 +73,8 @@ public class EventDetailsActivity extends FragmentActivity{
 	    
 	    Intent myIntent = new Intent();
 	        myIntent.setAction(Intent.ACTION_SEND);
-	        myIntent.putExtra(Intent.EXTRA_SUBJECT, activityItem.getTitle()+" | "+activityItem.getCompany_name());
-	        myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getShareUrl());
+	        //myIntent.putExtra(Intent.EXTRA_SUBJECT, activityItem.getTitle()+" | "+activityItem.getCompany_name());
+	        myIntent.putExtra(Intent.EXTRA_TEXT,  activityItem.getTitle()+" | "+activityItem.getCompany_name() + " - " + activityItem.getShareUrl());
 	        myIntent.setType("text/plain");
 	        mShareActionProvider.setShareIntent(myIntent);
 
@@ -133,8 +133,9 @@ public class EventDetailsActivity extends FragmentActivity{
             	activityItem = (ActivityItem)inputArray.get(position);
             	Intent myIntent = new Intent();
     	        myIntent.setAction(Intent.ACTION_SEND);
-    	        myIntent.putExtra(Intent.EXTRA_SUBJECT, activityItem.getTitle()+" | "+activityItem.getCompany_name());
-    	        myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getShareUrl());
+    	        //myIntent.putExtra(Intent.EXTRA_SUBJECT, activityItem.getTitle()+" | "+activityItem.getCompany_name());
+    	        //myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getShareUrl());
+    	        myIntent.putExtra(Intent.EXTRA_TEXT,  activityItem.getTitle()+" | "+activityItem.getCompany_name() + " - " + activityItem.getShareUrl());
     	        myIntent.setType("text/plain");
     	        mShareActionProvider.setShareIntent(myIntent);
             	showPageNumber(position);

@@ -85,8 +85,8 @@ public class ForumDetailsActivity extends FragmentActivity{
 	    
 	    Intent myIntent = new Intent();
 	        myIntent.setAction(Intent.ACTION_SEND);
-	        myIntent.putExtra(Intent.EXTRA_SUBJECT, activityItem.getSubject());
-	        myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getShareUrl());
+	        //myIntent.putExtra(Intent.EXTRA_SUBJECT, activityItem.getSubject());
+	        myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getSubject() + " - " + activityItem.getShareUrl());
 	        myIntent.setType("text/plain");
 	        mShareActionProvider.setShareIntent(myIntent);
 
@@ -145,8 +145,9 @@ public class ForumDetailsActivity extends FragmentActivity{
             	activityItem = (ForumTopicItem)inputArray.get(position);
             	Intent myIntent = new Intent();
     	        myIntent.setAction(Intent.ACTION_SEND);
-    	        myIntent.putExtra(Intent.EXTRA_SUBJECT, activityItem.getSubject());
-    	        myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getShareUrl());
+    	        //myIntent.putExtra(Intent.EXTRA_SUBJECT, activityItem.getSubject());
+    	        //myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getShareUrl());
+    	        myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getSubject() + " - " + activityItem.getShareUrl());
     	        myIntent.setType("text/plain");
     	        mShareActionProvider.setShareIntent(myIntent);
             }

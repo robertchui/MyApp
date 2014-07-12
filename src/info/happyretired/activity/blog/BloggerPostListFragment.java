@@ -230,7 +230,7 @@ public class BloggerPostListFragment extends ListFragment {
 	        	JSONObject jsonObject = jsonArray.getJSONObject(i);
 	        	
 	        		Blogger activityItem = new Blogger();
-    	        	assignToItem(activityItem, i, jsonObject);
+	        		activityItem.assignToItem(i, jsonObject);
     	        	mlist.add(activityItem);
 	
 	        }
@@ -240,21 +240,7 @@ public class BloggerPostListFragment extends ListFragment {
         }
     }
  
-    
-    public void assignToItem(Blogger activityItem, int i, JSONObject jsonObject) throws Exception{
-    	
-    	activityItem.setUserid(jsonObject.getString("userid"));
-    	activityItem.setLast_post_title(jsonObject.getString("title"));
-    	activityItem.setCategory_name(jsonObject.getString("category_name"));
-    	activityItem.setLast_post_time(jsonObject.getString("post_time"));
-    	activityItem.setView(jsonObject.getString("hits"));
-    	activityItem.setCoverUrl(jsonObject.getString("cover_url"));
-    	activityItem.setRefNo(jsonObject.getString("refNo"));
-    	activityItem.setUser_name(jsonObject.getString("userName"));
-    	activityItem.setListType("");
-    	
-    }
-    
+
     private class DownloadWebPageTask extends AsyncTask<String, Void, String> {
     	
     	@Override

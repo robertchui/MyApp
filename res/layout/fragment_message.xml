@@ -26,6 +26,23 @@
 		        android:text="@string/loading"/>
 	    </LinearLayout>
         
+        <LinearLayout
+	        android:id="@+id/norecord"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:gravity="center"
+	        android:orientation="vertical"
+	        android:visibility="gone" >
+
+	        <TextView
+		        android:id="@+id/norecordText"
+		         android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_centerInParent="true"
+		        android:textSize="16dp"
+		        android:text="暫無紀錄"/>
+	    </LinearLayout>
+	    
 	    <ListView
 		  android:background="@android:color/transparent"
 		  android:divider="@android:color/transparent"

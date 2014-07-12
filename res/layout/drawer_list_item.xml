@@ -4,7 +4,7 @@
     android:layout_height="48dp" 
     android:background="@drawable/list_selector">
 
-    <ImageView
+    <!-- ImageView
         android:id="@+id/icon"
         android:layout_width="25dp"
         android:layout_height="wrap_content"
@@ -13,8 +13,24 @@
         android:layout_marginRight="12dp"
         android:contentDescription="@string/desc_list_item_icon"
         android:src="@drawable/ic_home"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true" /-->
 
+     <IconTextView
+         android:layout_width="25dp"
+         android:layout_height="wrap_content"
+         android:layout_centerVertical="true" 
+         android:layout_alignParentLeft="true"
+         android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:id="@+id/icon"
+    	android:text="{fa-android}"
+    	android:shadowColor="#22000000"
+    	android:shadowDx="3"
+    	android:shadowDy="3"
+    	android:shadowRadius="1"
+    	android:textSize="24dp"
+    	android:textColor="@color/list_item_title"/>
+    
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -36,4 +52,6 @@
         android:layout_marginRight="8dp"
         android:textColor="@color/counter_text_color"/>
 
+     
+     
 </RelativeLayout>

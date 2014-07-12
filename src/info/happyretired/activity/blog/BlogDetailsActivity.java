@@ -85,8 +85,8 @@ public class BlogDetailsActivity extends FragmentActivity{
 	    
 	    Intent myIntent = new Intent();
 	        myIntent.setAction(Intent.ACTION_SEND);
-	        myIntent.putExtra(Intent.EXTRA_SUBJECT, activityItem.getLast_post_title()+" | "+activityItem.getUser_name());
-	        myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getShareUrl());
+	        //myIntent.putExtra(Intent.EXTRA_SUBJECT, activityItem.getLast_post_title()+" | "+activityItem.getUser_name());
+	        myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getLast_post_title()+" | "+activityItem.getUser_name() + " - " + activityItem.getShareUrl());
 	        myIntent.setType("text/plain");
 	        mShareActionProvider.setShareIntent(myIntent);
 
@@ -145,8 +145,9 @@ public class BlogDetailsActivity extends FragmentActivity{
             	activityItem = (Blogger)inputArray.get(position);
             	Intent myIntent = new Intent();
     	        myIntent.setAction(Intent.ACTION_SEND);
-    	        myIntent.putExtra(Intent.EXTRA_SUBJECT, activityItem.getLast_post_title()+" | "+activityItem.getUser_name());
-    	        myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getShareUrl());
+    	        //myIntent.putExtra(Intent.EXTRA_SUBJECT, activityItem.getLast_post_title()+" | "+activityItem.getUser_name());
+    	        //myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getShareUrl());
+    	        myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getLast_post_title()+" | "+activityItem.getUser_name() + " - " + activityItem.getShareUrl());
     	        myIntent.setType("text/plain");
     	        mShareActionProvider.setShareIntent(myIntent);
             	showPageNumber(position);

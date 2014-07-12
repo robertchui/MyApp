@@ -3,6 +3,7 @@ package info.happyretired.adapter;
 import info.happyretired.model.ActivityItem;
 import info.happyretired.model.Blogger;
 import info.happyretired.model.ForumTopicItem;
+import info.happyretired.model.JetsoItem;
 import info.happyretired.model.JobItem;
 import info.happyretired.model.NavDrawerItem;
 import info.happyretired.model.VolunteerItem;
@@ -167,22 +168,21 @@ public class FrontPageAdapter extends ArrayAdapter {
 			//viewHolder.last_post_title.setVisibility(View.GONE);
 	        
 		}
-		/*
-		if(activityItems.get(position).getBlog_name()!=null && !activityItems.get(position).getBlog_name().equals("null"))
-			viewHolder.blogName.setText(activityItems.get(position).getBlog_name());
-		
-		viewHolder.bloggerName.setText(activityItems.get(position).getUser_name());
-		
-		
-		if(activityItems.get(position).getAvatar_url()!=null && !activityItems.get(position).getAvatar_url().equals("null") && !activityItems.get(position).getAvatar_url().isEmpty())
-       		ImageLoader.getInstance().displayImage(context.getResources().getString(R.string.web_url)+"/"+activityItems.get(position).getAvatar_url(), viewHolder.coverImageView);
-       	else
-       		ImageLoader.getInstance().displayImage("", viewHolder.coverImageView);
-		
-		viewHolder.last_post_title.setText(activityItems.get(position).getLast_post_title());
-		
-		//viewHolder.bloggerName.setText(activityItems.get(position).getUser_name());
-        */
+		if(activityItems.get(position) instanceof JetsoItem){
+			JetsoItem item = (JetsoItem)activityItems.get(position);
+			
+			if(item.getImageURL()!=null && !item.getImageURL().equals("null") && !item.getImageURL().isEmpty())
+	       		ImageLoader.getInstance().displayImage(context.getResources().getString(R.string.web_url)+"/"+item.getImageURL(), viewHolder.coverImageView);
+	       	else	       		
+	       		viewHolder.coverImageView.setVisibility(View.GONE);
+			viewHolder.blogName.setLines(3);
+			viewHolder.blogName.setText(item.getTitle());
+			viewHolder.bloggerName.setSingleLine(false);
+			viewHolder.bloggerName.setText(item.getCompany_name());
+			//viewHolder.last_post_title.setText(item.getTargetgroupDesc());
+			//viewHolder.last_post_title.setVisibility(View.GONE);
+	        
+		}
 		
         return convertView;
 	}

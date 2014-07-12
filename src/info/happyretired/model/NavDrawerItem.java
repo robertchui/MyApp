@@ -1,7 +1,12 @@
 package info.happyretired.model;
 
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify.IconValue;
+
 public class NavDrawerItem {
 	
+	String iconPic;
+	String color;
 	private String title;
 	private int icon;
 	private String count = "0";
@@ -10,6 +15,12 @@ public class NavDrawerItem {
 	
 	public NavDrawerItem(){}
 
+	public NavDrawerItem(String title, String iconPic, String color){
+		this.title = title;
+		this.iconPic = iconPic;
+		this.color = color;
+	}
+	
 	public NavDrawerItem(String title, int icon){
 		this.title = title;
 		this.icon = icon;
@@ -22,6 +33,24 @@ public class NavDrawerItem {
 		this.count = count;
 	}
 	
+	
+	
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public String getIconPic() {
+		return iconPic;
+	}
+
+	public void setIconPic(String iconPic) {
+		this.iconPic = iconPic;
+	}
+
 	public String getTitle(){
 		return this.title;
 	}

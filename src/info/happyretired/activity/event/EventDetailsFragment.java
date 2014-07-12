@@ -68,7 +68,7 @@ public class EventDetailsFragment extends Fragment {
 	String title;
 	String webserviceURL;
 	LinearLayout linlaHeaderProgress;
-	
+
 	TextView titleText;
 	TextView company;
 	TextView dateFromText;
@@ -126,7 +126,7 @@ public class EventDetailsFragment extends Fragment {
 			e.printStackTrace();
 		}
 		
-	
+		
 		titleText = (TextView)mRoot.findViewById(R.id.title);
 		company = (TextView)mRoot.findViewById(R.id.company);
 		dateFromText = (TextView)mRoot.findViewById(R.id.dateFromText);
@@ -252,8 +252,21 @@ public class EventDetailsFragment extends Fragment {
         company.setText(activityItem.getCompany_name());
         ImageLoader.getInstance().displayImage(getResources().getString(R.string.web_url)+activityItem.getImageURL(), imageView);
 
-        content.setText(activityItem.getContent()); 
-        contact.setText(activityItem.getContact());
+        if(activityItem.getContent()!=null && !activityItem.getContent().equals("null") && !activityItem.getContent().equals("")){
+        	content.setText(activityItem.getContent()); 
+        	content.setVisibility(View.VISIBLE);
+        }
+        else{
+        	content.setVisibility(View.GONE);
+        }
+        
+        if(activityItem.getContact()!=null && !activityItem.getContact().equals("null") && !activityItem.getContact().equals("")){
+        	contact.setText(activityItem.getContact());
+        	content.setVisibility(View.VISIBLE);
+        }
+        else{
+        	contact.setVisibility(View.GONE);
+        }
         
         
         Date convertedDate = null;
@@ -313,9 +326,15 @@ public class EventDetailsFragment extends Fragment {
     		feeText.setText(getResources().getString(R.string.free));
     	
     	categoryText.setText(activityItem.getCategoryDesc());
-    	urlText.setText(activityItem.getUrl());
     	
-    	if(activityItem.getContact_no()!=null && !activityItem.getContact_no().equals("null")){
+    	if(activityItem.getUrl()!=null && !activityItem.getUrl().equals("null") && !activityItem.getUrl().equals("")){
+    		urlText.setText(activityItem.getUrl());
+    	}
+    	else{
+    		urlText.setVisibility(View.GONE);
+    	}
+    	
+    	if(activityItem.getContact_no()!=null && !activityItem.getContact_no().equals("null") && !activityItem.getContact_no().equals("")){
     		contactNoText.setText(activityItem.getContact_no());
     		callButton.setOnClickListener(new OnClickListener() {
        		 

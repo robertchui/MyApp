@@ -60,7 +60,7 @@ public class CommonTabsActivity  extends FragmentActivity implements TabListener
 
     @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu_bar, menu);
+		//getMenuInflater().inflate(R.menu.menu_bar, menu);
 
 		return true;
 

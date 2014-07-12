@@ -32,6 +32,7 @@ public class VolunteerItem implements Parcelable {
 	private String companyName;
 	private String effectiveTo;
 	private String shareUrl;
+	private String contact_no;
 	
 	public VolunteerItem(){
 	
@@ -73,6 +74,7 @@ public class VolunteerItem implements Parcelable {
 		  companyName = in.readString();
 		  effectiveTo = in.readString();
 		  shareUrl= in.readString();
+		  contact_no= in.readString();
 	}
 	
 
@@ -103,8 +105,16 @@ public class VolunteerItem implements Parcelable {
 		dest.writeString(companyName);
 		dest.writeString(effectiveTo);
 		dest.writeString(shareUrl);
+		dest.writeString(contact_no);
 	}
 
+	
+	public String getContact_no() {
+		return contact_no;
+	}
+	public void setContact_no(String contact_no) {
+		this.contact_no = contact_no;
+	}
 	public String getShareUrl() {
 		return shareUrl;
 	}
@@ -353,6 +363,7 @@ public class VolunteerItem implements Parcelable {
     	this.setEffectiveTo(jsonObject.getString("effectiveTo"));
     	this.setVacancy(jsonObject.getString("vacancy"));
     	this.setShareUrl(jsonObject.getString("shareUrl"));
+    	this.setContact_no(jsonObject.getString("contact_no"));
     }
     
 }

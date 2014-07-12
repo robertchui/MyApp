@@ -34,12 +34,13 @@ public class CommonConstant {
 	
 	private ArrayList <ForumCategoryItem> forumCategoryList;
 	private ArrayList <ForumCategoryItem> blogCategoryList;
+	private ArrayList <ForumCategoryItem> jetsoCategoryList;
 	
 	//private JSONArray jsonArray;
 	
 	public final String forumCategoryUrl = "https://www.happy-retired.com/forumwebservice?action=getCategory";
 	public final String blogCategoryUrl = "https://www.happy-retired.com/blogwebservice?action=getCategory";
-	
+	public final String jetsoCategoryUrl = "https://www.happy-retired.com/jetsowebservice?action=getCategory";
 	
 	 private CommonConstant(){ }
 	   
@@ -67,6 +68,14 @@ public class CommonConstant {
 		
 		return forumCategoryList;
 	}
+	
+public ArrayList<ForumCategoryItem> getJetsoCategoryList() {
+		
+		if(jetsoCategoryList==null)
+			init();
+		
+		return jetsoCategoryList;
+	}
 
 
 	public void init(){
@@ -91,6 +100,17 @@ public class CommonConstant {
 	            }
 	            	
 	            blogCategoryList = getForumCategoryItem(jsonArray);
+		   }
+		   
+		   if(jetsoCategoryList==null){ 
+			   String readTwitterFeed = readActivityFeed(jetsoCategoryUrl);
+	            try {
+	              jsonArray = new JSONArray(readTwitterFeed);
+	            } catch (Exception e) {
+	              e.printStackTrace();
+	            }
+	            	
+	            jetsoCategoryList = getForumCategoryItem(jsonArray);
 		   }
 	   }
 	   

@@ -209,6 +209,36 @@
              	    android:textColor="#000"
              	     android:layout_marginLeft="50dp"
              	    android:textSize="18dp" />
+             	
+             	 <ImageView
+            android:id="@+id/icon_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="left"
+            android:layout_below="@+id/TextView06"
+       		android:layout_alignLeft="@+id/TextView01"
+            android:src="@drawable/ic_action_call" />
+	
+	             <TextView
+	                 android:id="@+id/contact_no"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:text=""
+	                 android:textColor="#000"
+	                   
+       				android:layout_alignTop="@+id/icon_call"
+       				 android:layout_marginLeft="50dp"
+	                 android:textSize="18dp" />
+
+	             <Button
+	                 android:id="@+id/buttonCall"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+						android:layout_alignParentRight="true"
+	                 android:layout_alignTop="@+id/contact_no"
+	                 android:text="撥打"
+	                 android:textSize="12dp" />
      </RelativeLayout>        	
     
         

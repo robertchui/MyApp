@@ -7,6 +7,8 @@ import info.happyretired.activity.event.EventDetailsActivity;
 import info.happyretired.activity.event.EventTabsActivity;
 import info.happyretired.activity.forum.ForumDetailsActivity;
 import info.happyretired.activity.forum.ForumTabsActivity;
+import info.happyretired.activity.jetso.JetsoDetailsActivity;
+import info.happyretired.activity.jetso.JetsoTabsActivity;
 import info.happyretired.activity.job.JobDetailsActivity;
 import info.happyretired.activity.job.JobTabsActivity;
 import info.happyretired.activity.volunteer.VolunteerDetailsActivity;
@@ -27,6 +29,8 @@ import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.google.analytics.tracking.android.MapBuilder;
 import com.google.analytics.tracking.android.Tracker;
 import com.google.android.gms.analytics.HitBuilders;
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify.IconValue;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -53,10 +57,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ShareActionProvider;
 
 public class HomeActivity extends FragmentActivity implements FrontCommunicator   {
 	
 	private static final String SCREEN_LABEL = "Home Screen";
+	
+	private ShareActionProvider mShareActionProvider;
 	
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -117,6 +124,8 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 
 		// adding nav drawer items to array
 		// Home
+		
+		/*
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
 		// Find People
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
@@ -130,6 +139,15 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 		// What's hot, We  will add a counter here
 		//navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1), true, "50+"));
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
+		*/
+		
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0],"{fa-home}", "#f63c2b"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1],"{fa-thumbs-up}", "#7d1b7e"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2],"{fa-camera}", "#a1c935"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3],"{fa-heart}", "#ffa500"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4],"{fa-suitcase}", "#7bc9ff"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5],"{fa-comments}", "#3f8be1"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[6],"{fa-shopping-cart}", "#ea55a2"));
 		
 		//navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(5, -1)));
 		
@@ -168,10 +186,10 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 		};
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-		if (savedInstanceState == null) {
+		//if (savedInstanceState == null) {
 			// on first time display view for first nav item
 			displayView(0);
-		}
+		//}
 		
 	}
 	
@@ -201,10 +219,32 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 		}
 	}
 
+	/*
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	*/
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.share_menu, menu);
+		// Locate MenuItem with ShareActionProvider
+	    MenuItem item = menu.findItem(R.id.action_cart);
+	    
+	    // Fetch and store ShareActionProvider
+	    mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+	    
+	    Intent myIntent = new Intent();
+	        myIntent.setAction(Intent.ACTION_SEND);
+	        //myIntent.putExtra(Intent.EXTRA_SUBJECT, activityItem.getTitle()+" | "+activityItem.getCompanyName());
+	        myIntent.putExtra(Intent.EXTRA_TEXT,   this.getApplication().getResources().getString(R.string.happyretired_app) +" | "+this.getApplication().getResources().getString(R.string.happyretired_app_url));
+	        myIntent.setType("text/plain");
+	        mShareActionProvider.setShareIntent(myIntent);
+
+		return true;
+
 	}
 
 	@Override
@@ -229,7 +269,7 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// if nav drawer is opened, hide the action items
 		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-		menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+		//menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
 		return super.onPrepareOptionsMenu(menu);
 	}
 
@@ -272,12 +312,12 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 			startActivity(k);
 			break;
 
-			/*
+			
 		case 6:
-			k = new Intent(HomeActivity.this, ForumTabsActivity.class);
+			k = new Intent(HomeActivity.this, JetsoTabsActivity.class);
 			startActivity(k);
 			break;
-			*/
+			
 			
 		default:
 			break;
@@ -365,6 +405,10 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 		Intent k = new Intent(HomeActivity.this, JobTabsActivity.class);
 		startActivity(k);
 	}
+	public void selectJetso(){
+		Intent k = new Intent(HomeActivity.this, JetsoTabsActivity.class);
+		startActivity(k);
+	}
 
 	public void selectJob(int currentPage, ArrayList in){
 		Intent intent = new Intent(this, JobDetailsActivity.class);
@@ -393,5 +437,12 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
     	intent.putExtra("currentPage", currentPage);
     	intent.putParcelableArrayListExtra ("para", in);
     	startActivity(intent);
+	}
+	
+	public void selectJetso(int currentPage, ArrayList in){
+		Intent intent = new Intent(this, JetsoDetailsActivity.class);
+		intent.putExtra("currentPage", currentPage);
+		intent.putParcelableArrayListExtra ("para", in);
+		startActivity(intent);
 	}
 }

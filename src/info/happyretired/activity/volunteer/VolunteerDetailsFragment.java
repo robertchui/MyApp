@@ -38,6 +38,8 @@ import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 
 
 
+
+
 import info.happyretired.adapter.EventListAdapter;
 import info.happyretired.model.ActivityItem;
 import info.happyretired.model.VolunteerItem;
@@ -48,7 +50,9 @@ import info.happyretired.R.string;
 import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -58,8 +62,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -94,6 +100,9 @@ public class VolunteerDetailsFragment extends Fragment {
 	TextView targetgroupText;
 	TextView urlText;
 	TextView vacancyText;
+	TextView contactNoText;
+	Button callButton;
+	ImageView icon_call;
 	
 	private int page;
 	private int totalPage;
@@ -150,6 +159,9 @@ public class VolunteerDetailsFragment extends Fragment {
     	targetgroupText= (TextView)mRoot.findViewById(R.id.TextView08);
     	vacancyText= (TextView)mRoot.findViewById(R.id.TextView10);
     	urlText= (TextView)mRoot.findViewById(R.id.TextView11);
+    	contactNoText= (TextView)mRoot.findViewById(R.id.contact_no);
+    	callButton = (Button) mRoot.findViewById(R.id.buttonCall);
+    	icon_call= (ImageView) mRoot.findViewById(R.id.icon_call);
         updateLayout();
 		
 		linlaHeaderProgress = (LinearLayout) mRoot.findViewById(R.id.linlaHeaderProgress2);
@@ -312,7 +324,7 @@ public class VolunteerDetailsFragment extends Fragment {
         	timeString = activityItem.getTimeFrom();
         
         if(activityItem.getTimeTo()!=null && !activityItem.getTimeTo().equals(""))
-        	timeString = activityItem.getTimeTo();
+        	timeString = timeString + " - " + activityItem.getTimeTo();
         
         timeText.setText(timeString);
         
@@ -324,6 +336,28 @@ public class VolunteerDetailsFragment extends Fragment {
     	targetgroupText.setText(activityItem.getTargetgroupDesc());
     	vacancyText.setText(activityItem.getVacancy());
     	urlText.setText(activityItem.getUrl());
+    	
+    	if(activityItem.getContact_no()!=null && !activityItem.getContact_no().equals("null")){
+    		contactNoText.setText(activityItem.getContact_no());
+    		callButton.setOnClickListener(new OnClickListener() {
+       		 
+    			@Override
+    			public void onClick(View arg0) {
+     
+    				Intent callIntent = new Intent(Intent.ACTION_CALL);
+    				callIntent.setData(Uri.parse("tel:"+activityItem.getContact_no()));
+    				startActivity(callIntent);
+     
+    			}
+     
+    		});
+    	}
+    	else{
+    		
+    		contactNoText.setVisibility(View.GONE);
+    		callButton.setVisibility(View.GONE);
+    		icon_call.setVisibility(View.GONE);
+    	}
 	}
 	
 	

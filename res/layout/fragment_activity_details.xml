@@ -228,10 +228,9 @@
 	                 android:id="@+id/buttonCall"
 	                 android:layout_width="wrap_content"
 	                 android:layout_height="wrap_content"
-	                 android:layout_alignRight="@+id/TextView06"
+	                 android:layout_alignParentRight="true"
 	                 android:layout_alignTop="@+id/contact_no"
 	                 android:text="撥打"
-	                  
 	                 android:textSize="12dp" />
 
      </RelativeLayout>        	

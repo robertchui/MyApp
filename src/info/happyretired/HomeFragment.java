@@ -27,6 +27,7 @@ import info.happyretired.model.ActivityItem;
 import info.happyretired.model.Blogger;
 import info.happyretired.model.ForumCategoryItem;
 import info.happyretired.model.ForumTopicItem;
+import info.happyretired.model.JetsoItem;
 import info.happyretired.model.JobItem;
 import info.happyretired.model.VolunteerItem;
 import info.happyretired.R;
@@ -62,6 +63,7 @@ public class HomeFragment extends Fragment {
 	private FrontPageAdapter mAdapter4;
 	private FrontPageAdapter mAdapter5;
 	private FrontPageAdapter mAdapter6;
+	private FrontPageAdapter mAdapter7;
 	FrontCommunicator communicator;
 	
 	private View mRoot;
@@ -76,6 +78,7 @@ public class HomeFragment extends Fragment {
 	GridView list4;
 	GridView list5;
 	GridView list6;
+	GridView list7;
 	
 	Button button1;
 	Button button2;
@@ -83,6 +86,7 @@ public class HomeFragment extends Fragment {
 	Button button4;
 	Button button5;
 	Button button6;
+	Button button7;
 	
 	RelativeLayout rLayout1;
 	RelativeLayout rLayout2;
@@ -90,6 +94,7 @@ public class HomeFragment extends Fragment {
 	RelativeLayout rLayout4;
 	RelativeLayout rLayout5;
 	RelativeLayout rLayout6;
+	RelativeLayout rLayout7;
 	
 	LinearLayout linear;
 	
@@ -105,7 +110,8 @@ public class HomeFragment extends Fragment {
 	private ArrayList comingEvents = new ArrayList();  
 	private ArrayList featuredBlogs = new ArrayList();  
 	private ArrayList latestJobs = new ArrayList();  
-	private ArrayList latestForums = new ArrayList();  
+	private ArrayList latestForums = new ArrayList();
+	private ArrayList latestJetsos = new ArrayList();  
 	
 	public HomeFragment(){}
 	
@@ -124,6 +130,7 @@ public class HomeFragment extends Fragment {
 		list4 = (GridView) mRoot.findViewById(R.id.gridlist4);
 		list5 = (GridView) mRoot.findViewById(R.id.gridlist5);
 		list6 = (GridView) mRoot.findViewById(R.id.gridlist6);
+		list7 = (GridView) mRoot.findViewById(R.id.gridlist7);
 		
 		button1= (Button) mRoot.findViewById(R.id.button1);
 		button2= (Button) mRoot.findViewById(R.id.button2);
@@ -131,6 +138,7 @@ public class HomeFragment extends Fragment {
 		button4= (Button) mRoot.findViewById(R.id.button4);
 		button5= (Button) mRoot.findViewById(R.id.button5);
 		button6= (Button) mRoot.findViewById(R.id.button6);
+		button7= (Button) mRoot.findViewById(R.id.button7);
 		
 		rLayout1 = (RelativeLayout) mRoot.findViewById(R.id.region1);
 		rLayout2 = (RelativeLayout) mRoot.findViewById(R.id.region2);
@@ -138,6 +146,7 @@ public class HomeFragment extends Fragment {
 		rLayout4 = (RelativeLayout) mRoot.findViewById(R.id.region4);
 		rLayout5 = (RelativeLayout) mRoot.findViewById(R.id.region5);
 		rLayout6 = (RelativeLayout) mRoot.findViewById(R.id.region6);
+		rLayout7 = (RelativeLayout) mRoot.findViewById(R.id.region7);
 		
 		button1.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -211,6 +220,18 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v){
             	communicator.selectJob();
+            }
+        });
+		rLayout7.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+            	communicator.selectJetso();
+            }
+        });
+		button7.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+            	communicator.selectJetso();
             }
         });
 	        
@@ -323,6 +344,7 @@ public class HomeFragment extends Fragment {
 			}
 		});
         
+        
         mAdapter6 = new FrontPageAdapter(this.getActivity(), android.R.layout.simple_list_item_1, latestJobs);
         mAdapter6.notifyDataSetChanged();
         list6.invalidateViews();
@@ -334,6 +356,19 @@ public class HomeFragment extends Fragment {
 				communicator.selectJob(position, latestJobs);
 			}
 		});
+        
+        mAdapter7 = new FrontPageAdapter(this.getActivity(), android.R.layout.simple_list_item_1, latestJetsos);
+        mAdapter7.notifyDataSetChanged();
+        list7.invalidateViews();
+        list7.setAdapter(mAdapter7);
+        
+        list7.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View v,
+				int position, long id) {
+				communicator.selectJetso(position, latestJetsos);
+			}
+		});
+        
 		/*
 		mAdapter = new BloggerListAdapter(this.getActivity(), android.R.layout.simple_list_item_1, mlist);
 		list.setAdapter(mAdapter);
@@ -506,6 +541,20 @@ public class HomeFragment extends Fragment {
         	e.printStackTrace();
         }
         
+        jsonArray = jsnobject.getJSONArray("latestJetso");
+
+        try{
+        	for (int i = 0; i < jsonArray.length(); i++) {
+	        	JSONObject jsonObject = jsonArray.getJSONObject(i);
+    	        
+	        	JetsoItem activityItem = new JetsoItem();
+	        	activityItem.assignToItem(i, jsonObject);
+	        	latestJetsos.add(activityItem);
+	        }
+        }
+        catch(Exception e){
+        	e.printStackTrace();
+        }
         
     }
  
@@ -548,6 +597,11 @@ public class HomeFragment extends Fragment {
         	Context myContext = getActivity();       
         	super.onPostExecute(result);
         	
+        	mAdapter7 = new FrontPageAdapter(myContext, android.R.layout.simple_list_item_1, latestJetsos);
+            mAdapter7.notifyDataSetChanged();
+            list7.invalidateViews();
+            list7.setAdapter(mAdapter7);
+              
         	//swipeLayout.setRefreshing(false);
             mAdapter = new FrontPageAdapter(myContext, android.R.layout.simple_list_item_1, latestForums);
             mAdapter.notifyDataSetChanged();
@@ -578,6 +632,8 @@ public class HomeFragment extends Fragment {
             mAdapter6.notifyDataSetChanged();
             list6.invalidateViews();
             list6.setAdapter(mAdapter6);
+            
+          
             
             linlaHeaderProgress.setVisibility(View.GONE);
             linear.setVisibility(View.VISIBLE);
