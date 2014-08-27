@@ -1,5 +1,6 @@
 package info.happyretired.activity.forum;
 
+import info.happyretired.activity.ViewPagerExampleActivity;
 import info.happyretired.adapter.EventListAdapter;
 import info.happyretired.adapter.ForumListAdapter;
 import info.happyretired.communicator.ForumCommunicator;
@@ -39,6 +40,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,6 +54,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -140,17 +144,24 @@ public class ForumTabsFragment extends ListFragment implements SwipeRefreshLayou
 		ArrayList list = new ArrayList();
 		//list.add(mlist.get(position));
 		
-		
-		for(int i=0;i<mlist.size();i++){
-			item = (ForumTopicItem)mlist.get(i);
-			list.add(item);
-		}
-		
-		
-		
-		communicator.respond(position, list);
-		
-		
+		ForumTopicItem forumItem = (ForumTopicItem)mlist.get(position);
+   		String url = forumItem.getAdvertisementUrl();
+   		
+   		if(forumItem.getAdvertisementImgUrl()!=null && !forumItem.getAdvertisementImgUrl().equals("") && !forumItem.getAdvertisementImgUrl().equals("null")){
+   			if(url!=null && !url.equals("") && !url.equals("null")){
+	   			Intent mainIntent = new Intent(getActivity(), ViewPagerExampleActivity.class);
+	            mainIntent.putExtra("url", url);
+	            startActivity(mainIntent);
+   			}
+   		}
+   		else{
+			for(int i=0;i<mlist.size();i++){
+				item = (ForumTopicItem)mlist.get(i);
+				list.add(item);
+			}
+				
+			communicator.respond(position, list);
+   		}
 	}
 
 	public String getCategoryId() {
@@ -171,7 +182,7 @@ public class ForumTabsFragment extends ListFragment implements SwipeRefreshLayou
     	        
         StringBuilder builder = new StringBuilder();
         HttpClient client = new DefaultHttpClient();
-        HttpGet httpGet = new HttpGet(getActivity().getResources().getString(R.string.WEBSERVICE_FORUM)+"?action=getTopicByCategory&category_id="+categoryId);
+        HttpGet httpGet = new HttpGet(getActivity().getResources().getString(R.string.WEBSERVICE_FORUM)+"?action=getTopicsByCategory&category_id="+categoryId);
         
         try {
           HttpResponse response = client.execute(httpGet);

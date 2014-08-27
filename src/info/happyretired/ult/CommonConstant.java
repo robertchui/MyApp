@@ -30,6 +30,14 @@ import android.view.View;
 
 public class CommonConstant {
 	
+	static public final int NOTIFICATION_DEFAULT = 30;
+	
+	//preference
+	static public final String NOTIFICATION = "notification";
+	static public final String FONT_SIZE = "fontsize";
+	static public final String FONT_SIZE_DEFAULT = "24";
+	
+	
 	private static CommonConstant instance = null;
 	
 	private ArrayList <ForumCategoryItem> forumCategoryList;

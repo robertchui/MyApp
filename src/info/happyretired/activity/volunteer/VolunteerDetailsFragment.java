@@ -40,9 +40,16 @@ import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 
 
 
+
+
+
+
+import info.happyretired.activity.ViewPagerExampleActivity;
+import info.happyretired.activity.event.EventDetailsActivity;
 import info.happyretired.adapter.EventListAdapter;
 import info.happyretired.model.ActivityItem;
 import info.happyretired.model.VolunteerItem;
+import info.happyretired.ult.CommonConstant;
 import info.happyretired.R;
 import info.happyretired.R.id;
 import info.happyretired.R.layout;
@@ -51,11 +58,13 @@ import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
@@ -103,6 +112,7 @@ public class VolunteerDetailsFragment extends Fragment {
 	TextView contactNoText;
 	Button callButton;
 	ImageView icon_call;
+	ImageView advimageView;
 	
 	private int page;
 	private int totalPage;
@@ -146,7 +156,18 @@ public class VolunteerDetailsFragment extends Fragment {
 	
 		titleText = (TextView)mRoot.findViewById(R.id.title);
 		companyNameText = (TextView)mRoot.findViewById(R.id.companyName);
-        imageView = (ImageView) mRoot.findViewById(R.id.imageView1); 
+        imageView = (ImageView) mRoot.findViewById(R.id.imageView1);
+        advimageView = (ImageView) mRoot.findViewById(R.id.advertistment);
+        
+        imageView.setOnClickListener(new OnClickListener() {
+            // Start new list activity
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(getActivity(), ViewPagerExampleActivity.class);
+                mainIntent.putExtra("url", getResources().getString(R.string.web_url)+activityItem.getImageURL());
+                startActivity(mainIntent);
+            }
+        });
+        
         content = (TextView)mRoot.findViewById(R.id.content);
         content2 = (TextView)mRoot.findViewById(R.id.content2);
         contact = (TextView)mRoot.findViewById(R.id.content3);
@@ -162,14 +183,16 @@ public class VolunteerDetailsFragment extends Fragment {
     	contactNoText= (TextView)mRoot.findViewById(R.id.contact_no);
     	callButton = (Button) mRoot.findViewById(R.id.buttonCall);
     	icon_call= (ImageView) mRoot.findViewById(R.id.icon_call);
-        updateLayout();
+        //updateLayout();
 		
 		linlaHeaderProgress = (LinearLayout) mRoot.findViewById(R.id.linlaHeaderProgress2);
 		if(jsonArray.length()==0){
 			task = new GetActivityItemTask();
 		    task.execute(new String[] { "https://www.happy-retired.com/volunteerwebservice" });
 		}
-		updateLayout();
+		else{
+			updateLayout();
+		}
 	
         return mRoot;
     }
@@ -241,7 +264,7 @@ public class VolunteerDetailsFragment extends Fragment {
         try{
 	        for (int i = size-1; i >=0; i--) {
 	        	JSONObject jsonObject = jsonArray.getJSONObject(i);
-	        	
+	        	activityItem.assignToItem(i, jsonObject);
     	        	//activityItem = new ActivityItem();
     	        	/*
     	        	activityItem.setRefNo(jsonObject.getString("refNo"));
@@ -255,7 +278,7 @@ public class VolunteerDetailsFragment extends Fragment {
     	        	activityItem.setContent(jsonObject.getString("content"));
     	        	activityItem.setContent2(jsonObject.getString("content2"));
     	        	activityItem.setContact(jsonObject.getString("contact"));
-    	        	
+    	        	((VolunteerDetailsActivity)this.getActivity()).updateShareButton();
 	        }
         }
         catch(Exception e){
@@ -269,11 +292,27 @@ public class VolunteerDetailsFragment extends Fragment {
         
         titleText.setText(activityItem.getTitle());
         
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true)
+				//.showImageForEmptyUri(R.drawable.ic_launcher) 
+				.build();
+		
+		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this.getActivity())	
+				.defaultDisplayImageOptions(defaultOptions)
+				.build();
+		ImageLoader.getInstance().init(config);
+        
         if(activityItem.getImageURL()!=null && !activityItem.getImageURL().equals(""))
         	ImageLoader.getInstance().displayImage(getResources().getString(R.string.web_url)+activityItem.getImageURL(), imageView);
         else
         	imageView.setVisibility(View.INVISIBLE);
 
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
+		String fontsize = settings.getString(CommonConstant.FONT_SIZE, CommonConstant.FONT_SIZE_DEFAULT); 
+			
+		content.setTextSize(Float.parseFloat(fontsize));
+		content2.setTextSize(Float.parseFloat(fontsize));
+		contact.setTextSize(Float.parseFloat(fontsize));
+		
         content.setText(activityItem.getContent()); 
         content2.setText(activityItem.getContent2()); 
         contact.setText(activityItem.getContact());
@@ -358,6 +397,9 @@ public class VolunteerDetailsFragment extends Fragment {
     		callButton.setVisibility(View.GONE);
     		icon_call.setVisibility(View.GONE);
     	}
+    	
+    	//String url = "images/banners/share2.jpg";
+        ImageLoader.getInstance().displayImage(this.getActivity().getResources().getString(R.string.web_url)+"/"+activityItem.getAdvertisementImgUrl(), advimageView);
 	}
 	
 	

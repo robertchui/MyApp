@@ -4,6 +4,7 @@ import info.happyretired.model.ActivityItem;
 import info.happyretired.model.ForumTopicItem;
 import info.happyretired.model.NavDrawerItem;
 import info.happyretired.R;
+import info.happyretired.ult.CommonConstant;
 import info.happyretired.ult.URLImageParser;
 
 import java.io.FileNotFoundException;
@@ -24,15 +25,18 @@ import com.nostra13.universalimageloader.core.assist.ImageSize;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.text.Html;
 import android.text.Html.ImageGetter;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,7 +110,12 @@ public class ForumMessageAdapter extends ArrayAdapter<ForumTopicItem> implements
 			
 			//messageView.loadDataWithBaseURL("", activityItems.get(position).getMessage(), "text/html", "UTF-8", null);
 			
+			SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+			String fontsize = settings.getString(CommonConstant.FONT_SIZE, CommonConstant.FONT_SIZE_DEFAULT); 
+			
+			messageView.setTextSize(Float.parseFloat(fontsize));
 			messageView.setText(sp);
+			messageView.setMovementMethod(LinkMovementMethod.getInstance());
 			if(activityItems.get(position).getLast_avatar_url()!=null && !activityItems.get(position).getLast_avatar_url().equals("null") && !activityItems.get(position).getLast_avatar_url().isEmpty())
 	       		ImageLoader.getInstance().displayImage(context.getResources().getString(R.string.web_url)+activityItems.get(position).getLast_avatar_url(), imageView);
 	       	else

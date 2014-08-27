@@ -162,8 +162,9 @@ public class FrontPageAdapter extends ArrayAdapter {
 	       		viewHolder.coverImageView.setVisibility(View.GONE);
 			viewHolder.blogName.setLines(3);
 			viewHolder.blogName.setText(item.getTitle());
-			viewHolder.bloggerName.setSingleLine(false);
+			//viewHolder.bloggerName.setSingleLine(false);
 			viewHolder.bloggerName.setText(item.getCompanyName());
+			//viewHolder.bloggerName.setLines(3);
 			//viewHolder.last_post_title.setText(item.getTargetgroupDesc());
 			//viewHolder.last_post_title.setVisibility(View.GONE);
 	        
@@ -175,12 +176,13 @@ public class FrontPageAdapter extends ArrayAdapter {
 	       		ImageLoader.getInstance().displayImage(context.getResources().getString(R.string.web_url)+"/"+item.getImageURL(), viewHolder.coverImageView);
 	       	else	       		
 	       		viewHolder.coverImageView.setVisibility(View.GONE);
-			viewHolder.blogName.setLines(3);
+			viewHolder.blogName.setLines(2);
 			viewHolder.blogName.setText(item.getTitle());
 			viewHolder.bloggerName.setSingleLine(false);
+			viewHolder.bloggerName.setLines(1);
 			viewHolder.bloggerName.setText(item.getCompany_name());
 			//viewHolder.last_post_title.setText(item.getTargetgroupDesc());
-			//viewHolder.last_post_title.setVisibility(View.GONE);
+			viewHolder.last_post_title.setVisibility(View.GONE);
 	        
 		}
 		

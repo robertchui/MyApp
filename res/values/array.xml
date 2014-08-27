@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="fontsizeLabel">
+        <item name="4">特大</item>
+        <item name="3">大</item>
+        <item name="2">中</item>
+        <item name="1">小</item>
+    </string-array>
+     <string-array name="fontsizeValues">
+         <item name="4">24</item>
+        <item name="3">22</item>
+        <item name="2">20</item>
+        <item name="1">18</item>
+    </string-array>
+     
+</resources>

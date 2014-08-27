@@ -25,6 +25,9 @@ public class ForumTopicItem implements Parcelable {
 	private String coverImgUrl;
 	private String shareUrl;
 	
+	private String advertisementImgUrl;
+	private String advertisementUrl;
+	
 	public ForumTopicItem(){
 	
 	}
@@ -56,6 +59,8 @@ public class ForumTopicItem implements Parcelable {
 		listType= in.readString();
 		coverImgUrl= in.readString();
 		shareUrl= in.readString();
+		advertisementImgUrl= in.readString();
+		advertisementUrl= in.readString();
 		}
 	
 
@@ -77,11 +82,24 @@ public class ForumTopicItem implements Parcelable {
 		dest.writeString(listType);
 		dest.writeString(coverImgUrl);
 		dest.writeString(shareUrl);
+		dest.writeString(advertisementImgUrl);
+		dest.writeString(advertisementUrl);
 	}
 
 
 	
-	
+	public String getAdvertisementImgUrl() {
+		return advertisementImgUrl;
+	}
+	public void setAdvertisementImgUrl(String advertisementImgUrl) {
+		this.advertisementImgUrl = advertisementImgUrl;
+	}
+	public String getAdvertisementUrl() {
+		return advertisementUrl;
+	}
+	public void setAdvertisementUrl(String advertisementUrl) {
+		this.advertisementUrl = advertisementUrl;
+	}
 	public String getShareUrl() {
 		return shareUrl;
 	}
@@ -199,6 +217,7 @@ public class ForumTopicItem implements Parcelable {
 	 
 	 public void assignToItem(int i, JSONObject jsonObject) throws Exception{
 	    	
+		 try{
 		 	this.setId(jsonObject.getString("id"));
 		 	this.setSubject(jsonObject.getString("subject"));
 		 	this.setFirst_post_guest_name(jsonObject.getString("first_post_guest_name"));
@@ -210,5 +229,11 @@ public class ForumTopicItem implements Parcelable {
 		 	this.setLast_avatar_url(jsonObject.getString("last_avatar_url"));
 	    	this.setCoverImgUrl(jsonObject.getString("coverImgUrl"));
 	    	this.setShareUrl(jsonObject.getString("shareUrl"));
-	    }
+	    	this.setAdvertisementImgUrl(jsonObject.getString("advertisementImageUrl"));
+	    	this.setAdvertisementUrl(jsonObject.getString("advertisementUrl"));
+		 }
+		 catch(Exception e){
+			 e.printStackTrace();
+		 }
+	 }
 }

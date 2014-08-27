@@ -38,7 +38,7 @@
        		android:layout_alignTop="@+id/textMonth"
             android:text="Activity Title?"
              
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textView2"

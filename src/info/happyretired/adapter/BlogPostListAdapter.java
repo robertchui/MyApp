@@ -39,7 +39,7 @@ public class BlogPostListAdapter extends ArrayAdapter<Blogger> {
 		TextView topic;
 		TextView bloggerName;
 		TextView lastPostTime;
-		TextView replyAndView;
+		//TextView replyAndView;
 		ImageView coverImageView;
 	}
 	
@@ -78,7 +78,7 @@ public class BlogPostListAdapter extends ArrayAdapter<Blogger> {
             viewHolder.topic = (TextView) convertView.findViewById(R.id.forum_topic);
             viewHolder.bloggerName = (TextView) convertView.findViewById(R.id.last_post_name);
             viewHolder.lastPostTime = (TextView) convertView.findViewById(R.id.last_post_time);
-            viewHolder.replyAndView = (TextView) convertView.findViewById(R.id.reply_and_view);
+            //viewHolder.replyAndView = (TextView) convertView.findViewById(R.id.reply_and_view);
             //viewHolder.category = (TextView) convertView.findViewById(R.id.forum_category);
             viewHolder.coverImageView = (ImageView) convertView.findViewById(R.id.cover);
             convertView.setTag(viewHolder);
@@ -100,7 +100,7 @@ public class BlogPostListAdapter extends ArrayAdapter<Blogger> {
 		
 		viewHolder.topic.setText(activityItems.get(position).getLast_post_title());
 		viewHolder.bloggerName.setText(activityItems.get(position).getUser_name());
-		viewHolder.replyAndView.setText(activityItems.get(position).getView() );
+		//viewHolder.replyAndView.setText(activityItems.get(position).getView() );
 		viewHolder.lastPostTime.setText(activityItems.get(position).getLast_post_time());
 		//viewHolder.category.setText(activityItems.get(position).getCategory_name());
 	

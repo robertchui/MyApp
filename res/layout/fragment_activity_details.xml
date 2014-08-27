@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
     
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E8E8E8">
+    
+<ScrollView 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     
 <LinearLayout 
     android:layout_width="match_parent"
@@ -12,7 +16,7 @@
     android:orientation="vertical" 
     android:layout_marginLeft="4dip"
     android:layout_marginRight="4dip"
-    android:layout_marginBottom="48dip"
+    android:layout_marginBottom="52dip"
    >
 
     
@@ -155,7 +159,7 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        
-       android:text="12月1日 - 12月31日"
+       android:text=""
        android:textColor="#000"
         android:layout_marginLeft="50dp"
        android:layout_alignTop="@+id/TextView01"
@@ -165,7 +169,7 @@
              	    android:id="@+id/TextView03"
              	    android:layout_width="wrap_content"
              	    android:layout_height="wrap_content"
-             	    android:text="14:00 - 16:00"
+             	    android:text=""
              	    android:textColor="#000"
              	    android:layout_below="@+id/TextView02"
              	     android:layout_marginLeft="50dp"
@@ -185,7 +189,7 @@
 	                 android:id="@+id/TextView05"
 	                 android:layout_width="wrap_content"
 	                 android:layout_height="wrap_content"
-	                 android:text="灣仔"
+	                 android:text=""
 	                 android:textColor="#000"
 	                  
        				android:layout_alignTop="@+id/TextView04"
@@ -198,7 +202,7 @@
              	    android:layout_height="wrap_content"
              	       android:layout_below="@+id/TextView05"
        				
-             	    android:text="ABC 123 路 12室"
+             	    android:text=""
              	    android:textColor="#000"
              	     android:layout_marginLeft="50dp"
              	    android:textSize="18dp" />
@@ -307,3 +311,18 @@
     
 </LinearLayout>
 </ScrollView>
+
+ 	<RelativeLayout
+            android:orientation="vertical"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content">
+             	
+      <my.view.DynamicImageView
+          android:layout_alignParentBottom="true"
+        android:id="@+id/advertistment"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"/> 
+    </RelativeLayout>
+</RelativeLayout>

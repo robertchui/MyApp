@@ -83,16 +83,22 @@ public class BlogDetailsActivity extends FragmentActivity{
 	    // Fetch and store ShareActionProvider
 	    mShareActionProvider = (ShareActionProvider) item.getActionProvider();
 	    
-	    Intent myIntent = new Intent();
-	        myIntent.setAction(Intent.ACTION_SEND);
-	        //myIntent.putExtra(Intent.EXTRA_SUBJECT, activityItem.getLast_post_title()+" | "+activityItem.getUser_name());
-	        myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getLast_post_title()+" | "+activityItem.getUser_name() + " - " + activityItem.getShareUrl());
-	        myIntent.setType("text/plain");
-	        mShareActionProvider.setShareIntent(myIntent);
+	    updateShareButton();
 
 		return true;
 
 	}
+	
+	public void updateShareButton(){
+		Intent myIntent = new Intent();
+        myIntent.setAction(Intent.ACTION_SEND);
+        //myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getLast_post_title()+" | "+activityItem.getUser_name() + " - " + activityItem.getShareUrl());
+        myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getShareUrl());
+        myIntent.setType("text/plain");
+        mShareActionProvider.setShareIntent(myIntent);
+	}
+	
+	
 	
 	// Call to update the share intent
 	private void setShareIntent(Intent shareIntent) {
@@ -147,7 +153,8 @@ public class BlogDetailsActivity extends FragmentActivity{
     	        myIntent.setAction(Intent.ACTION_SEND);
     	        //myIntent.putExtra(Intent.EXTRA_SUBJECT, activityItem.getLast_post_title()+" | "+activityItem.getUser_name());
     	        //myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getShareUrl());
-    	        myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getLast_post_title()+" | "+activityItem.getUser_name() + " - " + activityItem.getShareUrl());
+    	        //myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getLast_post_title()+" | "+activityItem.getUser_name() + " - " + activityItem.getShareUrl());
+    	        myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getShareUrl());
     	        myIntent.setType("text/plain");
     	        mShareActionProvider.setShareIntent(myIntent);
             	showPageNumber(position);
@@ -230,5 +237,12 @@ public class BlogDetailsActivity extends FragmentActivity{
 		 
 		
 	}
+
+
+	public void setActivityItem(Blogger activityItem) {
+		this.activityItem = activityItem;
+	}
+	
+	
 
 }

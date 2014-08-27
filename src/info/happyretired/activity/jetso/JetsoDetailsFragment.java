@@ -1,6 +1,7 @@
 package info.happyretired.activity.jetso;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -24,10 +25,23 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
+import com.ortiz.touch.ExtendedViewPager;
+import com.ortiz.touch.TouchImageView;
 
+
+
+
+
+
+
+
+
+import info.happyretired.activity.ViewPagerExampleActivity;
+import info.happyretired.activity.event.EventDetailsActivity;
 import info.happyretired.adapter.EventListAdapter;
 import info.happyretired.model.ActivityItem;
 import info.happyretired.model.JetsoItem;
+import info.happyretired.ult.CommonConstant;
 import info.happyretired.R;
 import info.happyretired.R.id;
 import info.happyretired.R.layout;
@@ -36,12 +50,17 @@ import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -52,6 +71,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,6 +96,9 @@ public class JetsoDetailsFragment extends Fragment {
 	TextView company;
 	TextView dateFromText;
 	ImageView imageView;
+	
+	ArrayList  imageViews;
+	
 	TextView content;
 	TextView contact;
 	
@@ -89,6 +112,8 @@ public class JetsoDetailsFragment extends Fragment {
 	TextView contactNoText;
 	Button callButton;
 	ImageView icon_call;
+	
+	ImageView advimageView;
 	
 	private int page;
 	private int totalPage;
@@ -135,7 +160,35 @@ public class JetsoDetailsFragment extends Fragment {
 		titleText = (TextView)mRoot.findViewById(R.id.title);
 		company = (TextView)mRoot.findViewById(R.id.company);
 		dateFromText = (TextView)mRoot.findViewById(R.id.dateFromText);
-        imageView = (ImageView) mRoot.findViewById(R.id.imageView1); 
+        imageView = (ImageView) mRoot.findViewById(R.id.imageView1);
+        imageView.setOnClickListener(new OnClickListener() {
+            // Start new list activity
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(getActivity(), ViewPagerExampleActivity.class);
+                mainIntent.putExtra("url", getResources().getString(R.string.web_url)+activityItem.getImageURL());
+                startActivity(mainIntent);
+            }
+        });
+        
+        imageViews = new ArrayList();
+        
+        
+        ImageView iv = new ImageView(this.getActivity());
+        
+        RelativeLayout rl = (RelativeLayout) mRoot.findViewById(R.id.linearlayout);
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+            RelativeLayout.LayoutParams.MATCH_PARENT,
+            RelativeLayout.LayoutParams.WRAP_CONTENT);
+        lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        //lp.addRule(RelativeLayout.BELOW, R.id.ButtonRecalculate);
+        //lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        rl.addView(iv, lp);
+        
+        imageViews.add(iv);
+        
+        
+        advimageView = (ImageView) mRoot.findViewById(R.id.advertistment);
+        
         content = (TextView)mRoot.findViewById(R.id.content);
         contact = (TextView)mRoot.findViewById(R.id.content2);
         dateText= (TextView)mRoot.findViewById(R.id.TextView02);
@@ -151,14 +204,21 @@ public class JetsoDetailsFragment extends Fragment {
     	
     	icon_call= (ImageView) mRoot.findViewById(R.id.icon_call);
         //updateLayout();
+    	
+    	ExtendedViewPager mViewPager = (ExtendedViewPager) mRoot.findViewById(R.id.view_pager);
+        mViewPager.setAdapter(new TouchImageAdapter());
 		
 		linlaHeaderProgress = (LinearLayout) mRoot.findViewById(R.id.linlaHeaderProgress2);
+		
 		if(jsonArray.length()==0){
 			task = new GetActivityItemTask();
 		    task.execute(new String[] { "https://www.happy-retired.com/activitywebservice" });
 		}
+		else{
+			updateLayout();
+		}
+		 
 		
-		updateLayout();
 
 		
         return mRoot;
@@ -228,7 +288,7 @@ public class JetsoDetailsFragment extends Fragment {
         try{
 	        for (int i = size-1; i >=0; i--) {
 	        	JSONObject jsonObject = jsonArray.getJSONObject(i);
-	        	
+	        	activityItem.assignToItem(i, jsonObject);
     	        	//activityItem = new ActivityItem();
     	        	/*
     	        	activityItem.setRefNo(jsonObject.getString("refNo"));
@@ -241,7 +301,7 @@ public class JetsoDetailsFragment extends Fragment {
     	        	activityItem.setImageURL(jsonObject.getString("imageURL"));
     	        	activityItem.setContent(jsonObject.getString("content"));
     	        	activityItem.setContact(jsonObject.getString("contact"));
-    	        	
+    	        	((JetsoDetailsActivity)this.getActivity()).updateShareButton();
 	        }
         }
         catch(Exception e){
@@ -255,8 +315,24 @@ public class JetsoDetailsFragment extends Fragment {
         
         titleText.setText(activityItem.getTitle());
         company.setText(activityItem.getCompany_name());
+        
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true)
+				//.showImageForEmptyUri(R.drawable.ic_launcher) 
+				.build();
+		
+		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this.getActivity())	
+				.defaultDisplayImageOptions(defaultOptions)
+				.build();
+		ImageLoader.getInstance().init(config);
         ImageLoader.getInstance().displayImage(getResources().getString(R.string.web_url)+activityItem.getImageURL(), imageView);
-
+        
+        ImageLoader.getInstance().displayImage(getResources().getString(R.string.web_url)+activityItem.getImageURL(), (ImageView)imageViews.get(0));
+        
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
+		String fontsize = settings.getString(CommonConstant.FONT_SIZE, CommonConstant.FONT_SIZE_DEFAULT); 
+		
+		content.setTextSize(Float.parseFloat(fontsize));
+		
         if(activityItem.getContent()!=null && !activityItem.getContent().equals("null") && !activityItem.getContent().equals("")){
         	content.setText(activityItem.getContent()); 
         	content.setVisibility(View.VISIBLE);
@@ -349,6 +425,10 @@ public class JetsoDetailsFragment extends Fragment {
     		callButton.setVisibility(View.GONE);
     		icon_call.setVisibility(View.GONE);
     	}
+    	
+    	 
+        //String url = "images/banners/share2.jpg";
+        ImageLoader.getInstance().displayImage(this.getActivity().getResources().getString(R.string.web_url)+"/"+activityItem.getAdvertisementImgUrl(), advimageView);
 	}
 	
 	
@@ -401,6 +481,33 @@ private class GetActivityItemTask extends AsyncTask<String, Void, String> {
         
       }
     
-	
+static class TouchImageAdapter extends PagerAdapter {
+
+    private static int[] images = { R.drawable.nature_1};
+
+    @Override
+    public int getCount() {
+    	return images.length;
+    }
+
+    @Override
+    public View instantiateItem(ViewGroup container, int position) {
+        TouchImageView img = new TouchImageView(container.getContext());
+        img.setImageResource(images[position]);
+        container.addView(img, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        return img;
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        container.removeView((View) object);
+    }
+
+    @Override
+    public boolean isViewFromObject(View view, Object object) {
+        return view == object;
+    }
+
+}
 
 }

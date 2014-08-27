@@ -30,6 +30,8 @@ public class JetsoItem implements Parcelable {
 	private String company_name;
 	private String shareUrl;
 	
+	private String advertisementImgUrl;
+	
 	public JetsoItem(){
 	
 	}
@@ -66,6 +68,7 @@ public class JetsoItem implements Parcelable {
 		  contact_no = in.readString();
 		  company_name= in.readString();
 		  shareUrl= in.readString();
+		  advertisementImgUrl = in.readString();
 	}
 	
 
@@ -94,8 +97,18 @@ public class JetsoItem implements Parcelable {
 		dest.writeString(contact_no);
 		dest.writeString(company_name);
 		dest.writeString(shareUrl);
+		dest.writeString(advertisementImgUrl);
+		
 	}
+	
+	
 
+	public String getAdvertisementImgUrl() {
+		return advertisementImgUrl;
+	}
+	public void setAdvertisementImgUrl(String advertisementImgUrl) {
+		this.advertisementImgUrl = advertisementImgUrl;
+	}
 	public String getShareUrl() {
 		return shareUrl;
 	}
@@ -292,6 +305,8 @@ public class JetsoItem implements Parcelable {
 	};
 	
 	 public void assignToItem(int i, JSONObject jsonObject) throws Exception{
+		 
+		 try{
 	    	this.setIcon(i+1);
 	    	this.setRefNo(jsonObject.getString("refNo"));
 	    	this.setTitle(jsonObject.getString("title"));
@@ -310,5 +325,10 @@ public class JetsoItem implements Parcelable {
 	    	this.setContact_no(jsonObject.getString("contact_no"));
 	    	this.setCompany_name(jsonObject.getString("companyName"));
 	    	this.setShareUrl(jsonObject.getString("shareUrl"));
+	    	this.setAdvertisementImgUrl(jsonObject.getString("advertisementImgUrl"));
+		 }
+		 catch(Exception e){
+			 e.printStackTrace();
+		 }
 	    }
 }

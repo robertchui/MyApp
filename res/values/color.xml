@@ -14,4 +14,7 @@
       <color name="logo_color">#E3167B</color>
        <color name="colorForeground">#E3167B</color>
     <color name="button_text_color">#ffffff</color>
+    <color name="blog_background">#FFFFFF</color>
+    <color name="blog_title">#191919</color>
+    <color name="blog_content">#515151</color>
 </resources>

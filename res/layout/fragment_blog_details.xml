@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E8E8E8">
+    android:background="@color/blog_background">
+    
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     
 <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:layout_marginLeft="4dip"
-    android:layout_marginRight="4dip"
-    android:layout_marginBottom="48dip"
    >
 
     <LinearLayout
-        android:padding="12dip"
+        android:padding="8dip"
 	        android:id="@+id/first"
 	        android:orientation="vertical"
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
-         	android:background="@drawable/container_dropshadow"
-	        android:layout_marginTop="4dip">
+         	android:textColor="@color/blog_background">
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
@@ -30,7 +29,7 @@
         android:layout_centerInParent="true"
         android:text=""
         android:layout_marginTop="8dip"
-        
+        android:textColor="@color/blog_title"
         android:textSize="26dp" />
 
     <TextView
@@ -38,8 +37,8 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:text=""
-       android:textColor="#000"
        android:layout_marginBottom="8dip"
+       android:textColor="@color/blog_title"
        android:textSize="16dp" />
     
     <TextView
@@ -47,8 +46,9 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:text=""
-       android:textColor="#000"
+       
        android:layout_marginBottom="8dip"
+       android:textColor="@color/blog_title"
        android:textSize="16dp" />
     	
  		
@@ -71,8 +71,10 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text=""
-        android:lineSpacingExtra="6dp"
-            android:textSize="20sp" />
+        android:lineSpacingExtra="10dp"
+        android:textSize="22sp" 
+        android:textColor="@color/blog_content"
+        android:layout_marginBottom="48dip"/>
     
    
      </LinearLayout>
@@ -103,5 +105,28 @@
 	    </LinearLayout>
 	    
   
-</LinearLayout>
+	    <TextView
+	        android:id="@+id/banner"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:text=""
+	        android:lineSpacingExtra="10dp"
+	        android:textSize="22sp" 
+	        android:textColor="@color/blog_content"/>
+	</LinearLayout>
 </ScrollView>
+	<RelativeLayout
+            android:orientation="vertical"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content">
+             	
+      <my.view.DynamicImageView
+          android:layout_alignParentBottom="true"
+        android:id="@+id/advertistment"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"/> 
+    </RelativeLayout>
+</RelativeLayout>

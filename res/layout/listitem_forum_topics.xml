@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:text="12/1000"
             android:textColor="#999999"
-            android:textSize="14sp" />
+            android:textSize="26sp" />
         
       <TextView
            android:layout_marginLeft="5dp"

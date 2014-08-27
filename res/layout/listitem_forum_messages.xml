@@ -61,8 +61,8 @@
             android:layout_height="wrap_content"
             android:text="message"
             android:textColor="#000"
-            android:lineSpacingExtra="4dp"
-            android:textSize="20sp" />
+            android:lineSpacingExtra="10dp"
+            android:textSize="22sp" />
        
 
     </RelativeLayout> 

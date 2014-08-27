@@ -1,5 +1,6 @@
 package info.happyretired;
 
+import info.happyretired.activity.UserSettingActivity;
 import info.happyretired.activity.blog.BlogDetailsActivity;
 import info.happyretired.activity.blog.BlogTabsActivity;
 import info.happyretired.activity.blog.BloggerTabsFragment;
@@ -17,10 +18,12 @@ import info.happyretired.adapter.NavDrawerListAdapter;
 import info.happyretired.communicator.FrontCommunicator;
 import info.happyretired.model.NavDrawerItem;
 import info.happyretired.R;
+import info.happyretired.service.MyService;
 import info.happyretired.ult.CommonConstant;
 import info.happyretired.ult.MyGoogleAnalytics;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import com.google.analytics.tracking.android.EasyTracker;
@@ -37,25 +40,33 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ShareActionProvider;
 
@@ -68,7 +79,7 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
-
+	private MenuItem mItem = null;
 	// nav drawer title
 	private CharSequence mDrawerTitle;
 
@@ -83,6 +94,12 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 	private NavDrawerListAdapter adapter;
 	
 	 private FragmentTabHost mTabHost;
+	 
+	@Override
+	public View onCreateView(String name, Context context, AttributeSet attrs) {
+		// TODO Auto-generated method stub
+		return super.onCreateView(name, context, attrs);
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -95,9 +112,6 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 		
 		CommonConstant commonConstant = CommonConstant.getInstance();
 		commonConstant.init();
-		
-		
-		
 		
 		DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true)
 				//.showImageForEmptyUri(R.drawable.ic_launcher) 
@@ -142,12 +156,16 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 		*/
 		
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0],"{fa-home}", "#f63c2b"));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1],"{fa-thumbs-up}", "#7d1b7e"));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2],"{fa-camera}", "#a1c935"));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3],"{fa-heart}", "#ffa500"));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4],"{fa-suitcase}", "#7bc9ff"));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5],"{fa-comments}", "#3f8be1"));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[6],"{fa-shopping-cart}", "#ea55a2"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1],"{fa-shopping-cart}", "#ea55a2"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2],"{fa-comments}", "#3f8be1"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3],"{fa-thumbs-up}", "#7d1b7e"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4],"{fa-camera}", "#a1c935"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5],"{fa-heart}", "#ffa500"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[6],"{fa-suitcase}", "#7bc9ff"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[7],"{fa-facebook}", "#4965a0"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[8],"{fa-link}", "#b22222"));
+		
+		
 		
 		//navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(5, -1)));
 		
@@ -188,7 +206,7 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 
 		//if (savedInstanceState == null) {
 			// on first time display view for first nav item
-			displayView(0);
+		displayView(0);
 		//}
 		
 	}
@@ -229,23 +247,37 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.share_menu, menu);
+		getMenuInflater().inflate(R.menu.homepage_menu, menu);
 		// Locate MenuItem with ShareActionProvider
 	    MenuItem item = menu.findItem(R.id.action_cart);
-	    
+	    mItem = item;
 	    // Fetch and store ShareActionProvider
 	    mShareActionProvider = (ShareActionProvider) item.getActionProvider();
 	    
 	    Intent myIntent = new Intent();
-	        myIntent.setAction(Intent.ACTION_SEND);
-	        //myIntent.putExtra(Intent.EXTRA_SUBJECT, activityItem.getTitle()+" | "+activityItem.getCompanyName());
-	        myIntent.putExtra(Intent.EXTRA_TEXT,   this.getApplication().getResources().getString(R.string.happyretired_app) +" | "+this.getApplication().getResources().getString(R.string.happyretired_app_url));
-	        myIntent.setType("text/plain");
-	        mShareActionProvider.setShareIntent(myIntent);
+	    myIntent.setAction(Intent.ACTION_SEND);
+	    //myIntent.putExtra(Intent.EXTRA_SUBJECT, activityItem.getTitle()+" | "+activityItem.getCompanyName());
+	    myIntent.putExtra(Intent.EXTRA_TEXT,   this.getApplication().getResources().getString(R.string.happyretired_app) +" | "+this.getApplication().getResources().getString(R.string.happyretired_app_url));
+	    myIntent.setType("text/plain");
+	    mShareActionProvider.setShareIntent(myIntent);
 
+	  
 		return true;
 
 	}
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event) { 
+        if (keyCode == KeyEvent.KEYCODE_MENU) {
+            //do your work
+        	
+        	if(!mDrawerLayout.isDrawerOpen(mDrawerList))
+        		mDrawerLayout.openDrawer(Gravity.LEFT);
+        	else
+        		mDrawerLayout.closeDrawer(Gravity.LEFT);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event); 
+    } 
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -255,10 +287,12 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 		}
 		// Handle action bar actions click
 		switch (item.getItemId()) {
-		case R.id.action_settings:
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
+			case R.id.action_settings:
+			    Intent intent = new Intent(this, UserSettingActivity.class);
+			    startActivity(intent);
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
 		}
 	}
 
@@ -292,31 +326,47 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 			
 			break;
 		case 1:
-			k = new Intent(HomeActivity.this, BlogTabsActivity.class);
-			startActivity(k);
-			break;
-		case 2:
-			k = new Intent(HomeActivity.this, EventTabsActivity.class);
-			startActivity(k);
-			break;
-		case 3:
-			k = new Intent(HomeActivity.this, VolunteerTabsActivity.class);
-			startActivity(k);
-		    break;
-		case 4:
-			k = new Intent(HomeActivity.this, JobTabsActivity.class);
-			startActivity(k);
-			break;
-		case 5:
-			k = new Intent(HomeActivity.this, ForumTabsActivity.class);
-			startActivity(k);
-			break;
-
-			
-		case 6:
 			k = new Intent(HomeActivity.this, JetsoTabsActivity.class);
 			startActivity(k);
 			break;
+		case 2:
+			k = new Intent(HomeActivity.this, ForumTabsActivity.class);
+			startActivity(k);
+			break;	
+		case 3:
+			k = new Intent(HomeActivity.this, BlogTabsActivity.class);
+			startActivity(k);
+			break;
+		case 4:
+			k = new Intent(HomeActivity.this, EventTabsActivity.class);
+			startActivity(k);
+			break;
+		case 5:
+			k = new Intent(HomeActivity.this, VolunteerTabsActivity.class);
+			startActivity(k);
+		    break;
+		case 6:
+			k = new Intent(HomeActivity.this, JobTabsActivity.class);
+			startActivity(k);
+			break;
+		
+		case 7:
+			k = new Intent(Intent.ACTION_VIEW);
+			String url = "https://www.facebook.com/happyretiredcom";
+			k.setData(Uri.parse(url));
+			startActivity(k);
+			break;
+		
+		case 8:
+			k = new Intent(Intent.ACTION_VIEW);
+			String url2 = "https://www.happy-retired.com";
+			k.setData(Uri.parse(url2));
+			startActivity(k);
+			break;
+		
+
+			
+		
 			
 			
 		default:

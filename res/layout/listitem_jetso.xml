@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView1"
            
-            android:textSize="18sp"
+            android:textSize="20sp"
             
             android:layout_marginRight="80dp"
             android:text="" />

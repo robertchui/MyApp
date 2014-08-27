@@ -2,42 +2,48 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp" 
+        
         android:background="@drawable/container_dropshadow">
-
-
- <View android:layout_width="8dp"
-    android:layout_height="8dp"
-    android:layout_marginLeft="3dp"
-    android:layout_marginTop="3dp"
-    android:background="@drawable/circle"/>
+  
+    <my.view.DynamicImageView
+        android:id="@+id/advertistment"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"/> 
  
  <RelativeLayout 
-      android:id="@+id/topic_details"
+     android:padding="10dp" 
+     android:id="@+id/topic_details"
      android:layout_width="fill_parent"
      android:layout_height="wrap_content"
-     android:background="#ffffff"
-	 android:radius="5dp">
+     android:background="#ffffff">
 
-     <TextView
-            android:layout_marginLeft="5dp"
-            android:id="@+id/forum_topic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="topic"
-            android:textSize="20sp" />
- 
-       <TextView
-             android:layout_below="@id/forum_topic"
+      
+        
+      <TextView
            android:layout_marginLeft="5dp"
             android:id="@+id/forum_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ABC"
+            android:text=""
             android:textColor="@color/red_color"
+             android:layout_marginRight="90dp"
             android:textSize="14sp" />
       
-       <TextView
+    
+     <TextView
+          android:layout_below="@id/forum_category"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/forum_topic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="20sp" />
+ 
+      
+      
+       <!-- TextView
             
            android:layout_marginRight="5dp"
            android:layout_below="@id/forum_topic"
@@ -47,9 +53,9 @@
             android:layout_height="wrap_content"
             android:text="12/1000"
             android:textColor="#999999"
-            android:textSize="14sp" />
+            android:textSize="14sp" /-->
         
-      <TextView
+      <!-- TextView
            android:layout_marginLeft="5dp"
            android:layout_below="@id/forum_category"
             android:id="@+id/first_post_time"
@@ -57,22 +63,22 @@
             android:layout_height="wrap_content"
             android:text="@string/forum_last_poste_name"
             android:textColor="#999999"
-            android:textSize="14sp" />
+            android:textSize="14sp" /-->
           
        <TextView
-           	android:layout_below="@id/forum_category"
-           	android:layout_toRightOf="@+id/first_post_time" 
+           	android:layout_below="@id/forum_topic"
+           	
             android:layout_marginLeft="5dp"
             android:id="@+id/last_post_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ABC"
+            android:text=""
             android:textColor="@color/main_color"
             android:textSize="14sp" />
        
         
        
-       <TextView
+       <!-- TextView
            android:layout_marginRight="5dp"
            android:layout_below="@id/reply_and_view"
             android:id="@+id/last_post_time"
@@ -81,15 +87,21 @@
             android:layout_height="wrap_content"
             android:textColor="#999999"
             android:text="00-00"
-            android:textSize="16sp" />
+            android:textSize="16sp" /-->
 
        
-
+		<ImageView
+            android:id="@+id/cover"
+            android:layout_width="80dp"
+    		android:layout_height="80dp"
+             android:scaleType="centerCrop"
+             android:layout_alignParentRight="true"/>
     </RelativeLayout> 
     
 
+ 
     
-     <my.view.DynamicImageView
+     <!-- my.view.DynamicImageView
         android:layout_below="@+id/topic_details"
         android:id="@+id/cover"
         android:layout_width="match_parent"
@@ -99,6 +111,6 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="10dp"
-        android:adjustViewBounds="true"/>
+        android:adjustViewBounds="true"/-->
      
 </RelativeLayout>

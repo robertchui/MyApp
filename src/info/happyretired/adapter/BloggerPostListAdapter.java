@@ -104,7 +104,6 @@ public class BloggerPostListAdapter extends ArrayAdapter<Blogger> {
 			TextView title = (TextView) convertView.findViewById(R.id.forum_topic);
 			TextView lastPostTime = (TextView) convertView.findViewById(R.id.last_post_time);
 			TextView category = (TextView) convertView.findViewById(R.id.category);
-			TextView view = (TextView) convertView.findViewById(R.id.reply_and_view);
 			ImageView coverImageView = (ImageView) convertView.findViewById(R.id.cover);
 			
 			title.setText(activityItems.get(position).getLast_post_title());

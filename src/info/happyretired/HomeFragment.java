@@ -37,9 +37,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -64,6 +66,7 @@ public class HomeFragment extends Fragment {
 	private FrontPageAdapter mAdapter5;
 	private FrontPageAdapter mAdapter6;
 	private FrontPageAdapter mAdapter7;
+	private FrontPageAdapter mAdapter8;
 	FrontCommunicator communicator;
 	
 	private View mRoot;
@@ -79,6 +82,7 @@ public class HomeFragment extends Fragment {
 	GridView list5;
 	GridView list6;
 	GridView list7;
+	GridView list8;
 	
 	Button button1;
 	Button button2;
@@ -87,6 +91,7 @@ public class HomeFragment extends Fragment {
 	Button button5;
 	Button button6;
 	Button button7;
+	Button button8;
 	
 	RelativeLayout rLayout1;
 	RelativeLayout rLayout2;
@@ -95,6 +100,7 @@ public class HomeFragment extends Fragment {
 	RelativeLayout rLayout5;
 	RelativeLayout rLayout6;
 	RelativeLayout rLayout7;
+	RelativeLayout rLayout8;
 	
 	LinearLayout linear;
 	
@@ -111,7 +117,8 @@ public class HomeFragment extends Fragment {
 	private ArrayList featuredBlogs = new ArrayList();  
 	private ArrayList latestJobs = new ArrayList();  
 	private ArrayList latestForums = new ArrayList();
-	private ArrayList latestJetsos = new ArrayList();  
+	private ArrayList latestJetsos = new ArrayList();
+	private ArrayList latestEvents = new ArrayList();  
 	
 	public HomeFragment(){}
 	
@@ -131,6 +138,7 @@ public class HomeFragment extends Fragment {
 		list5 = (GridView) mRoot.findViewById(R.id.gridlist5);
 		list6 = (GridView) mRoot.findViewById(R.id.gridlist6);
 		list7 = (GridView) mRoot.findViewById(R.id.gridlist7);
+		list8 = (GridView) mRoot.findViewById(R.id.gridlist8);
 		
 		button1= (Button) mRoot.findViewById(R.id.button1);
 		button2= (Button) mRoot.findViewById(R.id.button2);
@@ -139,6 +147,7 @@ public class HomeFragment extends Fragment {
 		button5= (Button) mRoot.findViewById(R.id.button5);
 		button6= (Button) mRoot.findViewById(R.id.button6);
 		button7= (Button) mRoot.findViewById(R.id.button7);
+		button8= (Button) mRoot.findViewById(R.id.button8);
 		
 		rLayout1 = (RelativeLayout) mRoot.findViewById(R.id.region1);
 		rLayout2 = (RelativeLayout) mRoot.findViewById(R.id.region2);
@@ -147,6 +156,7 @@ public class HomeFragment extends Fragment {
 		rLayout5 = (RelativeLayout) mRoot.findViewById(R.id.region5);
 		rLayout6 = (RelativeLayout) mRoot.findViewById(R.id.region6);
 		rLayout7 = (RelativeLayout) mRoot.findViewById(R.id.region7);
+		rLayout8 = (RelativeLayout) mRoot.findViewById(R.id.region8);
 		
 		button1.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -232,6 +242,19 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v){
             	communicator.selectJetso();
+            }
+        });
+		
+		rLayout8.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+            	communicator.selectActivity();
+            }
+        });
+		button8.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+            	communicator.selectActivity();
             }
         });
 	        
@@ -369,6 +392,18 @@ public class HomeFragment extends Fragment {
 			}
 		});
         
+        mAdapter8 = new FrontPageAdapter(this.getActivity(), android.R.layout.simple_list_item_1, latestEvents);
+        mAdapter8.notifyDataSetChanged();
+        list8.invalidateViews();
+        list8.setAdapter(mAdapter8);
+        
+        list8.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View v,
+				int position, long id) {
+				communicator.selectActivity(position, latestEvents);
+			}
+		});
+        
 		/*
 		mAdapter = new BloggerListAdapter(this.getActivity(), android.R.layout.simple_list_item_1, mlist);
 		list.setAdapter(mAdapter);
@@ -418,33 +453,32 @@ public class HomeFragment extends Fragment {
         StringBuilder builder = new StringBuilder();
         HttpClient client = new DefaultHttpClient();
 
-        HttpGet httpGet = new HttpGet(getActivity().getResources().getString(R.string.WEBSERVICE_COMMON)+"?action=getAppFirstPage");
-        
         try {
-          HttpResponse response = client.execute(httpGet);
-          StatusLine statusLine = response.getStatusLine();
-          int statusCode = statusLine.getStatusCode();
-          if (statusCode == 200) {
-            HttpEntity entity = response.getEntity();
-            InputStream content = entity.getContent();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-            String line;
-            while ((line = reader.readLine()) != null) {
-              builder.append(line);
-            }
-          } else {
-            Log.e(BloggerTabsFragment.class.toString(), "Failed to download file");
-          }
+        	HttpGet httpGet = new HttpGet(getActivity().getResources().getString(R.string.WEBSERVICE_COMMON)+"?action=getAppFirstPage");
+        	HttpResponse response = client.execute(httpGet);
+        	StatusLine statusLine = response.getStatusLine();
+        	int statusCode = statusLine.getStatusCode();
+	        if (statusCode == 200) {
+	        	HttpEntity entity = response.getEntity();
+	            InputStream content = entity.getContent();
+	            BufferedReader reader = new BufferedReader(new InputStreamReader(content));
+	            String line;
+	            while ((line = reader.readLine()) != null) {
+	            	builder.append(line);
+	            }
+	        } else {
+	            Log.e(BloggerTabsFragment.class.toString(), "Failed to download file");
+	        }
         } catch (ClientProtocolException e) {
-          e.printStackTrace();
+        	e.printStackTrace();
         } catch (IOException e) {
-          e.printStackTrace();
+        	e.printStackTrace();
         }
         catch(Exception e){
         	e.printStackTrace();
         }
         return builder.toString();
-      }
+	}
     
     protected void getCategory(JSONObject  jsnobject) throws Exception{
     	        
@@ -474,6 +508,22 @@ public class HomeFragment extends Fragment {
 	        	//assignToItem(activityItem, i, jsonObject);
 	        	activityItem.assignToItem(i, jsonObject);
 	        	comingEvents.add(activityItem);
+	        }
+        }
+        catch(Exception e){
+        	e.printStackTrace();
+        }
+        
+        jsonArray = jsnobject.getJSONArray("latestEvent");
+
+        try{
+        	for (int i = 0; i < jsonArray.length(); i++) {
+	        	JSONObject jsonObject = jsonArray.getJSONObject(i);
+    	        
+    	        ActivityItem activityItem = new ActivityItem();
+	        	//assignToItem(activityItem, i, jsonObject);
+	        	activityItem.assignToItem(i, jsonObject);
+	        	latestEvents.add(activityItem);
 	        }
         }
         catch(Exception e){
@@ -581,8 +631,10 @@ public class HomeFragment extends Fragment {
             String readTwitterFeed = readActivityFeed();
             try {
               //jsonArray = new JSONArray(readTwitterFeed);
-              jsonObj = new JSONObject(readTwitterFeed);
-              getCategory(jsonObj);
+            	if(readTwitterFeed!=null || readTwitterFeed.equals("")){
+	              jsonObj = new JSONObject(readTwitterFeed);
+	              getCategory(jsonObj);
+            	}
             } catch (Exception e) {
               e.printStackTrace();
             }
@@ -632,6 +684,11 @@ public class HomeFragment extends Fragment {
             mAdapter6.notifyDataSetChanged();
             list6.invalidateViews();
             list6.setAdapter(mAdapter6);
+            
+            mAdapter8 = new FrontPageAdapter(myContext, android.R.layout.simple_list_item_1, latestEvents);
+            mAdapter8.notifyDataSetChanged();
+            list8.invalidateViews();
+            list8.setAdapter(mAdapter8);
             
           
             

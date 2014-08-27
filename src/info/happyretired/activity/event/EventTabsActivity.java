@@ -93,7 +93,7 @@ public class EventTabsActivity  extends CommonTabsActivity implements TabListene
 
 class MyAdapter extends FragmentPagerAdapter{
 	private Context _context; 
-	public int NUM_ITEM = 3;
+	public int NUM_ITEM = 5;
 	
 	public MyAdapter(FragmentManager fragmentManager,  Context c) {
         super(fragmentManager);
@@ -132,6 +132,24 @@ class MyAdapter extends FragmentPagerAdapter{
 			
 			//fragment = (Fragment)(new FragmentA());
 		}
+		else if(i==3){
+			EventTabsFragment fg = new EventTabsFragment();
+			fg.setAction("notstarted");
+			fg.setIsTour("N");
+			fg.setCategoryid("6");
+			fragment = (Fragment)fg;
+			
+			//fragment = (Fragment)(new FragmentA());
+		}
+		else if(i==4){
+			EventTabsFragment fg = new EventTabsFragment();
+			fg.setAction("notstarted");
+			fg.setIsTour("N");
+			fg.setCategoryid("4");
+			fragment = (Fragment)fg;
+			
+			//fragment = (Fragment)(new FragmentA());
+		}
 		
 		return fragment;
 	}
@@ -148,6 +166,8 @@ class MyAdapter extends FragmentPagerAdapter{
 			case 0: title = _context.getResources().getString(R.string.activity_page_notstarted);break;
 			case 1: title = _context.getResources().getString(R.string.activity_page_started);break;
 			case 2: title = _context.getResources().getString(R.string.activity_page_tour);break;
+			case 3: title = _context.getResources().getString(R.string.activity_page_talk);break;
+			case 4: title = _context.getResources().getString(R.string.activity_page_opera);break;
 		}
 		return title;
 	}

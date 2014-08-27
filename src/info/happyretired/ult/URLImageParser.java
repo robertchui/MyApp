@@ -1,5 +1,8 @@
 package info.happyretired.ult;
 
+import info.happyretired.R;
+import info.happyretired.activity.ViewPagerExampleActivity;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -9,6 +12,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -17,6 +21,7 @@ import android.text.Html.ImageGetter;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.MeasureSpec;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -25,6 +30,7 @@ public class URLImageParser implements ImageGetter {
     Context c;
     View container;
     ArrayAdapter adapter;
+    String source;
 
     /***
      * Construct the URLImageParser which will execute AsyncTask and refresh the container
@@ -38,6 +44,9 @@ public class URLImageParser implements ImageGetter {
     }
 
     public Drawable getDrawable(String source) {
+    	
+    	this.source = source;
+    	
         URLDrawable urlDrawable = new URLDrawable();
 
         // get the actual source
@@ -56,7 +65,7 @@ public class URLImageParser implements ImageGetter {
 
     public class ImageGetterAsyncTask extends AsyncTask<String, Void, Drawable>  {
         URLDrawable urlDrawable;
-
+                
         public ImageGetterAsyncTask(URLDrawable d) {
             this.urlDrawable = d;
         }
@@ -96,6 +105,18 @@ public class URLImageParser implements ImageGetter {
             
             TextView t = (TextView) URLImageParser.this.container; 
             t.setText(t.getText());
+            /*
+            t.setOnClickListener(new OnClickListener() {
+                // Start new list activity
+                public void onClick(View v) {
+                    Intent mainIntent = new Intent(c.getApplicationContext(), ViewPagerExampleActivity.class);
+                    mainIntent.putExtra("url", source);
+                    c.startActivity(mainIntent);
+                }
+            });
+            */
+            
+            
             container.postInvalidate();
             container.invalidate();
         }

@@ -13,6 +13,8 @@ import info.happyretired.R.menu;
 import info.happyretired.R.string;
 
 
+import info.happyretired.service.MyService;
+import info.happyretired.service.NotificationService;
 import info.happyretired.ult.CommonConstant;
 
 import java.util.ArrayList;
@@ -24,8 +26,10 @@ import com.google.analytics.tracking.android.MapBuilder;
 import com.google.analytics.tracking.android.Tracker;
 
 import android.app.ActionBar;
+import android.app.ActivityManager;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
+import android.app.ActivityManager.RunningServiceInfo;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
@@ -54,6 +58,7 @@ public class BlogTabsActivity  extends CommonTabsActivity implements TabListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+    	
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tab_fragment_activity);
         viewPager = (ViewPager)findViewById(R.id.pager);
@@ -64,9 +69,17 @@ public class BlogTabsActivity  extends CommonTabsActivity implements TabListener
         mSlidingTabLayout.setCustomTabView(R.layout.tab, R.id.text);
         mSlidingTabLayout.setSelectedIndicatorColors( getResources().getColor(R.color.tab_color));
         actionBar.setTitle(getResources().getString(R.string.blog));
-      
-        
     }
+    
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+	    ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+	        if (serviceClass.getName().equals(service.service.getClassName())) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
     
     @Override
 	protected void onStart() {

@@ -33,6 +33,7 @@ public class VolunteerItem implements Parcelable {
 	private String effectiveTo;
 	private String shareUrl;
 	private String contact_no;
+	private String advertisementImgUrl;
 	
 	public VolunteerItem(){
 	
@@ -75,6 +76,7 @@ public class VolunteerItem implements Parcelable {
 		  effectiveTo = in.readString();
 		  shareUrl= in.readString();
 		  contact_no= in.readString();
+		  advertisementImgUrl= in.readString();
 	}
 	
 
@@ -106,9 +108,15 @@ public class VolunteerItem implements Parcelable {
 		dest.writeString(effectiveTo);
 		dest.writeString(shareUrl);
 		dest.writeString(contact_no);
+		dest.writeString(advertisementImgUrl);
 	}
 
-	
+	public String getAdvertisementImgUrl() {
+		return advertisementImgUrl;
+	}
+	public void setAdvertisementImgUrl(String advertisementImgUrl) {
+		this.advertisementImgUrl = advertisementImgUrl;
+	}
 	public String getContact_no() {
 		return contact_no;
 	}
@@ -343,6 +351,7 @@ public class VolunteerItem implements Parcelable {
 	};
 	
 	public void assignToItem( int i, JSONObject jsonObject) throws Exception{
+		try{
     	this.setIcon(i+1);
     	this.setRefNo(jsonObject.getString("refNo"));
     	this.setTitle(jsonObject.getString("title"));
@@ -364,6 +373,11 @@ public class VolunteerItem implements Parcelable {
     	this.setVacancy(jsonObject.getString("vacancy"));
     	this.setShareUrl(jsonObject.getString("shareUrl"));
     	this.setContact_no(jsonObject.getString("contact_no"));
+    	this.setAdvertisementImgUrl(jsonObject.getString("advertisementImgUrl"));
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
     }
     
 }

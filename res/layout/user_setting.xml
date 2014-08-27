@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="通知" >
+         <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="notification"
+            android:title="通知" 
+            android:summary="設定是否接收通知">
+        </CheckBoxPreference>
+    </PreferenceCategory>
+     
+    <PreferenceCategory android:title="一般設定" >
+
+        <ListPreference
+            android:key="fontsize"
+            android:title="字體大小"
+            android:summary="設定文章的字體大小。"
+            android:entries="@array/fontsizeLabel"
+            android:entryValues="@array/fontsizeValues"
+            />
+    </PreferenceCategory>
+
+</PreferenceScreen>

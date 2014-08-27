@@ -23,6 +23,7 @@ public class Blogger implements Parcelable {
 	private String refNo;
 	private String content;
 	private String shareUrl;
+	private String advertisementImgUrl;
 	
 	public Blogger(){
 	
@@ -56,6 +57,7 @@ public class Blogger implements Parcelable {
 		refNo = in.readString();
 		content = in.readString();
 		shareUrl= in.readString();
+		advertisementImgUrl = in.readString();
 	}
 	
 
@@ -78,8 +80,17 @@ public class Blogger implements Parcelable {
 		dest.writeString(refNo);
 		dest.writeString(content);
 		dest.writeString(shareUrl);
+		dest.writeString(advertisementImgUrl);
+		
 	}
 
+	
+	public String getAdvertisementImgUrl() {
+		return advertisementImgUrl;
+	}
+	public void setAdvertisementImgUrl(String advertisementImgUrl) {
+		this.advertisementImgUrl = advertisementImgUrl;
+	}
 	public String getShareUrl() {
 		return shareUrl;
 	}
@@ -192,16 +203,21 @@ public class Blogger implements Parcelable {
 	
 	public void assignToItem(int i, JSONObject jsonObject) throws Exception{
     
-    	
-    	this.setUserid(jsonObject.getString("userid"));
-    	this.setUser_name(jsonObject.getString("userName"));
-    	this.setLast_post_title(jsonObject.getString("title"));
-    	this.setCategory_name(jsonObject.getString("category_name"));
-    	this.setLast_post_time(jsonObject.getString("post_time"));
-    	this.setView(jsonObject.getString("hits"));
-    	this.setCoverUrl(jsonObject.getString("cover_url"));
-    	this.setRefNo(jsonObject.getString("refNo"));
-    	this.setListType("");
-    	this.setShareUrl(jsonObject.getString("shareUrl"));
+    	try{
+	    	this.setUserid(jsonObject.getString("userid"));
+	    	this.setUser_name(jsonObject.getString("userName"));
+	    	this.setLast_post_title(jsonObject.getString("title"));
+	    	this.setCategory_name(jsonObject.getString("category_name"));
+	    	this.setLast_post_time(jsonObject.getString("post_time"));
+	    	this.setView(jsonObject.getString("hits"));
+	    	this.setCoverUrl(jsonObject.getString("cover_url"));
+	    	this.setRefNo(jsonObject.getString("refNo"));
+	    	this.setListType("");
+	    	this.setShareUrl(jsonObject.getString("shareUrl"));
+	    	this.setAdvertisementImgUrl(jsonObject.getString("advertisementImgUrl"));
+	    }
+    	catch(Exception e){
+    		e.printStackTrace();
+    	}
     }
 }

@@ -39,9 +39,17 @@ import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 
 
 
+
+
+
+
+
+
+import info.happyretired.activity.ViewPagerExampleActivity;
 import info.happyretired.adapter.EventListAdapter;
 import info.happyretired.model.ActivityItem;
 import info.happyretired.model.Blogger;
+import info.happyretired.ult.CommonConstant;
 import info.happyretired.R;
 import info.happyretired.R.id;
 import info.happyretired.R.layout;
@@ -49,15 +57,19 @@ import info.happyretired.R.string;
 import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
@@ -86,6 +98,7 @@ public class BlogDetailsFragment extends Fragment {
 	TextView content;
 	TextView blogger_name;
 	
+	ImageView advimageView;
 	
 	private int page;
 	private int totalPage;
@@ -131,6 +144,17 @@ public class BlogDetailsFragment extends Fragment {
 		post_date = (TextView)mRoot.findViewById(R.id.post_date);
 		blogger_name = (TextView)mRoot.findViewById(R.id.blogger_name);
         imageView = (ImageView) mRoot.findViewById(R.id.cover); 
+        imageView.setOnClickListener(new OnClickListener() {
+            // Start new list activity
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(getActivity(), ViewPagerExampleActivity.class);
+                mainIntent.putExtra("url", getResources().getString(R.string.web_url)+"/"+activityItem.getCoverUrl());
+                startActivity(mainIntent);
+            }
+        });
+        
+        advimageView = (ImageView) mRoot.findViewById(R.id.advertistment); 
+        
         content = (TextView)mRoot.findViewById(R.id.content);
 		
 		linlaHeaderProgress = (LinearLayout) mRoot.findViewById(R.id.linlaHeaderProgress2);
@@ -138,7 +162,9 @@ public class BlogDetailsFragment extends Fragment {
 			task = new GetActivityItemTask();
 		    task.execute(new String[] { "https://www.happy-retired.com/activitywebservice" });
 		}
-		updateLayout();
+		else{
+			updateLayout();
+		}
 	
 
 		
@@ -208,9 +234,10 @@ public class BlogDetailsFragment extends Fragment {
         try{
 	        for (int i = size-1; i >=0; i--) {
 	        	JSONObject jsonObject = jsonArray.getJSONObject(i);
-
+	        	activityItem.assignToItem(i, jsonObject);
 	        	activityItem.setCoverUrl(jsonObject.getString("cover_url"));
 	        	activityItem.setContent(jsonObject.getString("content"));
+	        	((BlogDetailsActivity)this.getActivity()).updateShareButton();
 	        }
         }
         catch(Exception e){
@@ -224,12 +251,29 @@ public class BlogDetailsFragment extends Fragment {
 		titleText.setText(activityItem.getLast_post_title());
 		post_date.setText(activityItem.getLast_post_time());
 		blogger_name.setText(activityItem.getUser_name());
+		
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		String fontsize = settings.getString(CommonConstant.FONT_SIZE, CommonConstant.FONT_SIZE_DEFAULT); 
+		
+		content.setTextSize(Float.parseFloat(fontsize));
         content.setText(activityItem.getContent());
+        
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true)
+				//.showImageForEmptyUri(R.drawable.ic_launcher) 
+				.build();
+		
+		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this.getActivity())	
+				.defaultDisplayImageOptions(defaultOptions)
+				.build();
+		ImageLoader.getInstance().init(config);
         
         if(activityItem.getCoverUrl()!=null && !activityItem.getCoverUrl().equals("null") && !activityItem.getCoverUrl().isEmpty())
        		ImageLoader.getInstance().displayImage(this.getActivity().getString(R.string.web_url)+"/"+activityItem.getCoverUrl(), imageView);
        	else
        		ImageLoader.getInstance().displayImage("", imageView);
+       
+        //String url = "images/banners/share2.jpg";
+        ImageLoader.getInstance().displayImage(this.getActivity().getResources().getString(R.string.web_url)+"/"+activityItem.getAdvertisementImgUrl(), advimageView);
 	}
 	
 	

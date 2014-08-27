@@ -7,11 +7,16 @@ import info.happyretired.activity.job.JobTabsActivity;
 import info.happyretired.activity.volunteer.VolunteerTabsActivity;
 import info.happyretired.adapter.BlogListAdapter;
 import info.happyretired.adapter.NavDrawerListAdapter;
+import info.happyretired.dao.PreferenceDAO;
+import info.happyretired.db.MySQLiteHelper;
 import info.happyretired.model.NavDrawerItem;
+import info.happyretired.model.Preference;
 import info.happyretired.R;
+import info.happyretired.service.NotificationService;
 import info.happyretired.ult.CommonConstant;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.json.JSONArray;
 
@@ -21,15 +26,24 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.provider.Settings.Secure;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
@@ -148,7 +162,7 @@ public class MainActivity extends FragmentActivity   {
                                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.fragment_cover);
-
+    	
         DownloadWebPageTask task = new DownloadWebPageTask();
 	    task.execute();
 	}
@@ -196,13 +210,6 @@ public class MainActivity extends FragmentActivity   {
         @Override
         protected String doInBackground(String... urls) {
         	
-        	try{
-        	Thread.sleep(3000);
-        	}
-        	catch(Exception e){
-        		e.printStackTrace();
-        	}
-        	
         	CommonConstant commonConstant = CommonConstant.getInstance();
     		commonConstant.init();
     		
@@ -217,6 +224,27 @@ public class MainActivity extends FragmentActivity   {
         
         
       }
+	
+	public void onResume() {
+	    super.onResume();
+	    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+	    int minutes = prefs.getInt("interval", CommonConstant.NOTIFICATION_DEFAULT);
+	    AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+	    //Intent i = new Intent(this, NotificationService.class);
+	    Intent i = new Intent(this, NotificationService.class);
+	    PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
+	    am.cancel(pi);
+	    // by my own convention, minutes <= 0 means notifications are disabled
+	    if (minutes > 0) {
+	    	Calendar cal = Calendar.getInstance();
+	    	am.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), minutes*60*1000, pi);
+	    	/*
+	        am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+	            SystemClock.elapsedRealtime() + minutes*60*1000,
+	            minutes*60*1000, pi);
+	            */
+	    }
+	}
 	
 	private class MyLicenseCheckerCallback implements LicenseCheckerCallback {
         public void allow(int policyReason) {

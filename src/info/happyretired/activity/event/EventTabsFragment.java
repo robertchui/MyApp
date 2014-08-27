@@ -70,7 +70,7 @@ public class EventTabsFragment extends ListFragment implements SwipeRefreshLayou
 	LinearLayout linlaHeaderProgress;
 	DownloadWebPageTask task;
 	private String isTour;
-	
+	private String categoryid;
 	
 	
 	public EventTabsFragment(){}
@@ -175,7 +175,10 @@ public class EventTabsFragment extends ListFragment implements SwipeRefreshLayou
         else if(getAction().equals("notstarted"))
         	isStarted="N";
         
-        HttpGet httpGet = new HttpGet(getActivity().getResources().getString(R.string.WEBSERVICE_ACTIVITY)+"?action=getActivityList&isStarted="+isStarted+"&isTour="+getIsTour());
+        String catpara = "";
+        if(getCategoryid()!=null)
+        	catpara = "&actcat_id="+this.getCategoryid();
+        HttpGet httpGet = new HttpGet(getActivity().getResources().getString(R.string.WEBSERVICE_ACTIVITY)+"?action=getActivityList&isStarted="+isStarted+"&isTour="+getIsTour()+catpara);
         
         try {
           HttpResponse response = client.execute(httpGet);
@@ -302,6 +305,16 @@ public class EventTabsFragment extends ListFragment implements SwipeRefreshLayou
 
 	public void setIsTour(String isTour) {
 		this.isTour = isTour;
+	}
+
+
+	public String getCategoryid() {
+		return categoryid;
+	}
+
+
+	public void setCategoryid(String categoryid) {
+		this.categoryid = categoryid;
 	}
     
    

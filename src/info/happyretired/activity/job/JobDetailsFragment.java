@@ -28,6 +28,7 @@ import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import info.happyretired.adapter.EventListAdapter;
 import info.happyretired.model.ActivityItem;
 import info.happyretired.model.JobItem;
+import info.happyretired.ult.CommonConstant;
 import info.happyretired.R;
 import info.happyretired.R.id;
 import info.happyretired.R.layout;
@@ -35,10 +36,12 @@ import info.happyretired.R.string;
 import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -176,6 +179,15 @@ public class JobDetailsFragment extends Fragment {
 		imageView  = (ImageView)mRoot.findViewById(R.id.companyImage);
 
 		
+		 DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true)
+					//.showImageForEmptyUri(R.drawable.ic_launcher) 
+					.build();
+			
+			ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this.getActivity())	
+					.defaultDisplayImageOptions(defaultOptions)
+					.build();
+			ImageLoader.getInstance().init(config);
+			
 		if(activityItem.getCompanyImgUrl()!=null && !activityItem.getCompanyImgUrl().equals("null") && !activityItem.getCompanyImgUrl().isEmpty())
        		ImageLoader.getInstance().displayImage(this.getActivity().getString(R.string.web_url)+"/"+activityItem.getCompanyImgUrl(), imageView);
        	else{
@@ -229,6 +241,20 @@ public class JobDetailsFragment extends Fragment {
 		
 		title.setText(activityItem.getTitle());
 		
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
+		String fontsize = settings.getString(CommonConstant.FONT_SIZE, CommonConstant.FONT_SIZE_DEFAULT); 
+			
+		jobDesc1.setTextSize(Float.parseFloat(fontsize));
+		jobDesc2.setTextSize(Float.parseFloat(fontsize));
+		jobDesc3.setTextSize(Float.parseFloat(fontsize));
+		jobDesc4.setTextSize(Float.parseFloat(fontsize));
+		jobDesc5.setTextSize(Float.parseFloat(fontsize));
+		jobReq1.setTextSize(Float.parseFloat(fontsize));
+		jobReq2.setTextSize(Float.parseFloat(fontsize));
+		jobReq3.setTextSize(Float.parseFloat(fontsize));
+		jobReq4.setTextSize(Float.parseFloat(fontsize));
+		jobReq5.setTextSize(Float.parseFloat(fontsize));
+			
 		if(activityItem.getJobDesc1()==null || activityItem.getJobDesc1().equals("") || activityItem.getJobDesc1().equals("null"))
 			jobDesc1.setVisibility(View.GONE);
 		else
@@ -290,7 +316,7 @@ public class JobDetailsFragment extends Fragment {
 		text10.setText(activityItem.getWorking_period());
 		text12.setText(activityItem.getHour_per_day()+"/"+activityItem.getDay_per_week());
 		
-		if(activityItem.getJobReq4()==null || activityItem.getJobReq4().equals("") || activityItem.getJobReq4().equals("null")){
+		if(activityItem.getSalary()==null || activityItem.getSalary().equals("") || activityItem.getSalary().equals("null")){
 			if(activityItem.getDisplayLang().equals("ENG"))
 				text14.setText("Negotiable");
 			else

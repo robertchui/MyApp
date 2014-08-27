@@ -82,16 +82,17 @@ public class VolunteerDetailsActivity extends FragmentActivity{
 	    
 	    // Fetch and store ShareActionProvider
 	    mShareActionProvider = (ShareActionProvider) item.getActionProvider();
-	    
-	    Intent myIntent = new Intent();
-	        myIntent.setAction(Intent.ACTION_SEND);
-	        //myIntent.putExtra(Intent.EXTRA_SUBJECT, activityItem.getTitle()+" | "+activityItem.getCompanyName());
-	        myIntent.putExtra(Intent.EXTRA_TEXT,  activityItem.getTitle()+" | "+activityItem.getCompanyName() + " - " +activityItem.getShareUrl());
-	        myIntent.setType("text/plain");
-	        mShareActionProvider.setShareIntent(myIntent);
-
+	    updateShareButton();
 		return true;
 
+	}
+	
+	public void updateShareButton(){
+		Intent myIntent = new Intent();
+        myIntent.setAction(Intent.ACTION_SEND);
+        myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getShareUrl());
+        myIntent.setType("text/plain");
+        mShareActionProvider.setShareIntent(myIntent);
 	}
 	
 	// Call to update the share intent
@@ -145,9 +146,7 @@ public class VolunteerDetailsActivity extends FragmentActivity{
             	activityItem = (VolunteerItem)inputArray.get(position);
             	Intent myIntent = new Intent();
     	        myIntent.setAction(Intent.ACTION_SEND);
-    	        //myIntent.putExtra(Intent.EXTRA_SUBJECT, activityItem.getTitle()+" | "+activityItem.getCompanyName());
-    	        //myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getShareUrl());
-    	        myIntent.putExtra(Intent.EXTRA_TEXT,  activityItem.getTitle()+" | "+activityItem.getCompanyName() + " - " +activityItem.getShareUrl());
+    	        myIntent.putExtra(Intent.EXTRA_TEXT, activityItem.getShareUrl());
     	        myIntent.setType("text/plain");
     	        mShareActionProvider.setShareIntent(myIntent);
             	showPageNumber(position);
