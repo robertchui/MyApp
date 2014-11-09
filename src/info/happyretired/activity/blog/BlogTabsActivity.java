@@ -145,23 +145,23 @@ class MyAdapter extends FragmentPagerAdapter{
 		Fragment fragment = null;
 		
 		if(i==0){
-			BloggerTabsFragment fg = new BloggerTabsFragment();
-			fg.setFeatured("Y");
-			fragment = (Fragment)fg;		
-		}
-		else if(i==1){
-			BloggerTabsFragment fg = new BloggerTabsFragment();
-			fg.setFeatured("N");
-			fragment = (Fragment)fg;		
-		}
-		else if(i==2){
-			
 			BlogTabsFragment fg = new BlogTabsFragment();
 			fg.setCategoryId("");
 			fragment = (Fragment)fg;
 			
 			//fragment = (Fragment)(new FragmentA());
 		}
+		else if(i==1){
+			BloggerTabsFragment fg = new BloggerTabsFragment();
+			fg.setFeatured("Y");
+			fragment = (Fragment)fg;		
+		}
+		else if(i==2){
+			BloggerTabsFragment fg = new BloggerTabsFragment();
+			fg.setFeatured("N");
+			fragment = (Fragment)fg;		
+		}
+		
 		
 		
 		return fragment;
@@ -175,16 +175,16 @@ class MyAdapter extends FragmentPagerAdapter{
 		String title = "";
 		
 		
-		
 		if(position==0){
-			title = _context.getResources().getString(R.string.blogContentTitle1);
-		}
-		else if(position==1){
-			title = _context.getResources().getString(R.string.blogContentTitle2);
-		}
-		else if(position==2){
 			title = _context.getResources().getString(R.string.blogContentTitle3);
 		}
+		else if(position==1){
+			title = _context.getResources().getString(R.string.blogContentTitle1);
+		}
+		else if(position==2){
+			title = _context.getResources().getString(R.string.blogContentTitle2);
+		}
+		
 
 		
 		return title;

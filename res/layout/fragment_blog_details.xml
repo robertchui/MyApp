@@ -15,7 +15,7 @@
     android:orientation="vertical" 
    >
 
-    <LinearLayout
+   <LinearLayout
         android:padding="8dip"
 	        android:id="@+id/first"
 	        android:orientation="vertical"
@@ -52,16 +52,24 @@
        android:textSize="16dp" />
     	
  		
-	    
-    <my.view.DynamicImageView
-        android:id="@+id/cover"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
-        android:layout_gravity="center"
-        android:layout_marginBottom="8dip"
-        android:adjustViewBounds="true"/>
-
+	<LinearLayout 
+	 	    android:layout_below="@+id/title"
+		    android:id="@+id/linearlayout"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+			android:orientation="vertical">
+		    
+	    <my.view.DynamicImageView
+	        android:id="@+id/cover"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:layout_marginBottom="8dip"
+	        android:adjustViewBounds="true"/>
+	
+	     </LinearLayout>
+	         
+   
 
 		
     <TextView

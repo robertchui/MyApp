@@ -60,7 +60,7 @@
 	       android:layout_marginBottom="8dip"
 	       android:textSize="16dp" />
 	    	
-	 	<RelativeLayout 
+	 	<LinearLayout 
 	 	    android:layout_below="@+id/title"
 		    android:id="@+id/linearlayout"
 		    android:layout_width="match_parent"
@@ -75,7 +75,7 @@
 	        android:layout_marginBottom="8dip"
 	        android:adjustViewBounds="true"/>
 	
-	     </RelativeLayout>
+	     </LinearLayout>
 		<TextView
 	        android:id="@+id/contentTitle"
 	        android:layout_width="match_parent"

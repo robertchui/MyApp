@@ -104,7 +104,17 @@ class MyAdapter extends FragmentPagerAdapter{
 	public Fragment getItem(int i) {
 		
 		Fragment fragment = null;
+		
 		if(i==0){
+			
+			EventTabsFragment fg = new EventTabsFragment();
+			fg.setAction("started");
+			fg.setIsTour("N");
+			fragment = (Fragment)fg;
+			
+			//fragment = (Fragment)(new FragmentA());
+		}
+		else if(i==1){
 			
 			EventTabsFragment fg = new EventTabsFragment();
 			fg.setAction("notstarted");
@@ -113,15 +123,6 @@ class MyAdapter extends FragmentPagerAdapter{
 			
 			//fragment = (Fragment)(new FragmentA());
 			
-		}
-		else if(i==1){
-			
-			EventTabsFragment fg = new EventTabsFragment();
-			fg.setAction("started");
-			fg.setIsTour("N");
-			fragment = (Fragment)fg;
-			
-			//fragment = (Fragment)(new FragmentA());
 		}
 		else if(i==2){
 			
@@ -163,8 +164,9 @@ class MyAdapter extends FragmentPagerAdapter{
 		// TODO Auto-generated method stub
 		String title = "";
 		switch(position){
-			case 0: title = _context.getResources().getString(R.string.activity_page_notstarted);break;
-			case 1: title = _context.getResources().getString(R.string.activity_page_started);break;
+			
+			case 0: title = _context.getResources().getString(R.string.activity_page_started);break;
+			case 1: title = _context.getResources().getString(R.string.activity_page_notstarted);break;
 			case 2: title = _context.getResources().getString(R.string.activity_page_tour);break;
 			case 3: title = _context.getResources().getString(R.string.activity_page_talk);break;
 			case 4: title = _context.getResources().getString(R.string.activity_page_opera);break;

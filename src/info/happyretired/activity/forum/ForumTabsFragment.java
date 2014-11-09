@@ -155,12 +155,25 @@ public class ForumTabsFragment extends ListFragment implements SwipeRefreshLayou
    			}
    		}
    		else{
+   			
+   			int skip = 0;
+   			int numToSkip = 0;
 			for(int i=0;i<mlist.size();i++){
 				item = (ForumTopicItem)mlist.get(i);
-				list.add(item);
+				//if(item.getAdvertisementImgUrl()==null || item.getAdvertisementImgUrl().equals(""))
+				if(item.getId()!=null && !item.getId().equals("null")){
+					list.add(item);
+				}
+				else{
+					skip = i;
+					numToSkip=numToSkip+1;
+				}
 			}
 				
-			communicator.respond(position, list);
+			if(position > skip)
+				communicator.respond(position-numToSkip, list);
+			else
+				communicator.respond(position, list);
    		}
 	}
 

@@ -29,7 +29,7 @@
         
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="happy-retired.com | 2014"
+            android:text="happy-retired.com"
             android:textColor="#ffffff"
             android:layout_centerInParent="true"
             android:layout_gravity="bottom" 

@@ -1,5 +1,6 @@
 package info.happyretired.model;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.os.Parcel;
@@ -24,6 +25,7 @@ public class Blogger implements Parcelable {
 	private String content;
 	private String shareUrl;
 	private String advertisementImgUrl;
+	private String[] imageURLs;
 	
 	public Blogger(){
 	
@@ -189,6 +191,12 @@ public class Blogger implements Parcelable {
 		this.update_remark = update_remark;
 	}
 
+	 public String[] getImageURLs() {
+			return imageURLs;
+		}
+		public void setImageURLs(String[] imageURLs) {
+			this.imageURLs = imageURLs;
+		}
 
 
 	public static final Parcelable.Creator CREATOR = 
@@ -215,6 +223,19 @@ public class Blogger implements Parcelable {
 	    	this.setListType("");
 	    	this.setShareUrl(jsonObject.getString("shareUrl"));
 	    	this.setAdvertisementImgUrl(jsonObject.getString("advertisementImgUrl"));
+	    	
+	    	if(jsonObject.has("imageURLs")){
+		    	
+		    	JSONArray array = jsonObject.getJSONArray("imageURLs");
+		    	
+		    	if(array!=null && array.length()>0){
+		    		String tmp[] = new String[array.length()];
+		    		for (int j = 0; j <array.length(); j++) {
+		    			tmp[j] = array.getString(j);
+			        }
+		    		this.setImageURLs(tmp);
+		    	}
+	    	}
 	    }
     	catch(Exception e){
     		e.printStackTrace();

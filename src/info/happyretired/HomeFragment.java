@@ -78,29 +78,29 @@ public class HomeFragment extends Fragment {
 	GridView list;
 	GridView list2;
 	GridView list3;
-	GridView list4;
+	//GridView list4;
 	GridView list5;
 	GridView list6;
 	GridView list7;
-	GridView list8;
+	//GridView list8;
 	
 	Button button1;
 	Button button2;
 	Button button3;
-	Button button4;
+	//Button button4;
 	Button button5;
 	Button button6;
 	Button button7;
-	Button button8;
+	//Button button8;
 	
 	RelativeLayout rLayout1;
 	RelativeLayout rLayout2;
 	RelativeLayout rLayout3;
-	RelativeLayout rLayout4;
+	//RelativeLayout rLayout4;
 	RelativeLayout rLayout5;
 	RelativeLayout rLayout6;
 	RelativeLayout rLayout7;
-	RelativeLayout rLayout8;
+	//RelativeLayout rLayout8;
 	
 	LinearLayout linear;
 	
@@ -134,29 +134,29 @@ public class HomeFragment extends Fragment {
 		list = (GridView) mRoot.findViewById(R.id.gridlist);
 		list2 = (GridView) mRoot.findViewById(R.id.gridlist2);
 		list3 = (GridView) mRoot.findViewById(R.id.gridlist3);
-		list4 = (GridView) mRoot.findViewById(R.id.gridlist4);
+		//list4 = (GridView) mRoot.findViewById(R.id.gridlist4);
 		list5 = (GridView) mRoot.findViewById(R.id.gridlist5);
 		list6 = (GridView) mRoot.findViewById(R.id.gridlist6);
 		list7 = (GridView) mRoot.findViewById(R.id.gridlist7);
-		list8 = (GridView) mRoot.findViewById(R.id.gridlist8);
+		//list8 = (GridView) mRoot.findViewById(R.id.gridlist8);
 		
 		button1= (Button) mRoot.findViewById(R.id.button1);
 		button2= (Button) mRoot.findViewById(R.id.button2);
 		button3= (Button) mRoot.findViewById(R.id.button3);
-		button4= (Button) mRoot.findViewById(R.id.button4);
+		//button4= (Button) mRoot.findViewById(R.id.button4);
 		button5= (Button) mRoot.findViewById(R.id.button5);
 		button6= (Button) mRoot.findViewById(R.id.button6);
 		button7= (Button) mRoot.findViewById(R.id.button7);
-		button8= (Button) mRoot.findViewById(R.id.button8);
+		//button8= (Button) mRoot.findViewById(R.id.button8);
 		
 		rLayout1 = (RelativeLayout) mRoot.findViewById(R.id.region1);
 		rLayout2 = (RelativeLayout) mRoot.findViewById(R.id.region2);
 		rLayout3 = (RelativeLayout) mRoot.findViewById(R.id.region3);
-		rLayout4 = (RelativeLayout) mRoot.findViewById(R.id.region4);
+		//rLayout4 = (RelativeLayout) mRoot.findViewById(R.id.region4);
 		rLayout5 = (RelativeLayout) mRoot.findViewById(R.id.region5);
 		rLayout6 = (RelativeLayout) mRoot.findViewById(R.id.region6);
 		rLayout7 = (RelativeLayout) mRoot.findViewById(R.id.region7);
-		rLayout8 = (RelativeLayout) mRoot.findViewById(R.id.region8);
+		//rLayout8 = (RelativeLayout) mRoot.findViewById(R.id.region8);
 		
 		button1.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -196,6 +196,7 @@ public class HomeFragment extends Fragment {
             	communicator.selectActivity();
             }
         });
+		/*
 		rLayout4.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -208,6 +209,7 @@ public class HomeFragment extends Fragment {
             	communicator.selectActivity();
             }
         });
+        */
 		rLayout5.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -245,6 +247,7 @@ public class HomeFragment extends Fragment {
             }
         });
 		
+		/*
 		rLayout8.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -257,7 +260,7 @@ public class HomeFragment extends Fragment {
             	communicator.selectActivity();
             }
         });
-	        
+	       */
 		 
 		linear = (LinearLayout) mRoot.findViewById(R.id.info);
 		linear.setVisibility(View.GONE);
@@ -330,6 +333,7 @@ public class HomeFragment extends Fragment {
 			}
 		});
         
+        /*
         mAdapter4 = new FrontPageAdapter(this.getActivity(), android.R.layout.simple_list_item_1, comingEvents);
         mAdapter4.notifyDataSetChanged();
         list4.invalidateViews();
@@ -341,6 +345,7 @@ public class HomeFragment extends Fragment {
 				communicator.selectActivity(position, comingEvents);
 			}
 		});
+		*/
         /*
         list3.setOnTouchListener(new OnTouchListener(){
 
@@ -392,6 +397,7 @@ public class HomeFragment extends Fragment {
 			}
 		});
         
+        /*
         mAdapter8 = new FrontPageAdapter(this.getActivity(), android.R.layout.simple_list_item_1, latestEvents);
         mAdapter8.notifyDataSetChanged();
         list8.invalidateViews();
@@ -403,6 +409,7 @@ public class HomeFragment extends Fragment {
 				communicator.selectActivity(position, latestEvents);
 			}
 		});
+		*/
         
 		/*
 		mAdapter = new BloggerListAdapter(this.getActivity(), android.R.layout.simple_list_item_1, mlist);
@@ -670,10 +677,12 @@ public class HomeFragment extends Fragment {
             list3.invalidateViews();
             list3.setAdapter(mAdapter3);
             
+            /*
             mAdapter4 = new FrontPageAdapter(myContext, android.R.layout.simple_list_item_1, comingEvents);
             mAdapter4.notifyDataSetChanged();
             list4.invalidateViews();
             list4.setAdapter(mAdapter4);
+            */
             
             mAdapter5 = new FrontPageAdapter(myContext, android.R.layout.simple_list_item_1, featuredVolunteers);
             mAdapter5.notifyDataSetChanged();
@@ -685,11 +694,12 @@ public class HomeFragment extends Fragment {
             list6.invalidateViews();
             list6.setAdapter(mAdapter6);
             
+            /*
             mAdapter8 = new FrontPageAdapter(myContext, android.R.layout.simple_list_item_1, latestEvents);
             mAdapter8.notifyDataSetChanged();
             list8.invalidateViews();
             list8.setAdapter(mAdapter8);
-            
+            */
           
             
             linlaHeaderProgress.setVisibility(View.GONE);

@@ -1,5 +1,6 @@
 package info.happyretired;
 
+import info.happyretired.activity.LoginActivity;
 import info.happyretired.activity.UserSettingActivity;
 import info.happyretired.activity.blog.BlogDetailsActivity;
 import info.happyretired.activity.blog.BlogTabsActivity;
@@ -12,6 +13,7 @@ import info.happyretired.activity.jetso.JetsoDetailsActivity;
 import info.happyretired.activity.jetso.JetsoTabsActivity;
 import info.happyretired.activity.job.JobDetailsActivity;
 import info.happyretired.activity.job.JobTabsActivity;
+import info.happyretired.activity.userprofile.ProfileActivity;
 import info.happyretired.activity.volunteer.VolunteerDetailsActivity;
 import info.happyretired.activity.volunteer.VolunteerTabsActivity;
 import info.happyretired.adapter.NavDrawerListAdapter;
@@ -26,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import com.example.androidhive.library.UserFunctions;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.Fields;
 import com.google.analytics.tracking.android.GoogleAnalytics;
@@ -41,10 +44,12 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -67,6 +72,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ShareActionProvider;
 
@@ -94,6 +100,8 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 	private NavDrawerListAdapter adapter;
 	
 	 private FragmentTabHost mTabHost;
+	 
+	 private UserFunctions userFunction = new UserFunctions();
 	 
 	@Override
 	public View onCreateView(String name, Context context, AttributeSet attrs) {
@@ -132,6 +140,7 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 				.obtainTypedArray(R.array.nav_drawer_icons);
 
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		//mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
 		mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
 
 		navDrawerItems = new ArrayList<NavDrawerItem>();
@@ -155,15 +164,34 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
 		*/
 		
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0],"{fa-home}", "#f63c2b"));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1],"{fa-shopping-cart}", "#ea55a2"));
+		if(userFunction.isUserLoggedIn(this.getApplicationContext())){
+			
+		}
+		
+		
+		
+		if(!userFunction.isUserLoggedIn(this.getApplicationContext())){
+			navDrawerItems.add(new NavDrawerItem(navMenuTitles[0],"{fa-sign-in}", "#b22222"));
+		}
+		else{
+			navDrawerItems.add(new NavDrawerItem("我的帳戶","{fa-user}", "#b22222"));
+		}
+		
+		
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1],"{fa-home}", "#f63c2b"));
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2],"{fa-comments}", "#3f8be1"));
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3],"{fa-thumbs-up}", "#7d1b7e"));
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4],"{fa-camera}", "#a1c935"));
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5],"{fa-heart}", "#ffa500"));
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[6],"{fa-suitcase}", "#7bc9ff"));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[7],"{fa-facebook}", "#4965a0"));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[8],"{fa-link}", "#b22222"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[7],"{fa-lightbulb-o}", "#ea55a2"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[8],"{fa-shopping-cart}", "#D50055"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[9],"{fa-facebook}", "#4965a0"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[10],"{fa-link}", "#b22222"));
+		
+		
+		
+		
 		
 		
 		
@@ -174,7 +202,7 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 		navMenuIcons.recycle();
 
 		mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
-
+		//mDrawerList.setOnFocusChangeListener(l);
 		// setting the nav drawer list adapter
 		adapter = new NavDrawerListAdapter(getApplicationContext(),
 				navDrawerItems);
@@ -206,7 +234,7 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 
 		//if (savedInstanceState == null) {
 			// on first time display view for first nav item
-		displayView(0);
+		displayView(1);
 		//}
 		
 	}
@@ -234,6 +262,18 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 				long id) {
 			// display view for selected nav drawer item
 			displayView(position);
+		}
+	}
+	
+	/**
+	 * Slide menu item click listener
+	 * */
+	private class SlideMenuFocusListener implements
+			ListView.OnFocusChangeListener {
+		@Override
+		public void onFocusChange(View view, boolean tmp) {
+			// display view for selected nav drawer item
+			
 		}
 	}
 
@@ -291,6 +331,14 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 			    Intent intent = new Intent(this, UserSettingActivity.class);
 			    startActivity(intent);
 				return true;
+			case R.id.profile:
+				if(!userFunction.isUserLoggedIn(this.getApplicationContext())){
+					startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+				}
+				else{
+				    startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
+				}
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
@@ -315,19 +363,44 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 		Fragment fragment = null;
 		Intent k = null;
 		
+		
 		switch (position) {
 		case 0:
-			fragment = new HomeFragment();
-			/*
-			BloggerTabsFragment fg = new BloggerTabsFragment();
-			fg.setFeatured("Y");
-			fragment = (Fragment)fg;
-			*/
-			
+			if(!userFunction.isUserLoggedIn(this.getApplicationContext())){
+				k = new Intent(HomeActivity.this, LoginActivity.class);
+				startActivity(k);
+			}
+			else{
+				k = new Intent(HomeActivity.this, ProfileActivity.class);
+				startActivity(k);
+				/*
+				AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+				alert.setTitle("登出");
+				alert.setMessage("立即登出?");
+
+
+				alert.setPositiveButton("登出", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int whichButton) {
+					userFunction.logoutUser(getApplicationContext());
+					Intent k = new Intent(HomeActivity.this, HomeActivity.class);
+					startActivity(k);
+				  }
+				});
+
+				alert.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+				  public void onClick(DialogInterface dialog, int whichButton) {
+				    // Canceled.
+				  }
+				});
+
+				alert.show();
+				*/
+			}
+
 			break;
 		case 1:
-			k = new Intent(HomeActivity.this, JetsoTabsActivity.class);
-			startActivity(k);
+			fragment = new HomeFragment();
 			break;
 		case 2:
 			k = new Intent(HomeActivity.this, ForumTabsActivity.class);
@@ -349,21 +422,64 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 			k = new Intent(HomeActivity.this, JobTabsActivity.class);
 			startActivity(k);
 			break;
-		
 		case 7:
+			k = new Intent(HomeActivity.this, JetsoTabsActivity.class);
+			startActivity(k);
+			break;
+		case 8:
+			k = new Intent(Intent.ACTION_VIEW);
+			String url3 = "https://www.happy-retired.com/onlinestore";
+			k.setData(Uri.parse(url3));
+			startActivity(k);
+			break;
+		case 9:
 			k = new Intent(Intent.ACTION_VIEW);
 			String url = "https://www.facebook.com/happyretiredcom";
 			k.setData(Uri.parse(url));
 			startActivity(k);
 			break;
 		
-		case 8:
+		case 10:
 			k = new Intent(Intent.ACTION_VIEW);
 			String url2 = "https://www.happy-retired.com";
 			k.setData(Uri.parse(url2));
 			startActivity(k);
 			break;
 		
+		/*
+		case 10:
+			if(!userFunction.isUserLoggedIn(this.getApplicationContext())){
+				k = new Intent(HomeActivity.this, LoginActivity.class);
+				startActivity(k);
+				break;
+			}
+			else{
+				AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+				alert.setTitle("登出");
+				alert.setMessage("立即登出?");
+
+
+				alert.setPositiveButton("登出", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int whichButton) {
+					userFunction.logoutUser(getApplicationContext());
+					Intent k = new Intent(HomeActivity.this, HomeActivity.class);
+					startActivity(k);
+				  }
+				});
+
+				alert.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+				  public void onClick(DialogInterface dialog, int whichButton) {
+				    // Canceled.
+				  }
+				});
+
+				alert.show();
+				
+				break;
+			}
+			
+		*/
 
 			
 		
@@ -457,6 +573,10 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 	}
 	public void selectJetso(){
 		Intent k = new Intent(HomeActivity.this, JetsoTabsActivity.class);
+		startActivity(k);
+	}
+	public void selectLogin(){
+		Intent k = new Intent(HomeActivity.this, LoginActivity.class);
 		startActivity(k);
 	}
 

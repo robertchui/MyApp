@@ -9,6 +9,7 @@
     <!-- color name="tab_color">#E3167B</color-->
     <color name="tab_color">#3799CE</color>
     
+    <color name="black">#000</color>
     <color name="main_color">#3799CE</color>
      <color name="red_color">#B22222</color>
       <color name="logo_color">#E3167B</color>

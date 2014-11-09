@@ -116,7 +116,7 @@ public class EventDetailsActivity extends FragmentActivity{
 		actionBar =  getActionBar();
 		//ColorDrawable colorDrawable = new ColorDrawable(getResources().getColor(R.color.tab_color));
 		//actionBar.setBackgroundDrawable(colorDrawable); 
-        //actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         
 		Intent intent = getIntent();
 		//String refNo = intent.getStringExtra("refNo");
@@ -169,6 +169,13 @@ public class EventDetailsActivity extends FragmentActivity{
 			f3.changeData(inputArray);
 			*/
 		
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem menuItem)
+	{       
+	    onBackPressed();
+	    return true;
 	}
 	
 	@Override

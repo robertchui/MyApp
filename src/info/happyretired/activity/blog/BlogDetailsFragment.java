@@ -23,29 +23,9 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 import info.happyretired.activity.ViewPagerExampleActivity;
+import info.happyretired.activity.jetso.JetsoDetailsFragment.MyLovelyOnClickListener;
 import info.happyretired.adapter.EventListAdapter;
 import info.happyretired.model.ActivityItem;
 import info.happyretired.model.Blogger;
@@ -74,6 +54,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -99,6 +80,7 @@ public class BlogDetailsFragment extends Fragment {
 	TextView blogger_name;
 	
 	ImageView advimageView;
+	ArrayList  imageViews;
 	
 	private int page;
 	private int totalPage;
@@ -152,6 +134,8 @@ public class BlogDetailsFragment extends Fragment {
                 startActivity(mainIntent);
             }
         });
+        imageViews = new ArrayList();
+        
         
         advimageView = (ImageView) mRoot.findViewById(R.id.advertistment); 
         
@@ -266,16 +250,60 @@ public class BlogDetailsFragment extends Fragment {
 				.defaultDisplayImageOptions(defaultOptions)
 				.build();
 		ImageLoader.getInstance().init(config);
-        
+		
+		 if(activityItem.getImageURLs()!=null && activityItem.getImageURLs().length>0){
+	        	int lastId = R.id.imageView1;
+		        for(int i =0;i<activityItem.getImageURLs().length;i++){
+			        //ImageView iv = new ImageView(this.getActivity());
+			        my.view.DynamicImageView iv = new my.view.DynamicImageView(this.getActivity().getApplicationContext(), null);
+			        LinearLayout rl = (LinearLayout) mRoot.findViewById(R.id.linearlayout);
+			        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+			            RelativeLayout.LayoutParams.MATCH_PARENT,
+			            RelativeLayout.LayoutParams.WRAP_CONTENT);
+			        lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+			        rl.addView(iv, lp);
+			        
+			        MyLovelyOnClickListener listner = new MyLovelyOnClickListener(i);
+			        iv.setOnClickListener(listner);
+			        imageViews.add(iv);
+		        }
+	        }
+	        
+	        
+	        if(activityItem.getImageURLs()!=null && activityItem.getImageURLs().length>0){
+	        	for(int i =0;i<activityItem.getImageURLs().length;i++){
+	        		ImageLoader.getInstance().displayImage(getResources().getString(R.string.web_url)+activityItem.getImageURLs()[i], (ImageView)imageViews.get(i));
+	        	}
+	        }
+	        
+        /*
         if(activityItem.getCoverUrl()!=null && !activityItem.getCoverUrl().equals("null") && !activityItem.getCoverUrl().isEmpty())
        		ImageLoader.getInstance().displayImage(this.getActivity().getString(R.string.web_url)+"/"+activityItem.getCoverUrl(), imageView);
        	else
        		ImageLoader.getInstance().displayImage("", imageView);
+       	*/
        
         //String url = "images/banners/share2.jpg";
         ImageLoader.getInstance().displayImage(this.getActivity().getResources().getString(R.string.web_url)+"/"+activityItem.getAdvertisementImgUrl(), advimageView);
 	}
 	
+	
+	public class MyLovelyOnClickListener implements OnClickListener
+	{
+
+		int index;
+		
+		public MyLovelyOnClickListener(int index) {
+			this.index = index;
+		}
+		
+		public void onClick(View v) {
+	        Intent mainIntent = new Intent(getActivity(), ViewPagerExampleActivity.class);
+	        mainIntent.putExtra("url", getResources().getString(R.string.web_url)+activityItem.getImageURLs()[index]);
+	        startActivity(mainIntent);
+	    }
+
+	};	
 	
 private class GetActivityItemTask extends AsyncTask<String, Void, String> {
     	

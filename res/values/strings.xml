@@ -47,6 +47,7 @@
      <string name="blog">名人專欄</string>
      <string name="job">再就業</string>
      <string name="jetso">著數情報</string>
+     <string name="membership">會員管理</string>
      
      <string name="activity_url">網址</string>
      <string name="fee">費用</string>
@@ -63,17 +64,25 @@
      <string name="happyretired_app_url">https://play.google.com/store/apps/details?id=info.happyretired</string>
      
      
+      <string-array name="profile_items">
+        <item>會員卡</item>
+        <item>登出</item>
+    </string-array>
+    
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
+        <item>會員登入</item>
         <item>推薦內容</item>
-        <item>著數情報</item>
         <item>退休論壇</item>
         <item>名人專欄</item>
         <item>參加活動</item>
         <item>義工招募</item>
         <item>再就業</item>
+        <item>會員著數情報</item>
+        <item>樂活商店</item>
         <item>Facebook</item>
         <item>樂活新中年網頁</item>
+        
         
     </string-array>
 
@@ -120,5 +129,29 @@
     <string name="retry_button">Retry</string>
     <string name="quit_button">Exit</string>
     
+    
+    <string name="country_prompt">所住地區</string>
+ 
+    <string-array name="country_arrays">
+        	<item>請選擇居住地區</item>	
+        	<item>中西區</item>
+			<item>灣仔區</item>
+			<item>東區</item>
+			<item>南區</item>
+			<item>油尖旺區</item>
+			<item>深水埗區</item>
+			<item>九龍城區</item>
+			<item>黃大仙區</item>
+			<item>觀塘區</item>
+			<item>葵青區</item>
+			<item>荃灣區</item>
+			<item>屯門區</item>
+			<item>元朗區</item>
+			<item>北區</item>
+			<item>大埔區</item>
+			<item>沙田區</item>
+			<item>西貢區</item>
+			<item>離島區</item>
+    </string-array>
     
 </resources>

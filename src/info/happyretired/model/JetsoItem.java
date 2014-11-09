@@ -1,5 +1,6 @@
 package info.happyretired.model;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.os.Parcel;
@@ -31,6 +32,7 @@ public class JetsoItem implements Parcelable {
 	private String shareUrl;
 	
 	private String advertisementImgUrl;
+	private String[] imageURLs;
 	
 	public JetsoItem(){
 	
@@ -69,6 +71,7 @@ public class JetsoItem implements Parcelable {
 		  company_name= in.readString();
 		  shareUrl= in.readString();
 		  advertisementImgUrl = in.readString();
+		  //imageURLs = in.readStringArray(val);
 	}
 	
 
@@ -99,6 +102,10 @@ public class JetsoItem implements Parcelable {
 		dest.writeString(shareUrl);
 		dest.writeString(advertisementImgUrl);
 		
+		/*
+		dest.writeInt(imageURLs.length);
+		dest.writeStringArray(imageURLs);
+		*/
 	}
 	
 	
@@ -294,6 +301,8 @@ public class JetsoItem implements Parcelable {
 		this.refNo = refNo;
 	}
 	
+	
+	
 	public static final Parcelable.Creator CREATOR = 
 			new Parcelable.Creator() { 
 		public JetsoItem createFromParcel(Parcel in) {
@@ -304,7 +313,13 @@ public class JetsoItem implements Parcelable {
 		}
 	};
 	
-	 public void assignToItem(int i, JSONObject jsonObject) throws Exception{
+	 public String[] getImageURLs() {
+		return imageURLs;
+	}
+	public void setImageURLs(String[] imageURLs) {
+		this.imageURLs = imageURLs;
+	}
+	public void assignToItem(int i, JSONObject jsonObject) throws Exception{
 		 
 		 try{
 	    	this.setIcon(i+1);
@@ -326,6 +341,20 @@ public class JetsoItem implements Parcelable {
 	    	this.setCompany_name(jsonObject.getString("companyName"));
 	    	this.setShareUrl(jsonObject.getString("shareUrl"));
 	    	this.setAdvertisementImgUrl(jsonObject.getString("advertisementImgUrl"));
+	    
+	    	
+	    	if(jsonObject.has("imageURLs")){
+	    	
+		    	JSONArray array = jsonObject.getJSONArray("imageURLs");
+		    	
+		    	if(array!=null && array.length()>0){
+		    		String tmp[] = new String[array.length()];
+		    		for (int j = 0; j <array.length(); j++) {
+		    			tmp[j] = array.getString(j);
+			        }
+		    		this.setImageURLs(tmp);
+		    	}
+	    	}
 		 }
 		 catch(Exception e){
 			 e.printStackTrace();

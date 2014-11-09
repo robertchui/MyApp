@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/blog_background" >
+ 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:padding="10dip" >
+        <!--  View Title Label -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:text="會員註冊"
+            android:textSize="25dip"
+            android:textStyle="bold" />
+        
+        <!--  Name TextField -->
+        <EditText
+            android:id="@+id/registerName"
+            android:layout_width="fill_parent"
+            android:textSize="18dip"
+            android:hint="登入名稱"
+            android:layout_height="wrap_content" 
+            android:layout_marginBottom="8dip"/>
+         
+        <!--  Password TextField -->
+        <EditText
+            android:id="@+id/registerPassword"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18dip"
+            android:hint="密碼"
+            android:password="true" 
+            android:layout_marginBottom="8dip"/>
+       
+        <!--  Password TextField -->
+        <EditText
+            android:id="@+id/registerPassword2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18dip"
+            android:hint="確認密碼"
+            android:password="true" 
+            android:layout_marginBottom="8dip"/>
+         
+        <!--  Email TextField -->
+        <EditText
+            android:id="@+id/registerEmail"
+            android:layout_width="fill_parent"
+            android:textSize="18dip"
+            android:hint="電郵"
+            android:layout_height="wrap_content" 
+            android:layout_marginBottom="8dip"/>
+        
+        <Spinner
+        android:id="@+id/district"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/country_arrays"
+        android:prompt="@string/country_prompt" />
+        
+        
+        <!--  Error message -->
+        <TextView android:id="@+id/register_error"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#e30000"
+                    android:padding="10dip"
+                    android:textStyle="bold"/>
+ 
+        <!--  Login Button -->       
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:text="註冊" />
+ 
+    </LinearLayout>
+ 
+</ScrollView>

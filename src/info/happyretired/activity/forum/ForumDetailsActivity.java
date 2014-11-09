@@ -125,7 +125,7 @@ public class ForumDetailsActivity extends FragmentActivity{
 		actionBar =  getActionBar();
 		//ColorDrawable colorDrawable = new ColorDrawable(getResources().getColor(R.color.tab_color));
 		//actionBar.setBackgroundDrawable(colorDrawable); 
-        //actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         
 		Intent intent = getIntent();
 		//String refNo = intent.getStringExtra("refNo");
@@ -177,6 +177,12 @@ public class ForumDetailsActivity extends FragmentActivity{
 		
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem menuItem)
+	{       
+	    onBackPressed();
+	    return true;
+	}
 	
 	class MyAdapter extends FragmentPagerAdapter{
 		private Context _context; 

@@ -24,7 +24,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.ortiz.touch.ExtendedViewPager;
 import com.ortiz.touch.TouchImageView;
 
@@ -173,18 +172,6 @@ public class JetsoDetailsFragment extends Fragment {
         imageViews = new ArrayList();
         
         
-        ImageView iv = new ImageView(this.getActivity());
-        
-        RelativeLayout rl = (RelativeLayout) mRoot.findViewById(R.id.linearlayout);
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
-            RelativeLayout.LayoutParams.MATCH_PARENT,
-            RelativeLayout.LayoutParams.WRAP_CONTENT);
-        lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        //lp.addRule(RelativeLayout.BELOW, R.id.ButtonRecalculate);
-        //lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        rl.addView(iv, lp);
-        
-        imageViews.add(iv);
         
         
         advimageView = (ImageView) mRoot.findViewById(R.id.advertistment);
@@ -324,9 +311,33 @@ public class JetsoDetailsFragment extends Fragment {
 				.defaultDisplayImageOptions(defaultOptions)
 				.build();
 		ImageLoader.getInstance().init(config);
-        ImageLoader.getInstance().displayImage(getResources().getString(R.string.web_url)+activityItem.getImageURL(), imageView);
+        //ImageLoader.getInstance().displayImage(getResources().getString(R.string.web_url)+activityItem.getImageURL(), imageView);
         
-        ImageLoader.getInstance().displayImage(getResources().getString(R.string.web_url)+activityItem.getImageURL(), (ImageView)imageViews.get(0));
+        if(activityItem.getImageURLs()!=null && activityItem.getImageURLs().length>0){
+        	int lastId = R.id.imageView1;
+	        for(int i =0;i<activityItem.getImageURLs().length;i++){
+		        //ImageView iv = new ImageView(this.getActivity());
+		        my.view.DynamicImageView iv = new my.view.DynamicImageView(this.getActivity().getApplicationContext(), null);
+		        LinearLayout rl = (LinearLayout) mRoot.findViewById(R.id.linearlayout);
+		        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+		            RelativeLayout.LayoutParams.MATCH_PARENT,
+		            RelativeLayout.LayoutParams.WRAP_CONTENT);
+		        lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+		        rl.addView(iv, lp);
+		        
+		        MyLovelyOnClickListener listner = new MyLovelyOnClickListener(i);
+		        iv.setOnClickListener(listner);
+		        imageViews.add(iv);
+	        }
+        }
+        
+        
+        if(activityItem.getImageURLs()!=null && activityItem.getImageURLs().length>0){
+        	for(int i =0;i<activityItem.getImageURLs().length;i++){
+        		ImageLoader.getInstance().displayImage(getResources().getString(R.string.web_url)+activityItem.getImageURLs()[i], (ImageView)imageViews.get(i));
+        	}
+        }
+        
         
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
 		String fontsize = settings.getString(CommonConstant.FONT_SIZE, CommonConstant.FONT_SIZE_DEFAULT); 
@@ -480,6 +491,23 @@ private class GetActivityItemTask extends AsyncTask<String, Void, String> {
         
         
       }
+
+public class MyLovelyOnClickListener implements OnClickListener
+{
+
+	int index;
+	
+	public MyLovelyOnClickListener(int index) {
+		this.index = index;
+	}
+	
+	public void onClick(View v) {
+        Intent mainIntent = new Intent(getActivity(), ViewPagerExampleActivity.class);
+        mainIntent.putExtra("url", getResources().getString(R.string.web_url)+activityItem.getImageURLs()[index]);
+        startActivity(mainIntent);
+    }
+
+};
     
 static class TouchImageAdapter extends PagerAdapter {
 

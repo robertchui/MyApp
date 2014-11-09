@@ -2,6 +2,7 @@ package info.happyretired.activity;
 
 import info.happyretired.R;
 import info.happyretired.ult.CommonConstant;
+import android.app.ActionBar;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -9,10 +10,12 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.view.MenuItem;
 
 public class UserSettingActivity extends PreferenceActivity 
 {
              
+	ActionBar actionBar = null;
 	
              @Override
              public void onCreate(Bundle savedInstanceState) 
@@ -22,6 +25,8 @@ public class UserSettingActivity extends PreferenceActivity
                     //setContentView(R.layout.user_setting);
                      addPreferencesFromResource(R.layout.user_setting);
                      updateFontSize("");
+                     actionBar =  getActionBar();
+                     actionBar.setDisplayHomeAsUpEnabled(true);
                      
                   // Get the custom preference
                      Preference customPref = (Preference) findPreference(CommonConstant.FONT_SIZE);
@@ -33,6 +38,13 @@ public class UserSettingActivity extends PreferenceActivity
                      });
 
              }
+             
+             @Override
+         	public boolean onOptionsItemSelected(MenuItem menuItem)
+         	{       
+         	    onBackPressed();
+         	    return true;
+         	}
              
            
              
