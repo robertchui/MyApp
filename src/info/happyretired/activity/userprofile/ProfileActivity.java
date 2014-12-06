@@ -82,6 +82,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.ImageView.ScaleType;
 import android.widget.ListView;
 import android.widget.ShareActionProvider;
@@ -112,22 +113,15 @@ public class ProfileActivity extends FragmentActivity implements ProfileCommunic
 	public void goToPage(int position){
 		switch (position) {
 			case 0:
+				Intent k = new Intent(ProfileActivity.this, PersonalDetailsActivity.class);
+				startActivity(k);
+				break;
 				/*
-				Intent mainIntent = new Intent(ProfileActivity.this, ViewPagerExampleActivity.class);
-				String memberCard = "/images/membership_card.jpg" ;
-		        mainIntent.putExtra("url", getResources().getString(R.string.web_url)+memberCard);
-		        startActivity(mainIntent);
-		        */
-				//setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-				/*
-				Dialog settingsDialog = new Dialog(this);
-				settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-
-				
-				settingsDialog.setContentView(getLayoutInflater().inflate(R.layout.membership_card
-				        , null));
-				settingsDialog.setCancelable(true); 
+			case 1:
+				Toast.makeText((Activity) this.getApplicationContext(), "我們正努力建立此功能", Toast.LENGTH_LONG).show();
+				break;
 				*/
+			case 1:
 				
 				final int orientation = getResources().getConfiguration().orientation; 
             	if (orientation == 1){ 
@@ -144,7 +138,7 @@ public class ProfileActivity extends FragmentActivity implements ProfileCommunic
 				}); 
 				//setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 				break;
-			case 1:
+			case 2:
 				AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
 				alert.setTitle("登出");

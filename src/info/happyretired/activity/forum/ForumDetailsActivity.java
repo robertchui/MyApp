@@ -60,6 +60,7 @@ public class ForumDetailsActivity extends FragmentActivity{
 	ArrayList <Fragment>fragments = new ArrayList();
 	private ShareActionProvider mShareActionProvider;
 	ForumTopicItem activityItem;
+	MyAdapter myAdapter;
 	
 	@Override
 	protected void onStart() {
@@ -133,7 +134,8 @@ public class ForumDetailsActivity extends FragmentActivity{
 		currentPage = intent.getIntExtra("currentPage", 0);
 		viewPager = (ViewPager)findViewById(R.id.pager);
         FragmentManager fm = this.getSupportFragmentManager();
-        viewPager.setAdapter(new MyAdapter(fm, this, inputArray.size()));
+        myAdapter = new MyAdapter(fm, this, inputArray.size());
+        viewPager.setAdapter(myAdapter);
         viewPager.setCurrentItem(currentPage);
        
         
@@ -184,6 +186,23 @@ public class ForumDetailsActivity extends FragmentActivity{
 	    return true;
 	}
 	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		  if (requestCode == 1) {
+
+		     if(resultCode == RESULT_OK){      
+		    	 
+		    	Intent intent = getIntent();
+		     	intent.putExtra("currentPage", viewPager.getCurrentItem());
+		    	finish();
+		    	startActivity(intent);
+		     }
+		     if (resultCode == RESULT_CANCELED) {    
+		         //Do nothing?
+		     }
+		  }
+		}//onActivityResult
+	
 	class MyAdapter extends FragmentPagerAdapter{
 		private Context _context; 
 		public int NUM_ITEM;
@@ -196,6 +215,11 @@ public class ForumDetailsActivity extends FragmentActivity{
 		@Override
 		public Fragment getItem(int position) {
 			
+			/*
+			currentPage = position-1;
+			if(currentPage<0)
+				currentPage = 0;
+				*/
 			return fragments.get(position);
 		}
 

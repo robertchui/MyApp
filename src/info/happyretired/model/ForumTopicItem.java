@@ -7,6 +7,7 @@ import android.os.Parcelable;
 
 public class ForumTopicItem implements Parcelable {
 	
+	private String thread;
 	private String id;
 	private String subject;
 	private String category_name;
@@ -43,6 +44,7 @@ public class ForumTopicItem implements Parcelable {
 	}
 
 	public void readFromParcel(Parcel in) {
+		thread = in.readString();
 		id = in.readString();
 		subject = in.readString();
 		category_name = in.readString();
@@ -66,6 +68,7 @@ public class ForumTopicItem implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(thread);
 		dest.writeString(id);
 		dest.writeString(subject);
 		dest.writeString(category_name);
@@ -85,9 +88,13 @@ public class ForumTopicItem implements Parcelable {
 		dest.writeString(advertisementImgUrl);
 		dest.writeString(advertisementUrl);
 	}
-
-
 	
+	public String getThread() {
+		return thread;
+	}
+	public void setThread(String thread) {
+		this.thread = thread;
+	}
 	public String getAdvertisementImgUrl() {
 		return advertisementImgUrl;
 	}
@@ -218,6 +225,7 @@ public class ForumTopicItem implements Parcelable {
 	 public void assignToItem(int i, JSONObject jsonObject) throws Exception{
 	    	
 		 try{
+			this.setId(jsonObject.getString("thread"));
 		 	this.setId(jsonObject.getString("id"));
 		 	this.setSubject(jsonObject.getString("subject"));
 		 	this.setFirst_post_guest_name(jsonObject.getString("first_post_guest_name"));

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/blog_background" >
+ 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:padding="10dip" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+        	android:layout_height="fill_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_left_bg"
+            android:padding="8dp"
+            android:text="登入名稱 "
+            android:textColorHint="#fff"
+            android:textSize="18dip" />
+        
+        <EditText
+            android:id="@+id/registerName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_right_bg"
+            android:padding="8dp"
+            android:textColorHint="#cccccc"
+            android:textSize="18dip" />
+        </LinearLayout>
+     
+        <LinearLayout
+            android:layout_width="fill_parent"
+        	android:layout_height="fill_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_left_bg"
+            android:padding="8dp"
+            android:text="顯示名稱 "
+            android:textColorHint="#fff"
+            android:textSize="18dip" />
+        
+        <EditText
+            android:id="@+id/nameField"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_right_bg"
+            android:padding="8dp"
+            android:textColorHint="#cccccc"
+            android:textSize="18dip" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="fill_parent"
+        	android:layout_height="fill_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_left_bg"
+            android:padding="8dp"
+            android:text="登記電郵 "
+            android:textColorHint="#fff"
+            android:textSize="18dip" />
+        
+        <EditText
+            android:id="@+id/emailField"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_right_bg"
+            android:padding="8dp"
+            android:textColorHint="#cccccc"
+            android:textSize="18dip" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="fill_parent"
+        	android:layout_height="fill_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_left_bg"
+            android:padding="8dp"
+            android:text="聯絡電話 "
+            android:textColorHint="#fff"
+            android:textSize="18dip" />
+        
+        <EditText
+            android:id="@+id/mobile"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_right_bg"
+            android:padding="8dp"
+            android:textColorHint="#cccccc"
+            android:textSize="18dip" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="fill_parent"
+        	android:layout_height="fill_parent">
+        <TextView
+            android:id="@+id/registerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_left_bg"
+            android:padding="8dp"
+            android:text="樂活積分 "
+            android:textColorHint="#fff"
+            android:textSize="18dip" />
+        
+        <EditText
+            android:id="@+id/credit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_right_bg"
+            android:padding="8dp"
+            android:textColorHint="#cccccc"
+            android:textSize="18dip" 
+            android:clickable="false" 
+	        android:cursorVisible="false" 
+	        android:focusable="false" 
+	        android:focusableInTouchMode="false"/>
+        </LinearLayout>
+        
+      
+        <!-- Error message -->
+
+        <TextView
+            android:id="@+id/register_error"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dip"
+            android:textColor="#e30000"
+            android:textStyle="bold" />
+
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:text="儲存" 
+            style="@style/DefaultButtonText"
+			android:background="@drawable/button_default_bg"/>
+    </LinearLayout>
+ 
+</ScrollView>

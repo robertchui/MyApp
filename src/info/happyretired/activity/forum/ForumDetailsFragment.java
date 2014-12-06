@@ -225,6 +225,7 @@ public class ForumDetailsFragment extends ListFragment {
     
     public void assignToItem(ForumTopicItem activityItem, int i, JSONObject jsonObject) throws Exception{
     	
+    	activityItem.setThread(topicItem.getId());
     	activityItem.setId(jsonObject.getString("id"));
     	activityItem.setSubject(jsonObject.getString("subject"));
     	activityItem.setMessage(jsonObject.getString("message"));

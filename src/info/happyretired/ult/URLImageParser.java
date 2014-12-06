@@ -11,6 +11,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,6 +23,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -105,6 +107,8 @@ public class URLImageParser implements ImageGetter {
             
             TextView t = (TextView) URLImageParser.this.container; 
             t.setText(t.getText());
+            t.setSelectAllOnFocus(true);
+            
             /*
             t.setOnClickListener(new OnClickListener() {
                 // Start new list activity
@@ -115,6 +119,18 @@ public class URLImageParser implements ImageGetter {
                 }
             });
             */
+            
+            t.setOnLongClickListener(new OnLongClickListener() {
+                // Start new list activity
+            	public boolean onLongClick(View arg0) {
+                    
+            	
+            	    
+            	    return true;
+                }
+            });
+            
+            
             
             
             container.postInvalidate();

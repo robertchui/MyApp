@@ -2,37 +2,29 @@ package info.happyretired.activity;
  
 import org.json.JSONException;
 import org.json.JSONObject;
- 
-
-
-
-
-
 
 import info.happyretired.HomeActivity;
 import info.happyretired.MainActivity;
 import info.happyretired.db.MySQLiteHelper;
 
 import com.example.androidhive.library.UserFunctions;
- 
-
-
-
-
-
 
 import info.happyretired.R;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.provider.Settings.Secure;
  
 public class RegisterActivity extends Activity {
     Button btnRegister;
@@ -41,10 +33,17 @@ public class RegisterActivity extends Activity {
     EditText inputEmail;
     EditText inputPassword;
     EditText inputPassword2;
+    EditText mobile;
+    EditText recommandation_email;
+    //EditText recommandation_mobile;
     TextView registerErrorMsg;
+    TextView link;
     ActionBar actionBar = null;
+    CheckBox chkIos;
     private Spinner district;
-     
+    private Spinner age;
+    Context c;
+    
     // JSON Response node names
     private static String KEY_SUCCESS = "success";
     private static String KEY_ERROR = "error";
@@ -65,11 +64,21 @@ public class RegisterActivity extends Activity {
         inputEmail = (EditText) findViewById(R.id.registerEmail);
         inputPassword = (EditText) findViewById(R.id.registerPassword);
         inputPassword2 = (EditText) findViewById(R.id.registerPassword2);
+        mobile = (EditText) findViewById(R.id.mobile);
+        chkIos = (CheckBox) findViewById(R.id.chkIos);
+        recommandation_email = (EditText) findViewById(R.id.recommandation_email);
+        //recommandation_mobile = (EditText) findViewById(R.id.recommandation_mobile);
         btnRegister = (Button) findViewById(R.id.btnRegister);
         //btnLinkToLogin = (Button) findViewById(R.id.btnLinkToLoginScreen);
         registerErrorMsg = (TextView) findViewById(R.id.register_error);
         district =  (Spinner) findViewById(R.id.district);
-
+        age =  (Spinner) findViewById(R.id.age);
+        link =  (TextView) findViewById(R.id.register_confirm_link);
+        c = getApplicationContext();
+        if (link != null) {
+        	link.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+        		
         actionBar =  getActionBar(); 
         actionBar.setDisplayHomeAsUpEnabled(true);
          
@@ -80,10 +89,14 @@ public class RegisterActivity extends Activity {
                 String email = inputEmail.getText().toString();
                 String password = inputPassword.getText().toString();
                 String password2 = inputPassword2.getText().toString();
+                String mobileValue = mobile.getText().toString();
+                //String rec_mobileValue = recommandation_mobile.getText().toString();
+                String rec_mobileValue = "";
+                String rec_emailValue = recommandation_email.getText().toString();
                 String districtField = String.valueOf(district.getSelectedItem());
+                String ageField = String.valueOf(age.getSelectedItem());
                 if(district.getSelectedItemId()==0)
                 	districtField = "";
-                
                 
                 if(name.isEmpty()){
                 	registerErrorMsg.setText("請輸入登入名稱 ");
@@ -113,9 +126,14 @@ public class RegisterActivity extends Activity {
                 	registerErrorMsg.setText("密碼與確認密碼不相同");
                 	inputPassword2.requestFocus();
                 }
+                else if(!chkIos.isChecked()){
+                	registerErrorMsg.setText("請同意以上兩點");
+                }
                 else{
 	                UserFunctions userFunction = new UserFunctions();
-	                JSONObject json = userFunction.registerUser(name, email, password, districtField);
+	                String device_id = Secure.getString(c.getContentResolver(),
+                            Secure.ANDROID_ID); 
+	                JSONObject json = userFunction.registerUser(name, email, password, districtField, ageField, mobileValue, rec_mobileValue, rec_emailValue, device_id);
 	                 
 	                // check for login response
 	                try {
@@ -148,6 +166,21 @@ public class RegisterActivity extends Activity {
 	     	                       }
 	     	                       else if(Integer.parseInt(res) == 2){
 	     	                    	   registerErrorMsg.setText("用戶名稱已被使用 ");
+	     	                       }
+	     	                       else if(Integer.parseInt(res) == 3){
+	     	                    	   registerErrorMsg.setText("聯絡電話已被使用");
+	     	                       }
+	     	                       else if(Integer.parseInt(res) == 4){
+	     	                    	   registerErrorMsg.setText("系統找不到介紹人電郵的登記");
+	     	                       }
+	     	                       else if(Integer.parseInt(res) == 5){
+	     	                    	   registerErrorMsg.setText("系統找不到介紹人電話的登記");
+	     	                       }
+	     	                       else if(Integer.parseInt(res) == 6){
+	     	                    	   registerErrorMsg.setText("每部裝置只能做一次會員推薦");
+	     	                       }
+	     	                       else{
+	     	                    	   registerErrorMsg.setText("請聯絡系統管理員");
 	     	                       }
 	                        	 }
 	                        	 

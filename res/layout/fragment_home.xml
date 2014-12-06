@@ -34,44 +34,6 @@
 		        android:text="@string/loading"/>
 	    </LinearLayout>
         
-         <LinearLayout
-	        android:layout_width="fill_parent"
-	        android:layout_height="fill_parent"
-	        android:gravity="center"
-	        android:layout_centerInParent="true"
-	        android:orientation="vertical">
-	        
-            <TableLayout
-	            android:layout_width="match_parent"
-	            android:layout_height="match_parent"
-	            android:shrinkColumns="*"  android:stretchColumns="*" android:background="#ffffff">
-	            
-                 <TableRow
-                            android:id="@+id/tableRow1"
-                            android:layout_height="wrap_content"
-                            android:layout_width="match_parent">
-                            <TextView
-                                android:id="@+id/TextView04" android:text="Row 2 column 1"
-                                android:layout_weight="1" android:background="#dcdcdc"
-                                android:textColor="#000000"
-                                android:padding="20dip" android:gravity="center"/>
-                            <TextView
-                                android:id="@+id/TextView04" android:text="Row 2 column 2"
-                                android:layout_weight="1" android:background="#d3d3d3"
-                                android:textColor="#000000"
-                                android:padding="20dip" android:gravity="center"/>
-                            <TextView
-                                android:id="@+id/TextView04" android:text="Row 2 column 3"
-                                android:layout_weight="1" android:background="#cac9c9"
-                                android:textColor="#000000"
-                                android:padding="20dip" android:gravity="center"/>
-                        </TableRow>
-	            
-            </TableLayout>
-                 
-	 	</LinearLayout>
-        
-             
 
         <LinearLayout
             android:id="@+id/info"
@@ -98,9 +60,9 @@
 	                 android:id="@+id/button1"
 	                 android:layout_width="wrap_content"
 	                 android:layout_height="wrap_content"
-	                 android:text="更多"
+	                 android:text="進入退休論壇"
 	                 android:layout_alignParentRight="true"
-	                 android:background="@drawable/button"
+	                 android:background="@drawable/button_forum"
 	                 android:textColor="#FFFFFF"
 	                 android:minHeight="0dp"
 	                 android:minWidth="0dp"
@@ -139,9 +101,9 @@
 	                 android:id="@+id/button2"
 	                 android:layout_width="wrap_content"
 	                 android:layout_height="wrap_content"
-	                 android:text="更多"
+	                 android:text="瀏覽其他文章"
 	                 android:layout_alignParentRight="true"
-	                 android:background="@drawable/button"
+	                 android:background="@drawable/button_blog"
 	                 android:textColor="#FFFFFF"
 	                 android:minHeight="0dp"
 	                 android:minWidth="0dp"
@@ -174,14 +136,14 @@
 		         android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:textSize="22dp"
-		       android:text="推薦給新中年的活動"/>
+		       android:text="推薦活動"/>
         <Button
 	                 android:id="@+id/button3"
 	                 android:layout_width="wrap_content"
 	                 android:layout_height="wrap_content"
-	                 android:text="更多"
+	                 android:text="搜尋更多活動"
 	                 android:layout_alignParentRight="true"
-	                 android:background="@drawable/button"
+	                 android:background="@drawable/button_event"
 	                 android:textColor="#FFFFFF"
 	                 android:minHeight="0dp"
 	                 android:minWidth="0dp"
@@ -299,9 +261,9 @@
 	                 android:id="@+id/button7"
 	                 android:layout_width="wrap_content"
 	                 android:layout_height="wrap_content"
-	                 android:text="更多"
+	                 android:text="著數情報"
 	                 android:layout_alignParentRight="true"
-	                 android:background="@drawable/button"
+	                 android:background="@drawable/button_jetso"
 	                 android:textColor="#FFFFFF"
 	                 android:minHeight="0dp"
 	                 android:minWidth="0dp"
@@ -339,9 +301,9 @@
 	                 android:id="@+id/button5"
 	                 android:layout_width="wrap_content"
 	                 android:layout_height="wrap_content"
-	                 android:text="更多"
+	                 android:text="更多義工"
 	                 android:layout_alignParentRight="true"
-	                 android:background="@drawable/button"
+	                 android:background="@drawable/button_volunteer"
 	                 android:textColor="#FFFFFF"
 	                 android:minHeight="0dp"
 	                 android:minWidth="0dp"
@@ -378,9 +340,9 @@
 	                 android:id="@+id/button6"
 	                 android:layout_width="wrap_content"
 	                 android:layout_height="wrap_content"
-	                 android:text="更多"
+	                 android:text="找工作"
 	                 android:layout_alignParentRight="true"
-	                 android:background="@drawable/button"
+	                 android:background="@drawable/button_job"
 	                 android:textColor="#FFFFFF"
 	                 android:minHeight="0dp"
 	                 android:minWidth="0dp"

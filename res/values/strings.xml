@@ -65,6 +65,8 @@
      
      
       <string-array name="profile_items">
+        <item>個人資料</item>
+        <!-- item>已回覆的話題</item-->
         <item>會員卡</item>
         <item>登出</item>
     </string-array>
@@ -81,7 +83,7 @@
         <item>會員著數情報</item>
         <item>樂活商店</item>
         <item>Facebook</item>
-        <item>樂活新中年網頁</item>
+        <item>聯絡我們</item>
         
         
     </string-array>
@@ -154,4 +156,34 @@
 			<item>離島區</item>
     </string-array>
     
+    <string name="register_link">我同意受<a href="https://www.happy-retired.com/index.php/terms/">使用條款</a>及<a href="https://www.happy-retired.com/index.php/privacy">私隱政策聲明</a>所約束。</string>
+    
+    <string name="age_prompt">所住年齡</string>
+ 
+    <string-array name="age_arrays">
+        	<item>請選擇年齡</item>	
+        	<item>40 或以下</item>
+        	<item>41 - 45</item>
+			<item>46 - 50</item>
+			<item>51 - 55</item>
+			<item>56 - 60</item>
+			<item>61 - 65</item>
+			<item>66 - 70</item>
+			<item>71 或以上</item>
+    </string-array>
+    
+    
+     <style name="DefaultButtonText">
+       <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#979797</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:shadowColor">#f9f9f9</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">1</item>
+    </style>
 </resources>

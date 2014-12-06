@@ -9,77 +9,165 @@
         android:layout_height="fill_parent"
         android:orientation="vertical"
         android:padding="10dip" >
-        <!--  View Title Label -->
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dip"
-            android:text="會員註冊"
-            android:textSize="25dip"
-            android:textStyle="bold" />
-        
-        <!--  Name TextField -->
+
+       
+        <!-- Name TextField -->
+
         <EditText
             android:id="@+id/registerName"
             android:layout_width="fill_parent"
-            android:textSize="18dip"
-            android:hint="登入名稱"
-            android:layout_height="wrap_content" 
-            android:layout_marginBottom="8dip"/>
-         
-        <!--  Password TextField -->
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_top_bg"
+            android:drawableLeft="@drawable/ic_action_person"
+            android:hint="登入名稱 (必需填寫)"
+            android:padding="8dp"
+            android:textColorHint="#cccccc"
+            android:textSize="18dip" />
+
+        <!-- Password TextField -->
+
         <EditText
             android:id="@+id/registerPassword"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textSize="18dip"
-            android:hint="密碼"
-            android:password="true" 
-            android:layout_marginBottom="8dip"/>
-       
-        <!--  Password TextField -->
+            android:background="@drawable/edittext_default_bg"
+            android:drawableLeft="@drawable/password"
+            android:hint="密碼 (必需填寫)"
+            android:padding="8dp"
+            android:password="true"
+            android:textColorHint="#cccccc"
+            android:textSize="18dip" />
+
+        <!-- Password TextField -->
+
         <EditText
             android:id="@+id/registerPassword2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textSize="18dip"
-            android:hint="確認密碼"
-            android:password="true" 
-            android:layout_marginBottom="8dip"/>
-         
-        <!--  Email TextField -->
+            android:background="@drawable/edittext_default_bg"
+            android:drawableLeft="@drawable/password"
+            android:hint="確認密碼 (必需填寫)"
+            android:padding="8dp"
+            android:password="true"
+            android:textColorHint="#cccccc"
+            android:textSize="18dip" />
+
+        <!-- Email TextField -->
+
         <EditText
             android:id="@+id/registerEmail"
             android:layout_width="fill_parent"
-            android:textSize="18dip"
-            android:hint="電郵"
-            android:layout_height="wrap_content" 
-            android:layout_marginBottom="8dip"/>
-        
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_default_bg"
+            android:drawableLeft="@drawable/email"
+            android:hint="電郵 (必需填寫)"
+            android:padding="8dp"
+            android:textColorHint="#cccccc"
+            android:textSize="18dip" />
+
+        <!-- Mobile TextField -->
+
+        <EditText
+            android:id="@+id/mobile"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_default_bg"
+            android:drawableLeft="@drawable/ic_action_call"
+            android:hint="聯絡電話  (選填)"
+            android:padding="8dp"
+            android:textColorHint="#cccccc"
+            android:textSize="18dip" />
+
         <Spinner
-        android:id="@+id/district"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/country_arrays"
-        android:prompt="@string/country_prompt" />
+            android:id="@+id/district"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_default_bg"
+            android:entries="@array/country_arrays"
+            android:padding="10dp"
+            android:prompt="@string/country_prompt" />
+
+        <Spinner
+            android:id="@+id/age"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_default_bg"
+            android:entries="@array/age_arrays"
+            android:padding="10dp"
+            android:prompt="@string/age_prompt" />
+
+        <EditText
+            android:id="@+id/recommandation_email"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_default_bg"
+            android:hint="介紹人電郵 (選填)"
+            android:padding="8dp"
+            android:textColorHint="#cccccc"
+            android:textSize="18dip" />
+
+        <!-- Mobile TextField -->
+
+        <!-- EditText
+            android:id="@+id/recommandation_mobile"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_bottom_bg"
+            android:hint="介紹人電話 (選填)"
+            android:padding="8dp"
+            android:textColorHint="#cccccc"
+            android:textSize="18dip" /-->
+
         
         
-        <!--  Error message -->
-        <TextView android:id="@+id/register_error"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#e30000"
-                    android:padding="10dip"
-                    android:textStyle="bold"/>
- 
-        <!--  Login Button -->       
+        
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dip"
+            android:text="我同意樂活網使用個人資料，以提供活動、義工、再就業等資訊及作直接促銷。"
+            android:textColor="#999999"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/register_confirm_link"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.38"
+            android:padding="8dip"
+            android:text="@string/register_link"
+            android:textColor="#999999"
+            android:textStyle="bold" />
+        <!-- Login Button -->
+
+		<CheckBox
+		        android:id="@+id/chkIos"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		         android:textColor="#999999"
+		         android:textStyle="bold"
+		        android:text="我同意以上兩點。" />
+		
+		<!-- Error message -->
+
+        <TextView
+            android:id="@+id/register_error"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dip"
+            android:textColor="#e30000"
+            android:textStyle="bold" />
+		
+        
+        
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:text="註冊" />
- 
+            android:text="註冊" 
+            style="@style/DefaultButtonText"
+			android:background="@drawable/button_default_bg"/>
     </LinearLayout>
  
 </ScrollView>

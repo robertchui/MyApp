@@ -9,37 +9,33 @@
         android:layout_height="fill_parent"
         android:orientation="vertical"
         android:padding="10dip" >
-        <!--  View Title Label -->
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dip"
-            android:text="會員登入"
-            android:textSize="25dip"
-            android:textStyle="bold" />
+     
         <!--  Email Label -->
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="登入名稱/電郵" />
+        
         <!--  Email TextField -->
         <EditText
             android:id="@+id/loginEmail"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content" 
+             android:hint="登入名稱/電郵"
+             android:drawableLeft="@drawable/ic_action_person"
+             android:padding="10dp"
+            android:textColorHint="#cccccc"
+            android:background="@drawable/edittext_top_bg"/>
          
         <!--  Password Label -->
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dip"
-            android:text="密碼" />
+      
         <!--  Password TextField -->
         <EditText
             android:id="@+id/loginPassword"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:password="true" />
+            android:password="true" 
+             android:hint="密碼"
+             android:padding="10dp"
+            android:textColorHint="#cccccc"
+            android:drawableLeft="@drawable/password"
+            android:background="@drawable/edittext_bottom_bg"/>
          
         <!--  Error message -->
         <TextView android:id="@+id/login_error"
@@ -55,6 +51,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
+            android:layout_margin="4dp"
+            style="@style/DefaultButtonText"
+			android:background="@drawable/button_default_bg"
             android:text="登入" />
  
         <!--  Link to Registration Screen -->
@@ -63,6 +62,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dip"
+            android:layout_margin="4dp"
+            style="@style/DefaultButtonText"
+			android:background="@drawable/button_default_bg"
             android:text="註冊"/>
         
         <Button

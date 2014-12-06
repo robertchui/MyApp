@@ -36,7 +36,8 @@ public class CommonConstant {
 	static public final String NOTIFICATION = "notification";
 	static public final String FONT_SIZE = "fontsize";
 	static public final String FONT_SIZE_DEFAULT = "24";
-	
+	static public final String forumUrl = "https://www.happy-retired.com/forumwebservice";
+	static public final String commonUrl = "https://www.happy-retired.com/commonwebservice";
 	
 	private static CommonConstant instance = null;
 	
@@ -45,6 +46,8 @@ public class CommonConstant {
 	private ArrayList <ForumCategoryItem> jetsoCategoryList;
 	
 	//private JSONArray jsonArray;
+	
+	
 	
 	public final String forumCategoryUrl = "https://www.happy-retired.com/forumwebservice?action=getCategory";
 	public final String blogCategoryUrl = "https://www.happy-retired.com/blogwebservice?action=getCategory";

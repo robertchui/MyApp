@@ -187,7 +187,8 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[7],"{fa-lightbulb-o}", "#ea55a2"));
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[8],"{fa-shopping-cart}", "#D50055"));
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[9],"{fa-facebook}", "#4965a0"));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[10],"{fa-link}", "#b22222"));
+		//navDrawerItems.add(new NavDrawerItem(navMenuTitles[10],"{fa-link}", "#b22222"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[10],"{fa-mail-forward}", "#b22222"));
 		
 		
 		
@@ -373,29 +374,6 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 			else{
 				k = new Intent(HomeActivity.this, ProfileActivity.class);
 				startActivity(k);
-				/*
-				AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
-				alert.setTitle("登出");
-				alert.setMessage("立即登出?");
-
-
-				alert.setPositiveButton("登出", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int whichButton) {
-					userFunction.logoutUser(getApplicationContext());
-					Intent k = new Intent(HomeActivity.this, HomeActivity.class);
-					startActivity(k);
-				  }
-				});
-
-				alert.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-				  public void onClick(DialogInterface dialog, int whichButton) {
-				    // Canceled.
-				  }
-				});
-
-				alert.show();
-				*/
 			}
 
 			break;
@@ -440,10 +418,19 @@ public class HomeActivity extends FragmentActivity implements FrontCommunicator 
 			break;
 		
 		case 10:
+			/*
 			k = new Intent(Intent.ACTION_VIEW);
 			String url2 = "https://www.happy-retired.com";
 			k.setData(Uri.parse(url2));
 			startActivity(k);
+			*/
+			
+			Intent email = new Intent(Intent.ACTION_SEND);
+			email.putExtra(Intent.EXTRA_EMAIL, new String[]{"info@happy-retired.com"});		  
+			email.putExtra(Intent.EXTRA_SUBJECT, "樂活查詢");
+			email.putExtra(Intent.EXTRA_TEXT, "");
+			email.setType("message/rfc822");
+			startActivity(Intent.createChooser(email, "請選擇電郵軟件："));
 			break;
 		
 		/*

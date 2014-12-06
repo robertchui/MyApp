@@ -1,8 +1,13 @@
 package info.happyretired.adapter;
 
+import info.happyretired.activity.LoginActivity;
+import info.happyretired.activity.event.EventDetailsActivity;
+import info.happyretired.activity.forum.ReplyActivity;
+import info.happyretired.activity.userprofile.ProfileActivity;
 import info.happyretired.model.ActivityItem;
 import info.happyretired.model.ForumTopicItem;
 import info.happyretired.model.NavDrawerItem;
+import info.happyretired.HomeActivity;
 import info.happyretired.R;
 import info.happyretired.ult.CommonConstant;
 import info.happyretired.ult.URLImageParser;
@@ -18,13 +23,19 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
+import com.example.androidhive.library.UserFunctions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -40,6 +51,8 @@ import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ArrayAdapter;
@@ -47,12 +60,15 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 public class ForumMessageAdapter extends ArrayAdapter<ForumTopicItem> implements ImageGetter {
 	
 	private Context context;
 	private ArrayList<ForumTopicItem> activityItems;
 	private View container;
+	Dialog replyDialog;
 	
 	
 	
@@ -100,6 +116,42 @@ public class ForumMessageAdapter extends ArrayAdapter<ForumTopicItem> implements
 			TextView lastPostTime = (TextView) convertView.findViewById(R.id.last_post_time);
 			TextView messageView = (TextView) convertView.findViewById(R.id.message);
 			ImageView imageView = (ImageView) convertView.findViewById(R.id.imageView1);
+			
+			TextView privateMessage = (TextView) convertView.findViewById(R.id.privateMessage);
+			TextView reply = (TextView) convertView.findViewById(R.id.reply);
+			TextView reference = (TextView) convertView.findViewById(R.id.reference);
+			
+			UserFunctions userFunction = new UserFunctions();
+			HashMap map = new HashMap();
+
+			int id = 0;
+			
+			if(userFunction.isUserLoggedIn(context)){
+				HashMap user = userFunction.getUserDetails(context);
+				id = Integer.parseInt((String)user.get("uid"));
+				map.put("thread_id", activityItems.get(position).getThread());
+				map.put("parent", activityItems.get(position).getId());
+				map.put("user_id", Integer.toString(id));
+				map.put("subject", activityItems.get(position).getSubject());
+			}
+			
+			OnClickListener clickFunction = new OnClickClass(context, map, "reply");
+			reply.setOnClickListener(clickFunction);
+			
+			HashMap map2 = new HashMap();
+			map2.put("thread_id", activityItems.get(position).getThread());
+			map2.put("parent", activityItems.get(position).getId());
+			map2.put("user_id", Integer.toString(id));
+			map2.put("subject", activityItems.get(position).getSubject());
+			
+			String content = activityItems.get(position).getMessage();
+			map2.put("content", ("回覆: " + content +"\n\n"));
+			
+			OnClickListener clickFunction2 = new OnClickClass(context, map2, "reply");
+			reference.setOnClickListener(clickFunction2);
+			
+			OnClickListener clickFunction3 = new OnClickClass(context, map, "pm");
+			privateMessage.setOnClickListener(clickFunction3);
 
 			lastUserName.setText(activityItems.get(position).getLast_post_guest_name());
 			lastPostTime.setText(activityItems.get(position).getLast_post_time());
@@ -116,6 +168,7 @@ public class ForumMessageAdapter extends ArrayAdapter<ForumTopicItem> implements
 			messageView.setTextSize(Float.parseFloat(fontsize));
 			messageView.setText(sp);
 			messageView.setMovementMethod(LinkMovementMethod.getInstance());
+			messageView.setSelectAllOnFocus(true);
 			if(activityItems.get(position).getLast_avatar_url()!=null && !activityItems.get(position).getLast_avatar_url().equals("null") && !activityItems.get(position).getLast_avatar_url().isEmpty())
 	       		ImageLoader.getInstance().displayImage(context.getResources().getString(R.string.web_url)+activityItems.get(position).getLast_avatar_url(), imageView);
 	       	else
@@ -196,5 +249,47 @@ public class ForumMessageAdapter extends ArrayAdapter<ForumTopicItem> implements
             }
         }
     }
+    
+    
+   
+    private class OnClickClass implements OnClickListener{
+    	HashMap in = new HashMap();
+    	Context context;
+    	String action="";
+    	
+    	public OnClickClass(Context context, HashMap in, String action){
+    		this.in = in;
+    		this.context = context;
+    		this.action = action;
+    	}
+    	
+    	public void onClick(View arg0) {
+    		
+    		UserFunctions userFunction = new UserFunctions();
+    		
+			
+    		if(!userFunction.isUserLoggedIn(context.getApplicationContext())){
+    			Toast.makeText(context.getApplicationContext(), "請先登入", Toast.LENGTH_SHORT).show();
+    			Intent  k = new Intent(context.getApplicationContext(), LoginActivity.class);
+				context.startActivity(k);
+    			
+			}
+			else{
+				if(action.equals("reply")){
+					Intent intent = new Intent(context.getApplicationContext(), ReplyActivity.class);
+					ArrayList inArray = new ArrayList();
+					inArray.add(in);
+		         	intent.putParcelableArrayListExtra ("para", inArray);
+		         	//context.startActivity(intent);
+		         	((Activity) context).startActivityForResult(intent, 1);
+				}
+				else if(action.equals("pm")){
+					Toast.makeText((Activity) context, "我們正努力建立此功能", Toast.LENGTH_LONG).show();
+				}
+			}
+    		
+         	
+         }
+     }
 
 }

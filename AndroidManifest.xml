@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="info.happyretired"
-    android:versionCode="16"
-    android:versionName="1.5.6" >
+    android:versionCode="21"
+    android:versionName="1.5.11" >
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     
@@ -108,18 +108,29 @@
          
          <!--  Login Activity -->
         <activity
-            android:label=""
+            android:label="會員登入"
             android:name="info.happyretired.activity.LoginActivity"></activity>
  
         <!--  Register Activity -->
         <activity
-            android:label=""
+            android:label="會員註冊"
             android:name="info.happyretired.activity.RegisterActivity"></activity>
+        
+        <!--  Register Activity -->
+        <activity
+            android:screenOrientation="portrait"
+            android:label="個人資料"
+            android:name="info.happyretired.activity.userprofile.PersonalDetailsActivity"></activity>
         
         <activity
             android:screenOrientation="portrait"
             android:label=""
             android:name="info.happyretired.activity.userprofile.ProfileActivity"></activity>
+        
+        <activity
+            android:screenOrientation="portrait"
+            android:label="回覆" 
+            android:name="info.happyretired.activity.forum.ReplyActivity"></activity>
         
         <activity
             android:screenOrientation="portrait"

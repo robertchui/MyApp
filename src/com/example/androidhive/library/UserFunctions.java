@@ -60,13 +60,17 @@ public class UserFunctions {
      * @param email
      * @param password
      * */
-    public JSONObject registerUser(String name, String email, String password, String district){
+    public JSONObject registerUser(String name, String email, String password, String district, String age, String mobileValue, String rec_mobileValue, String rec_emailValue, String device_id){
         // Building Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("action", register_tag));
         params.add(new BasicNameValuePair("username", name));
         params.add(new BasicNameValuePair("email", email));
         params.add(new BasicNameValuePair("password", password));
+        params.add(new BasicNameValuePair("mobile", mobileValue));
+        params.add(new BasicNameValuePair("recommendation_mobile", rec_mobileValue));
+        params.add(new BasicNameValuePair("recommendation_email", rec_emailValue));
+        params.add(new BasicNameValuePair("device_id", device_id));
         /*
         String  s = "";
         try{
@@ -77,6 +81,7 @@ public class UserFunctions {
         }
         */
         params.add(new BasicNameValuePair("district", district));
+        params.add(new BasicNameValuePair("age", age));
          
         // getting JSON Object
         JSONObject json = jsonParser.getJSONFromUrl(registerURL, params);
