@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="info.happyretired"
-    android:versionCode="21"
-    android:versionName="1.5.11" >
+    android:versionCode="23"
+    android:versionName="1.6.2" >
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     
@@ -15,26 +15,31 @@
     <!-- Required to keep CPU alive while downloading files
         (NOT to keep screen awake) -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-    <!-- Required to poll the state of the network connection
-        and respond to changes -->
-    <uses-permission
-        android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <!-- Required to check whether Wi-Fi is enabled -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-
-    <!-- Required to read and write the expansion files on shared storage -->
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.hardware.telephony" android:required="false" />
     
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <!-- Required to show current location -->
+    
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+ 
+    <!-- Required OpenGL ES 2.0. for Maps V2 -->
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
     
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
+    
+    <permission
+        android:name="info.happyretired.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="info.happyretired.permission.MAPS_RECEIVE" />
 
     <application
         android:allowBackup="true"
@@ -132,6 +137,11 @@
             android:label="回覆" 
             android:name="info.happyretired.activity.forum.ReplyActivity"></activity>
         
+         <activity
+            android:screenOrientation="portrait"
+            android:label="已回覆的話題" 
+            android:name="info.happyretired.activity.forum.ForumShowTopicByUserIdActivity"></activity>
+        
         <activity
             android:screenOrientation="portrait"
             android:name="info.happyretired.MainActivity"
@@ -141,6 +151,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity
+            android:screenOrientation="portrait"
+            android:label="地圖" 
+            android:name="info.happyretired.activity.MapActivity"></activity>
+        
+        <!-- Goolge API Key -->
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyCLRcuGwJTWNCqNk9y2yCq6wEAiz09i4Y0" />
+        <!-- AIzaSyCTLk865wPGvd0-JZuaD2Yd3PPvgfY6UQw -->
+        
+        <meta-data
+        android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version" />       
         
         <receiver android:name="info.happyretired.BootReceiver">
 	        <intent-filter> 

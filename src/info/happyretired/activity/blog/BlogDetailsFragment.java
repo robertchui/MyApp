@@ -30,6 +30,7 @@ import info.happyretired.adapter.EventListAdapter;
 import info.happyretired.model.ActivityItem;
 import info.happyretired.model.Blogger;
 import info.happyretired.ult.CommonConstant;
+import info.happyretired.ult.URLImageParser;
 import info.happyretired.R;
 import info.happyretired.R.id;
 import info.happyretired.R.layout;
@@ -45,6 +46,9 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -240,7 +244,12 @@ public class BlogDetailsFragment extends Fragment {
 		String fontsize = settings.getString(CommonConstant.FONT_SIZE, CommonConstant.FONT_SIZE_DEFAULT); 
 		
 		content.setTextSize(Float.parseFloat(fontsize));
-        content.setText(activityItem.getContent());
+        //content.setText(activityItem.getContent());
+		
+        Spanned sp = Html.fromHtml(activityItem.getContent().replace("\n", "<br>"), new URLImageParser(null, content, this.getActivity().getApplicationContext()) ,null);
+        content.setText(sp);
+        content.setMovementMethod(LinkMovementMethod.getInstance());
+        //content.setSelectAllOnFocus(true);
         
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true)
 				//.showImageForEmptyUri(R.drawable.ic_launcher) 

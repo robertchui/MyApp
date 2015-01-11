@@ -43,18 +43,7 @@
  
       
       
-       <!-- TextView
-            
-           android:layout_marginRight="5dp"
-           android:layout_below="@id/forum_topic"
-            android:id="@+id/reply_and_view"
-            android:layout_alignParentRight="true" 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="12/1000"
-            android:textColor="#999999"
-            android:textSize="14sp" /-->
-        
+       
       <!-- TextView
            android:layout_marginLeft="5dp"
            android:layout_below="@id/forum_category"
@@ -66,30 +55,43 @@
             android:textSize="14sp" /-->
           
        <TextView
+           	android:id="@+id/last_post_name"
            	android:layout_below="@id/forum_topic"
-           	
             android:layout_marginLeft="5dp"
-            android:id="@+id/last_post_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
             android:textColor="@color/main_color"
             android:textSize="14sp" />
-       
-        
-       
-       <!-- TextView
-           android:layout_marginRight="5dp"
-           android:layout_below="@id/reply_and_view"
-            android:id="@+id/last_post_time"
-            android:layout_alignParentRight="true" 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#999999"
-            android:text="00-00"
-            android:textSize="16sp" /-->
-
-       
+      
+		<RelativeLayout 
+           	 android:layout_marginLeft="5dp"
+		     android:layout_width="fill_parent"
+		     android:layout_height="wrap_content"
+		     android:layout_below="@id/last_post_name"
+		     android:layout_marginRight="90dp"
+		     android:background="#ffffff">
+     
+	       <TextView
+	            android:id="@+id/last_post_time"
+	            android:layout_marginRight="5dp"
+	            android:layout_alignParentLeft="true" 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textColor="#777777"
+	            android:text="last post time"
+	            android:textSize="14sp" />
+	
+	       <TextView
+				android:id="@+id/reply_and_view"
+	            android:layout_marginRight="5dp"
+	            android:layout_alignParentRight="true" 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="x/xx"
+	            android:textColor="#999999"
+	            android:textSize="14sp" />
+       	</RelativeLayout> 
 		<ImageView
             android:id="@+id/cover"
             android:layout_width="80dp"

@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.http.HttpEntity;
@@ -24,31 +25,13 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import info.happyretired.activity.ViewPagerExampleActivity;
 import info.happyretired.activity.event.EventDetailsActivity;
 import info.happyretired.adapter.EventListAdapter;
 import info.happyretired.model.ActivityItem;
 import info.happyretired.model.VolunteerItem;
 import info.happyretired.ult.CommonConstant;
+import info.happyretired.ult.URLImageParser;
 import info.happyretired.R;
 import info.happyretired.R.id;
 import info.happyretired.R.layout;
@@ -65,6 +48,9 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -111,6 +97,7 @@ public class VolunteerDetailsFragment extends Fragment {
 	TextView contactNoText;
 	Button callButton;
 	ImageView icon_call;
+	Button calendarButton;
 	ImageView advimageView;
 	
 	private int page;
@@ -181,6 +168,7 @@ public class VolunteerDetailsFragment extends Fragment {
     	urlText= (TextView)mRoot.findViewById(R.id.TextView11);
     	contactNoText= (TextView)mRoot.findViewById(R.id.contact_no);
     	callButton = (Button) mRoot.findViewById(R.id.buttonCall);
+    	calendarButton = (Button) mRoot.findViewById(R.id.buttonAddCalendar);
     	icon_call= (ImageView) mRoot.findViewById(R.id.icon_call);
         //updateLayout();
 		
@@ -312,46 +300,56 @@ public class VolunteerDetailsFragment extends Fragment {
 		content2.setTextSize(Float.parseFloat(fontsize));
 		contact.setTextSize(Float.parseFloat(fontsize));
 		
-        content.setText(activityItem.getContent()); 
-        content2.setText(activityItem.getContent2()); 
-        contact.setText(activityItem.getContact());
+        //content.setText(activityItem.getContent()); 
+        Spanned sp = Html.fromHtml(activityItem.getContent().replace("\n", "<br>"), new URLImageParser(null, content, this.getActivity().getApplicationContext()) ,null);
+        content.setText(sp);
+        content.setMovementMethod(LinkMovementMethod.getInstance());
+        content.setSelectAllOnFocus(true);
+        //content2.setText(activityItem.getContent2()); 
+        Spanned sp2 = Html.fromHtml(activityItem.getContent2().replace("\n", "<br>"), new URLImageParser(null, content2, this.getActivity().getApplicationContext()) ,null);
+        content2.setText(sp2);
+        content2.setMovementMethod(LinkMovementMethod.getInstance());
+        content2.setSelectAllOnFocus(true);
+        //contact.setText(activityItem.getContact());
+        Spanned sp3 = Html.fromHtml(activityItem.getContact().replace("\n", "<br>"), new URLImageParser(null, contact, this.getActivity().getApplicationContext()) ,null);
+        contact.setText(sp3);
+        contact.setMovementMethod(LinkMovementMethod.getInstance());
+        contact.setSelectAllOnFocus(true);
         
-        
-        Date convertedDate = null;
+        Date convertedFromDate = null;
+        Date convertedToDate = null;
         DateFormat  formatter = new SimpleDateFormat("yyyyMMdd");
         try{
 	        
-	        convertedDate = (Date) formatter.parse(activityItem.getDateFrom());
+        	convertedFromDate = (Date) formatter.parse(activityItem.getDateFrom());
         }
         catch(Exception e){
         	e.printStackTrace();
         }
         
-    
-        
         String dateString ="";
-        dateString = String.valueOf(convertedDate.getMonth()+1)+"る"+activityItem.getDateFrom().substring(6, 8)+"ら";
+        dateString = String.valueOf(convertedFromDate.getMonth()+1)+"る"+activityItem.getDateFrom().substring(6, 8)+"ら";
         companyNameText.setText(activityItem.getCompanyName());
         
         if(activityItem.getDateTo()!=null && !activityItem.getDateTo().equals("") && !activityItem.getDateTo().equals("00000000")){
         	try{
-    	         convertedDate = (Date) formatter.parse(activityItem.getDateTo());
+        		convertedToDate = (Date) formatter.parse(activityItem.getDateTo());
             }
             catch(Exception e){
             	e.printStackTrace();
             }
             
-        	dateString += " - " + String.valueOf(convertedDate.getMonth()+1)+"る"+activityItem.getDateTo().substring(6, 8)+"ら";
+        	dateString += " - " + String.valueOf(convertedToDate.getMonth()+1)+"る"+activityItem.getDateTo().substring(6, 8)+"ら";
         }
         else if(activityItem.getEffectiveTo()!=null && !activityItem.getEffectiveTo().equals("") && !activityItem.getEffectiveTo().equals("00000000")){
         	try{
-    	         convertedDate = (Date) formatter.parse(activityItem.getEffectiveTo());
+        		convertedToDate = (Date) formatter.parse(activityItem.getEffectiveTo());
             }
             catch(Exception e){
             	e.printStackTrace();
             }
             
-        	dateString += " - " + String.valueOf(convertedDate.getMonth()+1)+"る"+activityItem.getEffectiveTo().substring(6, 8)+"ら";
+        	dateString += " - " + String.valueOf(convertedToDate.getMonth()+1)+"る"+activityItem.getEffectiveTo().substring(6, 8)+"ら";
         }
                
         dateText.setText(dateString);
@@ -365,6 +363,17 @@ public class VolunteerDetailsFragment extends Fragment {
         	timeString = timeString + " - " + activityItem.getTimeTo();
         
         timeText.setText(timeString);
+      //calendar Button
+        Calendar startDay = Calendar.getInstance();
+        if(convertedFromDate!=null)
+        	startDay.setTime(convertedFromDate);
+        
+        Calendar endDay = Calendar.getInstance();
+        if(convertedToDate!=null)
+        	endDay.setTime(convertedToDate);
+        
+        calendarButton.setOnClickListener(new CalendarListener(activityItem.getTitle(), startDay, endDay));
+        
         
     	locationText.setText(activityItem.getLocationDesc());
     	
@@ -399,6 +408,31 @@ public class VolunteerDetailsFragment extends Fragment {
     	
     	//String url = "images/banners/share2.jpg";
         ImageLoader.getInstance().displayImage(this.getActivity().getResources().getString(R.string.web_url)+"/"+activityItem.getAdvertisementImgUrl(), advimageView);
+	}
+	
+	private class CalendarListener implements  OnClickListener{
+			String title;
+			Calendar startDay;
+			Calendar endDay;
+			
+	     public CalendarListener(String title, Calendar startDay, Calendar endDay) {
+	          this.startDay = startDay;
+	          this.endDay = endDay;
+	          this.title = title;
+	     }
+	
+	     @Override
+	     public void onClick(View v)
+	     {
+	    	 	Calendar cal = Calendar.getInstance();              
+				Intent intent = new Intent(Intent.ACTION_EDIT);
+				intent.setType("vnd.android.cursor.item/event");
+				intent.putExtra("beginTime", startDay.getTimeInMillis());
+				intent.putExtra("allDay", false);
+				intent.putExtra("endTime", endDay.getTimeInMillis());
+				intent.putExtra("title", title);
+				startActivity(intent);
+	     }	
 	}
 	
 	

@@ -66,7 +66,7 @@
      
       <string-array name="profile_items">
         <item>個人資料</item>
-        <!-- item>已回覆的話題</item-->
+        <item>已回覆的話題</item>
         <item>會員卡</item>
         <item>登出</item>
     </string-array>

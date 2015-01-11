@@ -44,8 +44,8 @@ public class ForumListAdapter extends ArrayAdapter<ForumTopicItem> {
 		TextView topic;
 		TextView lastUserName;
 		RelativeLayout rl;
-		//TextView lastPostTime;
-		//TextView replyAndView;
+		TextView lastPostTime;
+		TextView replyAndView;
 		TextView forumCategory;
 		ImageView coverImageView;
 	}
@@ -87,8 +87,8 @@ public class ForumListAdapter extends ArrayAdapter<ForumTopicItem> {
             viewHolder.advertistment = (ImageView) convertView.findViewById(R.id.advertistment);
             viewHolder.topic = (TextView) convertView.findViewById(R.id.forum_topic);
             viewHolder.lastUserName = (TextView) convertView.findViewById(R.id.last_post_name);
-            //viewHolder.lastPostTime = (TextView) convertView.findViewById(R.id.last_post_time);
-            //viewHolder.replyAndView = (TextView) convertView.findViewById(R.id.reply_and_view);
+            viewHolder.lastPostTime = (TextView) convertView.findViewById(R.id.last_post_time);
+            viewHolder.replyAndView = (TextView) convertView.findViewById(R.id.reply_and_view);
             viewHolder.forumCategory = (TextView) convertView.findViewById(R.id.forum_category);
             viewHolder.coverImageView = (ImageView) convertView.findViewById(R.id.cover);
             convertView.setTag(viewHolder);
@@ -119,8 +119,8 @@ public class ForumListAdapter extends ArrayAdapter<ForumTopicItem> {
        		
 			viewHolder.topic.setText(activityItems.get(position).getSubject());
 			viewHolder.lastUserName.setText(activityItems.get(position).getLast_post_guest_name());
-			//viewHolder.replyAndView.setText(activityItems.get(position).getPosts() + "/" + activityItems.get(position).getHits() );
-			//viewHolder.lastPostTime.setText(activityItems.get(position).getLast_post_time());
+			viewHolder.replyAndView.setText(activityItems.get(position).getPosts() + "/" + activityItems.get(position).getHits() );
+			viewHolder.lastPostTime.setText(activityItems.get(position).getLast_post_time());
 			viewHolder.forumCategory.setText(activityItems.get(position).getCategory_name());
 		
 			if(activityItems.get(position).getCoverImgUrl()!=null && !activityItems.get(position).getCoverImgUrl().equals("null") && !activityItems.get(position).getCoverImgUrl().isEmpty()){

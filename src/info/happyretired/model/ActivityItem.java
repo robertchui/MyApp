@@ -32,6 +32,7 @@ public class ActivityItem implements Parcelable {
 	private String company_name;
 	private String shareUrl;
 	private String advertisementImgUrl;
+	private String coordinates;
 	
 	public ActivityItem(){
 	
@@ -73,6 +74,7 @@ public class ActivityItem implements Parcelable {
 		  company_name= in.readString();
 		  shareUrl= in.readString();
 		  advertisementImgUrl = in.readString();
+		  coordinates = in.readString();
 	}
 	
 
@@ -103,10 +105,18 @@ public class ActivityItem implements Parcelable {
 		dest.writeString(company_name);
 		dest.writeString(shareUrl);
 		dest.writeString(advertisementImgUrl);
+		dest.writeString(coordinates);
+		
 		
 	}
 
 	
+	public String getCoordinates() {
+		return coordinates;
+	}
+	public void setCoordinates(String coordinates) {
+		this.coordinates = coordinates;
+	}
 	public String getAdvertisementImgUrl() {
 		return advertisementImgUrl;
 	}
@@ -348,6 +358,7 @@ public class ActivityItem implements Parcelable {
 	    	this.setTitle(jsonObject.getString("title"));
 	    	this.setDateFrom(jsonObject.getString("dateFrom"));
 	    	this.setDateTo(jsonObject.getString("dateTo"));
+	    	this.setEffectiveTo(jsonObject.getString("effectiveTo"));
 	    	this.setTimeFrom(jsonObject.getString("timeFrom"));
 	    	this.setTimeTo(jsonObject.getString("timeTo"));
 	    	this.setImageURL(jsonObject.getString("imageURL"));
@@ -362,6 +373,7 @@ public class ActivityItem implements Parcelable {
 	    	this.setCompany_name(jsonObject.getString("companyName"));
 	    	this.setShareUrl(jsonObject.getString("shareUrl"));
 	    	this.setAdvertisementImgUrl(jsonObject.getString("advertisementImgUrl"));
+	    	this.setCoordinates(jsonObject.getString("coordinates"));
 		 }
 		 catch(Exception e){
 			 e.printStackTrace();

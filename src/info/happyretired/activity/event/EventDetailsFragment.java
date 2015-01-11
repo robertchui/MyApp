@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.http.HttpEntity;
@@ -19,16 +20,21 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
+import info.happyretired.activity.MapActivity;
 import info.happyretired.activity.ViewPagerExampleActivity;
 import info.happyretired.activity.blog.BlogDetailsActivity;
 import info.happyretired.adapter.EventListAdapter;
 import info.happyretired.model.ActivityItem;
 import info.happyretired.ult.CommonConstant;
+import info.happyretired.ult.URLImageParser;
+import info.happyretired.HomeActivity;
 import info.happyretired.R;
 import info.happyretired.R.id;
 import info.happyretired.R.layout;
@@ -45,6 +51,9 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -79,6 +88,8 @@ public class EventDetailsFragment extends Fragment {
 	ImageView imageView;
 	TextView content;
 	TextView contact;
+	TextView contentTitle;
+	TextView contactTitle;
 	
 	TextView dateText;
 	TextView timeText;
@@ -89,9 +100,15 @@ public class EventDetailsFragment extends Fragment {
 	TextView urlText;
 	TextView contactNoText;
 	Button callButton;
+	Button mapButton;
+	Button calendarButton;
 	ImageView icon_call;
 	
 	ImageView advimageView;
+	
+	static final LatLng HAMBURG = new LatLng(53.558, 9.927);
+	static final LatLng KIEL = new LatLng(53.551, 9.993);
+	private GoogleMap map;
 	
 	private int page;
 	private int totalPage;
@@ -148,6 +165,10 @@ public class EventDetailsFragment extends Fragment {
         
         content = (TextView)mRoot.findViewById(R.id.content);
         contact = (TextView)mRoot.findViewById(R.id.content2);
+        contentTitle = (TextView)mRoot.findViewById(R.id.contentTitle);
+        contactTitle = (TextView)mRoot.findViewById(R.id.contentTitle2);
+        
+        
         dateText= (TextView)mRoot.findViewById(R.id.TextView02);
     	timeText= (TextView)mRoot.findViewById(R.id.TextView03);
     	locationText= (TextView)mRoot.findViewById(R.id.TextView05);
@@ -158,6 +179,9 @@ public class EventDetailsFragment extends Fragment {
     	urlText= (TextView)mRoot.findViewById(R.id.TextView11);
     	contactNoText= (TextView)mRoot.findViewById(R.id.contact_no);
     	callButton = (Button) mRoot.findViewById(R.id.buttonCall);
+    	mapButton = (Button) mRoot.findViewById(R.id.buttonMap);
+    	calendarButton = (Button) mRoot.findViewById(R.id.buttonAddCalendar);
+    	
     	
     	icon_call= (ImageView) mRoot.findViewById(R.id.icon_call);
     	advimageView = (ImageView) mRoot.findViewById(R.id.advertistment);
@@ -192,8 +216,6 @@ public class EventDetailsFragment extends Fragment {
 		
 		refNo = in.getRefNo();
 		title = in.getTitle();
-		
-		
 		
 	}
 	
@@ -284,73 +306,125 @@ public class EventDetailsFragment extends Fragment {
 		contact.setTextSize(Float.parseFloat(fontsize));
 		
         if(activityItem.getContent()!=null && !activityItem.getContent().equals("null") && !activityItem.getContent().equals("")){
-        	content.setText(activityItem.getContent()); 
+        	//content.setText(activityItem.getContent()); 
+        	Spanned sp = Html.fromHtml(activityItem.getContent().replace("\n", "<br>"), new URLImageParser(null, content, this.getActivity().getApplicationContext()) ,null);
+            content.setText(sp);
         	content.setVisibility(View.VISIBLE);
+        	content.setMovementMethod(LinkMovementMethod.getInstance());
+            //content.setSelectAllOnFocus(true);
         }
         else{
         	content.setVisibility(View.GONE);
+        	contentTitle.setVisibility(View.GONE);
         }
         
         if(activityItem.getContact()!=null && !activityItem.getContact().equals("null") && !activityItem.getContact().equals("")){
-        	contact.setText(activityItem.getContact());
+        	//contact.setText(activityItem.getContact());
+        	Spanned sp = Html.fromHtml(activityItem.getContact().replace("\n", "<br>"), new URLImageParser(null, contact, this.getActivity().getApplicationContext()) ,null);
+        	contact.setText(sp);
         	contact.setVisibility(View.VISIBLE);
+        	//contact.setMovementMethod(LinkMovementMethod.getInstance());
+            //content.setSelectAllOnFocus(true);
         }
         else{
         	contact.setVisibility(View.GONE);
+        	contactTitle.setVisibility(View.GONE);
         }
         
+        Date convertedFromDate = null;
+        Date convertedToDate = null;
         
-        Date convertedDate = null;
         DateFormat  formatter = new SimpleDateFormat("yyyyMMdd");
+        
         try{
-	        
-	        convertedDate = (Date) formatter.parse(activityItem.getDateFrom());
+        	convertedFromDate = (Date) formatter.parse(activityItem.getDateFrom());
         }
         catch(Exception e){
         	e.printStackTrace();
         }
         
-    
-        
         String dateString ="";
-        dateString = String.valueOf(convertedDate.getMonth()+1)+"る"+activityItem.getDateFrom().substring(6, 8)+"ら";
+        dateString = String.valueOf(convertedFromDate.getMonth()+1)+"る"+activityItem.getDateFrom().substring(6, 8)+"ら";
         dateFromText.setText(dateString);
+        
         if(activityItem.getDateTo()!=null && !activityItem.getDateTo().equals("") && !activityItem.getDateTo().equals("00000000")){
         	try{
-    	         convertedDate = (Date) formatter.parse(activityItem.getDateTo());
+        		convertedToDate = (Date) formatter.parse(activityItem.getDateTo());
             }
             catch(Exception e){
             	e.printStackTrace();
             }
             
-        	dateString += " - " + String.valueOf(convertedDate.getMonth()+1)+"る"+activityItem.getDateTo().substring(6, 8)+"ら";
+        	dateString += " - " + String.valueOf(convertedToDate.getMonth()+1)+"る"+activityItem.getDateTo().substring(6, 8)+"ら";
         }
         else if(activityItem.getEffectiveTo()!=null && !activityItem.getEffectiveTo().equals("") && !activityItem.getEffectiveTo().equals("00000000")){
         	try{
-    	         convertedDate = (Date) formatter.parse(activityItem.getEffectiveTo());
+        		convertedToDate = (Date) formatter.parse(activityItem.getEffectiveTo());
             }
             catch(Exception e){
             	e.printStackTrace();
             }
             
-        	dateString += " - " + String.valueOf(convertedDate.getMonth()+1)+"る"+activityItem.getEffectiveTo().substring(6, 8)+"ら";
+        	dateString += " - " + String.valueOf(convertedToDate.getMonth()+1)+"る"+activityItem.getEffectiveTo().substring(6, 8)+"ら";
         }
                
         dateText.setText(dateString);
         
         String timeString ="";
         timeString = activityItem.getTimeFrom();
-        if(activityItem.getTimeFrom()!=null && !activityItem.getTimeFrom().equals(""))
-        	timeString = activityItem.getTimeFrom();
         
-        if(activityItem.getTimeTo()!=null && !activityItem.getTimeTo().equals(""))
+        if(activityItem.getTimeFrom()!=null && !activityItem.getTimeFrom().equals("")){
+        	timeString = activityItem.getTimeFrom();
+        	convertedFromDate.setHours(Integer.parseInt(activityItem.getTimeFrom().substring(0,2)));
+        	convertedFromDate.setMinutes(Integer.parseInt(activityItem.getTimeFrom().substring(3,5)));
+        }
+        
+        if(activityItem.getTimeTo()!=null && !activityItem.getTimeTo().equals("")){
         	timeString += "-"+ activityItem.getTimeTo();
+        	convertedToDate.setHours(Integer.parseInt(activityItem.getTimeTo().substring(0,2)));
+        	convertedToDate.setMinutes(Integer.parseInt(activityItem.getTimeTo().substring(3,5)));
+        }
         
         timeText.setText(timeString);
         
+        //calendar Button
+        Calendar startDay = Calendar.getInstance();
+        if(convertedFromDate!=null)
+        	startDay.setTime(convertedFromDate);
+        
+        Calendar endDay = Calendar.getInstance();
+        if(convertedToDate!=null)
+        	endDay.setTime(convertedToDate);
+        
+        calendarButton.setOnClickListener(new CalendarListener(activityItem.getTitle(), startDay, endDay));
+    		
+    	        
     	locationText.setText(activityItem.getLocationDesc());
     	
     	addressText.setText(activityItem.getAddress());
+    	if(activityItem.getCoordinates()!=null && !activityItem.getCoordinates().equals("null") && !activityItem.getCoordinates().equals("")){
+    		mapButton.setOnClickListener(new OnClickListener() {
+    			@Override
+    			public void onClick(View arg0) {
+    				// Launch Dashboard Screen
+    				Intent intent = new Intent(getActivity(), MapActivity.class);
+    				String coordinates = activityItem.getCoordinates();
+    				String[] xy = coordinates.split(",");
+    				String x = xy[0]; 
+    				String y = xy[1]; 
+    				
+    				intent.putExtra("latitude", Double.parseDouble(x));
+    				intent.putExtra("longitude", Double.parseDouble(y));
+    				intent.putExtra("address", activityItem.getAddress());
+                    startActivity(intent);
+    			}
+     
+    		});
+    	}
+    	else{
+    		mapButton.setVisibility(View.GONE);
+    	}
+    	
     	if(activityItem.getFee()!=null && !activityItem.getFee().equals("0"))
     		feeText.setText(activityItem.getFee());
     	else if(activityItem.getFee().equals("0"))
@@ -368,7 +442,6 @@ public class EventDetailsFragment extends Fragment {
     	if(activityItem.getContact_no()!=null && !activityItem.getContact_no().equals("null") && !activityItem.getContact_no().equals("")){
     		contactNoText.setText(activityItem.getContact_no());
     		callButton.setOnClickListener(new OnClickListener() {
-       		 
     			@Override
     			public void onClick(View arg0) {
      
@@ -381,7 +454,6 @@ public class EventDetailsFragment extends Fragment {
     		});
     	}
     	else{
-    		
     		contactNoText.setVisibility(View.GONE);
     		callButton.setVisibility(View.GONE);
     		icon_call.setVisibility(View.GONE);
@@ -391,6 +463,30 @@ public class EventDetailsFragment extends Fragment {
     	ImageLoader.getInstance().displayImage(this.getActivity().getResources().getString(R.string.web_url)+"/"+activityItem.getAdvertisementImgUrl(), advimageView);
 	}
 	
+	private class CalendarListener implements  OnClickListener{
+			String title;
+			Calendar startDay;
+			Calendar endDay;
+			
+	     public CalendarListener(String title, Calendar startDay, Calendar endDay) {
+	          this.startDay = startDay;
+	          this.endDay = endDay;
+	          this.title = title;
+	     }
+
+	     @Override
+	     public void onClick(View v)
+	     {
+	    	 	Calendar cal = Calendar.getInstance();              
+				Intent intent = new Intent(Intent.ACTION_EDIT);
+				intent.setType("vnd.android.cursor.item/event");
+				intent.putExtra("beginTime", startDay.getTimeInMillis());
+				intent.putExtra("allDay", false);
+				intent.putExtra("endTime", endDay.getTimeInMillis());
+				intent.putExtra("title", title);
+				startActivity(intent);
+	     }	
+	}
 	
 private class GetActivityItemTask extends AsyncTask<String, Void, String> {
     	

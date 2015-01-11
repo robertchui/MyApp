@@ -12,10 +12,13 @@ import java.util.List;
 
 
 
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONObject;
  
+
 
 
 
@@ -31,6 +34,7 @@ public class ForumWebserviceUtil {
     //private static String loginURL = "http://10.0.2.2/ah_login_api/";
     
     private static String reply_tag = "replyMessage";
+    private static String getRecentReplyTopicsByUserId = "getRecentReplyTopicsByUserId";
     
      
     // constructor
@@ -53,6 +57,18 @@ public class ForumWebserviceUtil {
         params.add(new BasicNameValuePair("subject", subject));
         params.add(new BasicNameValuePair("content", content));
         JSONObject json = jsonParser.getJSONFromUrl(CommonConstant.forumUrl, params);
+        // return json
+        // Log.e("JSON", json.toString());
+        return json;
+    }
+    
+    public JSONArray getRecentReplyTopicsByUserId(int user_id, int page){
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("action", getRecentReplyTopicsByUserId));
+        params.add(new BasicNameValuePair("user_id", Integer.toString(user_id)));
+        params.add(new BasicNameValuePair("pageno", Integer.toString(page)));
+        JSONArray json = jsonParser.getJSONArrayFromUrl(CommonConstant.forumUrl, params);
         // return json
         // Log.e("JSON", json.toString());
         return json;

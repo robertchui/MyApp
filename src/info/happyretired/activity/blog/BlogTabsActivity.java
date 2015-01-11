@@ -161,7 +161,12 @@ class MyAdapter extends FragmentPagerAdapter{
 			fg.setFeatured("N");
 			fragment = (Fragment)fg;		
 		}
-		
+		/*
+		else if(i==3){
+			SwipeRefreshLayoutBasicFragment fg = new SwipeRefreshLayoutBasicFragment();
+			fragment = (Fragment)fg;		
+		}
+		*/
 		
 		
 		return fragment;
@@ -184,6 +189,10 @@ class MyAdapter extends FragmentPagerAdapter{
 		else if(position==2){
 			title = _context.getResources().getString(R.string.blogContentTitle2);
 		}
+		else if(position==3){
+			title = _context.getResources().getString(R.string.blogContentTitle2);
+		}
+		
 		
 
 		

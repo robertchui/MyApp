@@ -75,6 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text=""
+        android:textIsSelectable="true"
         android:lineSpacingExtra="10dp"
         android:textSize="22dp" />
     
@@ -96,6 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text=""
+        android:textIsSelectable="true"
         android:lineSpacingExtra="10dp"
         android:textSize="22dp" />
     
@@ -116,6 +118,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text=""
+        android:textIsSelectable="true"
         android:textSize="20dp" />
      </LinearLayout>
      
@@ -144,32 +147,30 @@
 		        android:text="@string/loading"/>
 	    </LinearLayout>
 	    
-    <RelativeLayout
-       android:padding="12dip"
-         android:id="@+id/second"
-         android:background="@drawable/container_dropshadow"
+    	<RelativeLayout
+       		android:padding="12dip"
+         	android:id="@+id/second"
+         	android:background="@drawable/container_dropshadow"
             android:orientation="vertical"
 	        android:layout_marginTop="4dip"
-	        
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent">
-   <ImageView
-	             android:id="@+id/TextView01"
-	             android:layout_width="wrap_content"
-	             android:layout_height="wrap_content"
-	             android:layout_marginTop="4dp"
-	             android:src="@drawable/ic_action_time" />
+   			   <ImageView
+	               android:id="@+id/TextView01"
+	               android:layout_width="wrap_content"
+	               android:layout_height="wrap_content"
+	               android:layout_marginTop="4dp"
+	               android:src="@drawable/ic_action_time" />
 
-   <TextView
-       android:id="@+id/TextView02"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       
-       android:text=""
-       android:textColor="#000"
-        android:layout_marginLeft="50dp"
-       android:layout_alignTop="@+id/TextView01"
-       android:textSize="18dp" />
+			   <TextView
+			       android:id="@+id/TextView02"
+			       android:layout_width="wrap_content"
+			       android:layout_height="wrap_content"    
+			       android:text=""
+			       android:textColor="#000"
+			       android:layout_marginLeft="50dp"
+			       android:layout_alignTop="@+id/TextView01"
+			       android:textSize="18dp" />
 
              	<TextView
              	    android:id="@+id/TextView03"
@@ -178,18 +179,27 @@
              	    android:text=""
              	    android:textColor="#000"
              	    android:layout_below="@+id/TextView02"
-             	     android:layout_marginLeft="50dp"
+             	    android:layout_marginLeft="50dp"
              	    android:textSize="16dp" />
+             	
+             	<Button
+					android:id="@+id/buttonAddCalendar"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentRight="true"
+					android:layout_alignTop="@+id/TextView01"
+					android:text="加到日歷"
+					android:textSize="12dp" />
           
-        <ImageView
-            android:id="@+id/TextView04"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="left"
-            android:layout_below="@+id/TextView03"
-       		android:layout_alignLeft="@+id/TextView01"
-            android:src="@drawable/ic_action_place" />
+		        <ImageView
+		            android:id="@+id/TextView04"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_marginTop="10dp"
+		            android:gravity="left"
+		            android:layout_below="@+id/TextView03"
+		       		android:layout_alignLeft="@+id/TextView01"
+		            android:src="@drawable/ic_action_place" />
 	
 	             <TextView
 	                 android:id="@+id/TextView05"
@@ -197,8 +207,7 @@
 	                 android:layout_height="wrap_content"
 	                 android:text=""
 	                 android:textColor="#000"
-	                  
-       				android:layout_alignTop="@+id/TextView04"
+       				 android:layout_alignTop="@+id/TextView04"
        				 android:layout_marginLeft="50dp"
 	                 android:textSize="18dp" />
 
@@ -206,22 +215,21 @@
              	    android:id="@+id/TextView06"
              	    android:layout_width="wrap_content"
              	    android:layout_height="wrap_content"
-             	       android:layout_below="@+id/TextView05"
-       				
+					android:layout_below="@+id/TextView05"
              	    android:text=""
              	    android:textColor="#000"
-             	     android:layout_marginLeft="50dp"
+             	    android:layout_marginLeft="50dp"
              	    android:textSize="18dp" />
              	
              	 <ImageView
-            android:id="@+id/icon_call"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="left"
-            android:layout_below="@+id/TextView06"
-       		android:layout_alignLeft="@+id/TextView01"
-            android:src="@drawable/ic_action_call" />
+		            android:id="@+id/icon_call"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_marginTop="10dp"
+		            android:gravity="left"
+		            android:layout_below="@+id/TextView06"
+		       		android:layout_alignLeft="@+id/TextView01"
+		            android:src="@drawable/ic_action_call" />
 	
 	             <TextView
 	                 android:id="@+id/contact_no"
@@ -247,7 +255,7 @@
         
     <RelativeLayout
        android:padding="12dip"
-         android:id="@+id/second"
+         android:id="@+id/third"
          android:background="@drawable/container_dropshadow"
             android:orientation="vertical"
 	        android:layout_marginTop="4dip"
@@ -283,8 +291,7 @@
              		android:text="@string/vacancy"  
                		android:textColor="#000"/>
              	<TextView
-             	       android:layout_below="@+id/TextView07"
-             	    
+					android:layout_below="@+id/TextView07"
              	    android:layout_alignTop="@+id/TextView09"
              	    android:layout_marginLeft="50dp"
              		android:id="@+id/TextView10"

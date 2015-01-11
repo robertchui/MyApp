@@ -9,6 +9,7 @@ import info.happyretired.activity.blog.BloggerTabsFragment;
 import info.happyretired.activity.event.EventDetailsActivity;
 import info.happyretired.activity.event.EventTabsActivity;
 import info.happyretired.activity.forum.ForumDetailsActivity;
+import info.happyretired.activity.forum.ForumShowTopicByUserIdActivity;
 import info.happyretired.activity.forum.ForumTabsActivity;
 import info.happyretired.activity.jetso.JetsoDetailsActivity;
 import info.happyretired.activity.jetso.JetsoTabsActivity;
@@ -111,17 +112,22 @@ public class ProfileActivity extends FragmentActivity implements ProfileCommunic
 	}
 	
 	public void goToPage(int position){
+		Intent k = null;
 		switch (position) {
+			
 			case 0:
-				Intent k = new Intent(ProfileActivity.this, PersonalDetailsActivity.class);
+				k = new Intent(ProfileActivity.this, PersonalDetailsActivity.class);
 				startActivity(k);
 				break;
-				/*
+				
 			case 1:
-				Toast.makeText((Activity) this.getApplicationContext(), "我們正努力建立此功能", Toast.LENGTH_LONG).show();
+				
+				//Toast.makeText(this.getApplicationContext(), "我們正努力建立此功能", Toast.LENGTH_LONG).show();
+				k = new Intent(ProfileActivity.this, ForumShowTopicByUserIdActivity.class);
+				startActivity(k);
 				break;
-				*/
-			case 1:
+				
+			case 2:
 				
 				final int orientation = getResources().getConfiguration().orientation; 
             	if (orientation == 1){ 
@@ -138,7 +144,7 @@ public class ProfileActivity extends FragmentActivity implements ProfileCommunic
 				}); 
 				//setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 				break;
-			case 2:
+			case 3:
 				AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
 				alert.setTitle("登出");

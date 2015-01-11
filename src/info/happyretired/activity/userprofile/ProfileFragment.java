@@ -127,9 +127,9 @@ public class ProfileFragment extends ListFragment implements SwipeRefreshLayout.
     	navMenuTitles = getResources().getStringArray(R.array.profile_items);
 
     	mlist.add(new NavDrawerItem(navMenuTitles[0],"{fa-user}", "#b22222"));
-    	//mlist.add(new NavDrawerItem(navMenuTitles[1],"{fa-comments}", "#3f8be1"));
-    	mlist.add(new NavDrawerItem(navMenuTitles[1],"{fa-credit-card}", "#f63c2b"));
-    	mlist.add(new NavDrawerItem(navMenuTitles[2],"{fa-sign-out}", "#8D8D8D"));
+    	mlist.add(new NavDrawerItem(navMenuTitles[1],"{fa-comments}", "#3f8be1"));
+    	mlist.add(new NavDrawerItem(navMenuTitles[2],"{fa-credit-card}", "#f63c2b"));
+    	mlist.add(new NavDrawerItem(navMenuTitles[3],"{fa-sign-out}", "#8D8D8D"));
     	
     	mAdapter = new NavDrawerListAdapter(this.getActivity(), mlist);
     	//mAdapter = new ProfileListAdapter(this.getActivity(), android.R.layout.simple_list_item_1, mlist);

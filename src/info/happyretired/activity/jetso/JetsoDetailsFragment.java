@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.http.HttpEntity;
@@ -27,20 +28,13 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.ortiz.touch.ExtendedViewPager;
 import com.ortiz.touch.TouchImageView;
 
-
-
-
-
-
-
-
-
 import info.happyretired.activity.ViewPagerExampleActivity;
 import info.happyretired.activity.event.EventDetailsActivity;
 import info.happyretired.adapter.EventListAdapter;
 import info.happyretired.model.ActivityItem;
 import info.happyretired.model.JetsoItem;
 import info.happyretired.ult.CommonConstant;
+import info.happyretired.ult.URLImageParser;
 import info.happyretired.R;
 import info.happyretired.R.id;
 import info.happyretired.R.layout;
@@ -60,6 +54,9 @@ import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -111,6 +108,7 @@ public class JetsoDetailsFragment extends Fragment {
 	TextView contactNoText;
 	Button callButton;
 	ImageView icon_call;
+	Button calendarButton;
 	
 	ImageView advimageView;
 	
@@ -188,7 +186,7 @@ public class JetsoDetailsFragment extends Fragment {
     	urlText= (TextView)mRoot.findViewById(R.id.TextView11);
     	contactNoText= (TextView)mRoot.findViewById(R.id.contact_no);
     	callButton = (Button) mRoot.findViewById(R.id.buttonCall);
-    	
+    	calendarButton = (Button) mRoot.findViewById(R.id.buttonAddCalendar);
     	icon_call= (ImageView) mRoot.findViewById(R.id.icon_call);
         //updateLayout();
     	
@@ -345,7 +343,11 @@ public class JetsoDetailsFragment extends Fragment {
 		content.setTextSize(Float.parseFloat(fontsize));
 		
         if(activityItem.getContent()!=null && !activityItem.getContent().equals("null") && !activityItem.getContent().equals("")){
-        	content.setText(activityItem.getContent()); 
+        	//content.setText(activityItem.getContent()); 
+        	Spanned sp = Html.fromHtml(activityItem.getContent().replace("\n", "<br>"), new URLImageParser(null, content, this.getActivity().getApplicationContext()) ,null);
+            content.setText(sp);
+            content.setMovementMethod(LinkMovementMethod.getInstance());
+            content.setSelectAllOnFocus(true);
         	content.setVisibility(View.VISIBLE);
         	topic1.setVisibility(View.VISIBLE   );
         }
@@ -355,7 +357,11 @@ public class JetsoDetailsFragment extends Fragment {
         }
         
         if(activityItem.getContact()!=null && !activityItem.getContact().equals("null") && !activityItem.getContact().equals("")){
-        	contact.setText(activityItem.getContact());
+        	//contact.setText(activityItem.getContact());
+        	Spanned sp = Html.fromHtml(activityItem.getContact().replace("\n", "<br>"), new URLImageParser(null, content, this.getActivity().getApplicationContext()) ,null);
+        	contact.setText(sp);
+        	contact.setMovementMethod(LinkMovementMethod.getInstance());
+        	contact.setSelectAllOnFocus(true);
         	contact.setVisibility(View.VISIBLE);
         	topic2.setVisibility(View.VISIBLE);
         }
@@ -365,43 +371,55 @@ public class JetsoDetailsFragment extends Fragment {
         }
         
         
-        Date convertedDate = null;
+        Date convertedFromDate = null;
+        Date convertedToDate = null;
+        
         DateFormat  formatter = new SimpleDateFormat("yyyyMMdd");
         try{
 	        
-	        convertedDate = (Date) formatter.parse(activityItem.getDateFrom());
+        	convertedFromDate = (Date) formatter.parse(activityItem.getDateFrom());
         }
         catch(Exception e){
         	e.printStackTrace();
         }
         
-    
-        
         String dateString ="";
-        dateString = String.valueOf(convertedDate.getMonth()+1)+"る"+activityItem.getDateFrom().substring(6, 8)+"ら";
+        dateString = String.valueOf(convertedFromDate.getMonth()+1)+"る"+activityItem.getDateFrom().substring(6, 8)+"ら";
         dateFromText.setText(dateString);
+        
         if(activityItem.getDateTo()!=null && !activityItem.getDateTo().equals("") && !activityItem.getDateTo().equals("00000000")){
         	try{
-    	         convertedDate = (Date) formatter.parse(activityItem.getDateTo());
+        		convertedToDate = (Date) formatter.parse(activityItem.getDateTo());
             }
             catch(Exception e){
             	e.printStackTrace();
             }
             
-        	dateString += " - " + String.valueOf(convertedDate.getMonth()+1)+"る"+activityItem.getDateTo().substring(6, 8)+"ら";
+        	dateString += " - " + String.valueOf(convertedToDate.getMonth()+1)+"る"+activityItem.getDateTo().substring(6, 8)+"ら";
         }
         else if(activityItem.getEffectiveTo()!=null && !activityItem.getEffectiveTo().equals("") && !activityItem.getEffectiveTo().equals("00000000")){
         	try{
-    	         convertedDate = (Date) formatter.parse(activityItem.getEffectiveTo());
+        		convertedToDate = (Date) formatter.parse(activityItem.getEffectiveTo());
             }
             catch(Exception e){
             	e.printStackTrace();
             }
             
-        	dateString += " - " + String.valueOf(convertedDate.getMonth()+1)+"る"+activityItem.getEffectiveTo().substring(6, 8)+"ら";
+        	dateString += " - " + String.valueOf(convertedToDate.getMonth()+1)+"る"+activityItem.getEffectiveTo().substring(6, 8)+"ら";
         }
                
         dateText.setText(dateString);
+        
+      //calendar Button
+        Calendar startDay = Calendar.getInstance();
+        if(convertedFromDate!=null)
+        	startDay.setTime(convertedFromDate);
+        
+        Calendar endDay = Calendar.getInstance();
+        if(convertedToDate!=null)
+        	endDay.setTime(convertedToDate);
+        
+        calendarButton.setOnClickListener(new CalendarListener(activityItem.getTitle(), startDay, endDay));
 
         
     	locationText.setText(activityItem.getLocationDesc());
@@ -431,7 +449,6 @@ public class JetsoDetailsFragment extends Fragment {
     		});
     	}
     	else{
-    		
     		contactNoText.setVisibility(View.GONE);
     		callButton.setVisibility(View.GONE);
     		icon_call.setVisibility(View.GONE);
@@ -442,100 +459,125 @@ public class JetsoDetailsFragment extends Fragment {
         ImageLoader.getInstance().displayImage(this.getActivity().getResources().getString(R.string.web_url)+"/"+activityItem.getAdvertisementImgUrl(), advimageView);
 	}
 	
-	
-private class GetActivityItemTask extends AsyncTask<String, Void, String> {
-    	
-    	@Override
-        protected void onPreExecute() {
-    		//mdialog=ProgressDialog.show(getActivity(),"",getActivity().getResources().getString(R.string.please_wait),false);
-    		linlaHeaderProgress.setVisibility(View.VISIBLE);
-        }
-    	
-    	
-        @Override
-        protected String doInBackground(String... urls) {
-        	
-        	if(this.isCancelled())
-        		return "";
-        	
-        	String para = "?action=getActivityDetails&refNo=" + refNo;
-			webserviceURL = getActivity().getResources().getString(R.string.WEBSERVICE_JETSO)+para;
-			String readTwitterFeed = readActivityFeed();
+	private class CalendarListener implements  OnClickListener{
+			String title;
+			Calendar startDay;
+			Calendar endDay;
 			
-			if(readTwitterFeed==null || readTwitterFeed.equals(""))
-				return "";
-			
-            try {
-              jsonArray = new JSONArray(readTwitterFeed);
-            } catch (Exception e) {
-              e.printStackTrace();
-            }
-
-            getActivityItem(jsonArray);
-            
-            
-            return "";
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-        	Context myContext = getActivity();      
-        	
-        	if(this.isCancelled())
-        		return;
-        	
-        	updateLayout();
-        	linlaHeaderProgress.setVisibility(View.GONE);
-            //mdialog.dismiss();
-        }
-        
-        
-      }
-
-public class MyLovelyOnClickListener implements OnClickListener
-{
-
-	int index;
+	     public CalendarListener(String title, Calendar startDay, Calendar endDay) {
+	          this.startDay = startDay;
+	          this.endDay = endDay;
+	          this.title = title;
+	     }
 	
-	public MyLovelyOnClickListener(int index) {
-		this.index = index;
+	     @Override
+	     public void onClick(View v)
+	     {
+	    	 	Calendar cal = Calendar.getInstance();              
+				Intent intent = new Intent(Intent.ACTION_EDIT);
+				intent.setType("vnd.android.cursor.item/event");
+				intent.putExtra("beginTime", startDay.getTimeInMillis());
+				intent.putExtra("allDay", false);
+				intent.putExtra("endTime", endDay.getTimeInMillis());
+				intent.putExtra("title", title);
+				startActivity(intent);
+	     }	
 	}
 	
-	public void onClick(View v) {
-        Intent mainIntent = new Intent(getActivity(), ViewPagerExampleActivity.class);
-        mainIntent.putExtra("url", getResources().getString(R.string.web_url)+activityItem.getImageURLs()[index]);
-        startActivity(mainIntent);
-    }
-
-};
-    
-static class TouchImageAdapter extends PagerAdapter {
-
-    private static int[] images = { R.drawable.nature_1};
-
-    @Override
-    public int getCount() {
-    	return images.length;
-    }
-
-    @Override
-    public View instantiateItem(ViewGroup container, int position) {
-        TouchImageView img = new TouchImageView(container.getContext());
-        img.setImageResource(images[position]);
-        container.addView(img, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        return img;
-    }
-
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((View) object);
-    }
-
-    @Override
-    public boolean isViewFromObject(View view, Object object) {
-        return view == object;
-    }
-
-}
+	
+	private class GetActivityItemTask extends AsyncTask<String, Void, String> {
+	    	
+	    	@Override
+	        protected void onPreExecute() {
+	    		//mdialog=ProgressDialog.show(getActivity(),"",getActivity().getResources().getString(R.string.please_wait),false);
+	    		linlaHeaderProgress.setVisibility(View.VISIBLE);
+	        }
+	    	
+	    	
+	        @Override
+	        protected String doInBackground(String... urls) {
+	        	
+	        	if(this.isCancelled())
+	        		return "";
+	        	
+	        	String para = "?action=getActivityDetails&refNo=" + refNo;
+				webserviceURL = getActivity().getResources().getString(R.string.WEBSERVICE_JETSO)+para;
+				String readTwitterFeed = readActivityFeed();
+				
+				if(readTwitterFeed==null || readTwitterFeed.equals(""))
+					return "";
+				
+	            try {
+	              jsonArray = new JSONArray(readTwitterFeed);
+	            } catch (Exception e) {
+	              e.printStackTrace();
+	            }
+	
+	            getActivityItem(jsonArray);
+	            
+	            
+	            return "";
+	        }
+	
+	        @Override
+	        protected void onPostExecute(String result) {
+	        	Context myContext = getActivity();      
+	        	
+	        	if(this.isCancelled())
+	        		return;
+	        	
+	        	updateLayout();
+	        	linlaHeaderProgress.setVisibility(View.GONE);
+	            //mdialog.dismiss();
+	        }
+	        
+	        
+	      }
+	
+	public class MyLovelyOnClickListener implements OnClickListener
+	{
+	
+		int index;
+		
+		public MyLovelyOnClickListener(int index) {
+			this.index = index;
+		}
+		
+		public void onClick(View v) {
+	        Intent mainIntent = new Intent(getActivity(), ViewPagerExampleActivity.class);
+	        mainIntent.putExtra("url", getResources().getString(R.string.web_url)+activityItem.getImageURLs()[index]);
+	        startActivity(mainIntent);
+	    }
+	
+	};
+	    
+	static class TouchImageAdapter extends PagerAdapter {
+	
+	    private static int[] images = { R.drawable.nature_1};
+	
+	    @Override
+	    public int getCount() {
+	    	return images.length;
+	    }
+	
+	    @Override
+	    public View instantiateItem(ViewGroup container, int position) {
+	        TouchImageView img = new TouchImageView(container.getContext());
+	        img.setImageResource(images[position]);
+	        container.addView(img, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+	        return img;
+	    }
+	
+	    @Override
+	    public void destroyItem(ViewGroup container, int position, Object object) {
+	        container.removeView((View) object);
+	    }
+	
+	    @Override
+	    public boolean isViewFromObject(View view, Object object) {
+	        return view == object;
+	    }
+	
+	}
 
 }

@@ -53,6 +53,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -70,10 +71,11 @@ public class BlogTabsFragment extends ListFragment implements SwipeRefreshLayout
 	private JSONArray jsonArray;
 	BlogCommunicator communicator;
 	ListView list;
-	SwipeRefreshLayout swipeLayout;
 	ListView listView;
+	SwipeRefreshLayout swipeLayout;
 	LinearLayout linlaHeaderProgress;
 	DownloadWebPageTask task;
+
 	
 	public BlogTabsFragment(){}
 	
@@ -84,6 +86,7 @@ public class BlogTabsFragment extends ListFragment implements SwipeRefreshLayout
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
+		
 
 	}
 	
@@ -92,8 +95,10 @@ public class BlogTabsFragment extends ListFragment implements SwipeRefreshLayout
             Bundle savedInstanceState) {
 
 		
-		mRoot = inflater.inflate(R.layout.fragment_message, container,
-                false);
+		mRoot = inflater.inflate(R.layout.fragment_message, container, false);
+		//mRoot = inflater.inflate(R.layout.fragment_message_swipe, container, false);
+		
+		
 		linlaHeaderProgress = (LinearLayout) mRoot.findViewById(R.id.linlaHeaderProgress);
 		communicator = (BlogCommunicator)this.getActivity();
 		if(mlist.size()==0){
@@ -103,8 +108,46 @@ public class BlogTabsFragment extends ListFragment implements SwipeRefreshLayout
 		mAdapter = new BlogPostListAdapter(this.getActivity(), android.R.layout.simple_list_item_1, mlist);
 		setListAdapter(mAdapter);			
 
+		/*  swipe view */
+		/*
+		swipeLayout = (SwipeRefreshLayout) mRoot.findViewById(R.id.swipe_container); 
+		swipeLayout.setEnabled(false);
 		
-        return mRoot;
+		swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+	        @Override
+	        public void onRefresh() {
+	        	swipeLayout.setRefreshing(true);
+	            ( new Handler()).postDelayed(new Runnable() {
+	                @Override
+	                public void run() {
+	                	swipeLayout.setRefreshing(false);
+	 
+	                }
+	            }, 3000);
+	        }
+	    });
+	    */
+		
+		/*
+		this.getListView().setOnScrollListener(new AbsListView.OnScrollListener() {
+	        @Override
+	        public void onScrollStateChanged(AbsListView absListView, int i) {
+	 
+	        }
+	 
+	        @Override
+	        public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+	                if (firstVisibleItem == 0)
+	                	swipeLayout.setEnabled(true);
+	                else
+	                	swipeLayout.setEnabled(false);
+	        }
+	    });
+	    */
+	
+	 
+		
+		return mRoot;
     }
 	
 
@@ -235,22 +278,15 @@ public class BlogTabsFragment extends ListFragment implements SwipeRefreshLayout
         @Override
         protected String doInBackground(String... urls) {
         	
-        	/*
-        	if(isCancelled())
-        	{
-        	    return "";
-        	}
-        	*/
-        	
-        	
             String readTwitterFeed = readActivityFeed();
+            
             try {
-              jsonArray = new JSONArray(readTwitterFeed);
-            } catch (Exception e) {
-              e.printStackTrace();
+            	jsonArray = new JSONArray(readTwitterFeed);
+            } 
+            catch (Exception e) {
+            	e.printStackTrace();
             }
 
-           
             if(jsonArray!=null && jsonArray.length()>0)
             	getItem(jsonArray);
             
