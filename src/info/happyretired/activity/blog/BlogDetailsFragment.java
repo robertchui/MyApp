@@ -29,6 +29,7 @@ import info.happyretired.activity.jetso.JetsoDetailsFragment.MyLovelyOnClickList
 import info.happyretired.adapter.EventListAdapter;
 import info.happyretired.model.ActivityItem;
 import info.happyretired.model.Blogger;
+import info.happyretired.ult.BlogUtil;
 import info.happyretired.ult.CommonConstant;
 import info.happyretired.ult.URLImageParser;
 import info.happyretired.R;
@@ -41,6 +42,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -178,42 +180,6 @@ public class BlogDetailsFragment extends Fragment {
 	public void setActivityItem(Blogger activityItem) {
 		this.activityItem = activityItem;
 	}
-
-	public String readActivityFeed() {
-	   	
-    	StrictMode.ThreadPolicy policy = new StrictMode.
-    	          ThreadPolicy.Builder().permitAll().build();
-    	        StrictMode.setThreadPolicy(policy); 
-    	        
-        StringBuilder builder = new StringBuilder();
-        HttpClient client = new DefaultHttpClient();
-        HttpGet httpGet = new HttpGet(webserviceURL);
-        
-        try {
-          HttpResponse response = client.execute(httpGet);
-          StatusLine statusLine = response.getStatusLine();
-          int statusCode = statusLine.getStatusCode();
-          if (statusCode == 200) {
-            HttpEntity entity = response.getEntity();
-            InputStream content = entity.getContent();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-            String line;
-            while ((line = reader.readLine()) != null) {
-              builder.append(line);
-            }
-          } else {
-            Log.e(BlogDetailsFragment.class.toString(), "Failed to download file");
-          }
-        } catch (ClientProtocolException e) {
-          e.printStackTrace();
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-        catch(Exception e){
-        	e.printStackTrace();
-        }
-        return builder.toString();
-      }
 	
 	
 	public void getActivityItem(JSONArray jsonArray){
@@ -272,7 +238,7 @@ public class BlogDetailsFragment extends Fragment {
 			        lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
 			        rl.addView(iv, lp);
 			        
-			        MyLovelyOnClickListener listner = new MyLovelyOnClickListener(i);
+			        MyLovelyOnClickListener listner = new MyLovelyOnClickListener(activityItem.getImageURLs()[i]);
 			        iv.setOnClickListener(listner);
 			        imageViews.add(iv);
 		        }
@@ -294,6 +260,17 @@ public class BlogDetailsFragment extends Fragment {
        
         //String url = "images/banners/share2.jpg";
         ImageLoader.getInstance().displayImage(this.getActivity().getResources().getString(R.string.web_url)+"/"+activityItem.getAdvertisementImgUrl(), advimageView);
+        
+        if(activityItem.getAdvertisementUrl()!=null && !activityItem.getAdvertisementUrl().equals("")){
+        	        	        	
+        	advimageView.setOnClickListener(new OnClickListener() {
+                // Start new list activity
+                public void onClick(View v) {
+                    Intent mainIntent = new Intent("android.intent.action.VIEW", Uri.parse(activityItem.getAdvertisementUrl()));
+                    startActivity(mainIntent);
+                }
+            });
+        }
 	}
 	
 	
@@ -301,14 +278,17 @@ public class BlogDetailsFragment extends Fragment {
 	{
 
 		int index;
+		String url;
 		
-		public MyLovelyOnClickListener(int index) {
-			this.index = index;
+		public MyLovelyOnClickListener(String url) {
+			//this.index = index;
+			this.url = url;
 		}
 		
 		public void onClick(View v) {
 	        Intent mainIntent = new Intent(getActivity(), ViewPagerExampleActivity.class);
-	        mainIntent.putExtra("url", getResources().getString(R.string.web_url)+activityItem.getImageURLs()[index]);
+	        //mainIntent.putExtra("url", getResources().getString(R.string.web_url)+activityItem.getImageURLs()[index]);
+	        mainIntent.putExtra("url", getResources().getString(R.string.web_url)+url);
 	        startActivity(mainIntent);
 	    }
 
@@ -329,22 +309,10 @@ private class GetActivityItemTask extends AsyncTask<String, Void, String> {
         	if(this.isCancelled())
         		return "";
         	
-        	String para = "?action=searchBlogContent&refNo=" + activityItem.getRefNo();
-			webserviceURL = getActivity().getResources().getString(R.string.WEBSERVICE_BLOG)+para;
-			String readTwitterFeed = readActivityFeed();
-			
-			if(readTwitterFeed==null || readTwitterFeed.equals(""))
-				return "";
-			
-            try {
-              jsonArray = new JSONArray(readTwitterFeed);
-            } catch (Exception e) {
-              e.printStackTrace();
-            }
-
+        	BlogUtil util = new BlogUtil();
+        	jsonArray = util.searchBlogContent(activityItem.getRefNo());
             getActivityItem(jsonArray);
-            
-            
+                        
             return "";
         }
 

@@ -132,7 +132,8 @@ public void respondReadArticle(int currentPage, ArrayList in){
 
 class MyAdapter extends FragmentPagerAdapter{
 	private Context _context; 
-	public int NUM_ITEM = 3;
+	//public int NUM_ITEM = 3;
+	public int NUM_ITEM = 4;
 	
 	public MyAdapter(FragmentManager fragmentManager,  Context c) {
         super(fragmentManager);
@@ -161,12 +162,12 @@ class MyAdapter extends FragmentPagerAdapter{
 			fg.setFeatured("N");
 			fragment = (Fragment)fg;		
 		}
-		/*
+		
 		else if(i==3){
 			SwipeRefreshLayoutBasicFragment fg = new SwipeRefreshLayoutBasicFragment();
 			fragment = (Fragment)fg;		
 		}
-		*/
+		
 		
 		
 		return fragment;

@@ -1,5 +1,6 @@
 package info.happyretired.adapter;
 
+import info.happyretired.activity.HomeActivity;
 import info.happyretired.activity.LoginActivity;
 import info.happyretired.activity.event.EventDetailsActivity;
 import info.happyretired.activity.forum.ReplyActivity;
@@ -7,10 +8,10 @@ import info.happyretired.activity.userprofile.ProfileActivity;
 import info.happyretired.model.ActivityItem;
 import info.happyretired.model.ForumTopicItem;
 import info.happyretired.model.NavDrawerItem;
-import info.happyretired.HomeActivity;
 import info.happyretired.R;
 import info.happyretired.ult.CommonConstant;
 import info.happyretired.ult.URLImageParser;
+import info.happyretired.ult.UserFunctionsUtil;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -26,7 +27,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import com.example.androidhive.library.UserFunctions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 
@@ -121,7 +121,7 @@ public class ForumMessageAdapter extends ArrayAdapter<ForumTopicItem> implements
 			TextView reply = (TextView) convertView.findViewById(R.id.reply);
 			TextView reference = (TextView) convertView.findViewById(R.id.reference);
 			
-			UserFunctions userFunction = new UserFunctions();
+			UserFunctionsUtil userFunction = new UserFunctionsUtil();
 			HashMap map = new HashMap();
 
 			int id = 0;
@@ -265,7 +265,7 @@ public class ForumMessageAdapter extends ArrayAdapter<ForumTopicItem> implements
     	
     	public void onClick(View arg0) {
     		
-    		UserFunctions userFunction = new UserFunctions();
+    		UserFunctionsUtil userFunction = new UserFunctionsUtil();
     		
 			
     		if(!userFunction.isUserLoggedIn(context.getApplicationContext())){

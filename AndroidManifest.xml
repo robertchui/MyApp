@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="info.happyretired"
-    android:versionCode="23"
-    android:versionName="1.6.2" >
+    android:versionCode="24"
+    android:versionName="1.6.3" >
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     
@@ -47,7 +47,7 @@
         android:label="" 
         android:theme="@style/AppTheme" >
         
-        <activity android:name="info.happyretired.HomeActivity"
+        <activity android:name="info.happyretired.activity.HomeActivity"
             android:label="目錄" 
             />
         
@@ -144,7 +144,7 @@
         
         <activity
             android:screenOrientation="portrait"
-            android:name="info.happyretired.MainActivity"
+            android:name="info.happyretired.activity.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -161,7 +161,9 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyCLRcuGwJTWNCqNk9y2yCq6wEAiz09i4Y0" />
-        <!-- AIzaSyCTLk865wPGvd0-JZuaD2Yd3PPvgfY6UQw -->
+        
+        <!-- prod: 		AIzaSyCLRcuGwJTWNCqNk9y2yCq6wEAiz09i4Y0 -->
+        <!-- testing:	AIzaSyCTLk865wPGvd0-JZuaD2Yd3PPvgfY6UQw -->
         
         <meta-data
         android:name="com.google.android.gms.version"

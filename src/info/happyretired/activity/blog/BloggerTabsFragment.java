@@ -14,6 +14,7 @@ import info.happyretired.R;
 import info.happyretired.R.id;
 import info.happyretired.R.layout;
 import info.happyretired.R.string;
+import info.happyretired.ult.BlogUtil;
 import info.happyretired.ult.CommonConstant;
 
 import java.io.BufferedReader;
@@ -182,43 +183,6 @@ public class BloggerTabsFragment extends Fragment implements SwipeRefreshLayout.
 	}
 
 
-	public String readActivityFeed() {
-    	   	
-    	StrictMode.ThreadPolicy policy = new StrictMode.
-    	          ThreadPolicy.Builder().permitAll().build();
-    	        StrictMode.setThreadPolicy(policy); 
-    	        
-        StringBuilder builder = new StringBuilder();
-        HttpClient client = new DefaultHttpClient();
-
-        HttpGet httpGet = new HttpGet(getActivity().getResources().getString(R.string.WEBSERVICE_BLOG)+"?action=searchBlogger&featured="+getFeatured());
-        
-        try {
-          HttpResponse response = client.execute(httpGet);
-          StatusLine statusLine = response.getStatusLine();
-          int statusCode = statusLine.getStatusCode();
-          if (statusCode == 200) {
-            HttpEntity entity = response.getEntity();
-            InputStream content = entity.getContent();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-            String line;
-            while ((line = reader.readLine()) != null) {
-              builder.append(line);
-            }
-          } else {
-            Log.e(BloggerTabsFragment.class.toString(), "Failed to download file");
-          }
-        } catch (ClientProtocolException e) {
-          e.printStackTrace();
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-        catch(Exception e){
-        	e.printStackTrace();
-        }
-        return builder.toString();
-      }
-    
     protected void getCategory(JSONArray jsonArray){
     	mlist = new ArrayList();    
         int size = jsonArray.length();
@@ -248,7 +212,6 @@ public class BloggerTabsFragment extends Fragment implements SwipeRefreshLayout.
     	activityItem.setSelf_intro(jsonObject.getString("self_intro"));
     	activityItem.setUpdate_remark(jsonObject.getString("update_remark"));
     	
-    	
     }
     
     private class DownloadWebPageTask extends AsyncTask<String, Void, String> {
@@ -262,20 +225,14 @@ public class BloggerTabsFragment extends Fragment implements SwipeRefreshLayout.
         @Override
         protected String doInBackground(String... urls) {
         	
-        	/*
+        	
         	if(isCancelled())
         	{
         	    return "";
         	}
-        	*/
-        	
-            String readTwitterFeed = readActivityFeed();
-            try {
-              jsonArray = new JSONArray(readTwitterFeed);
-            } catch (Exception e) {
-              e.printStackTrace();
-            }
             
+            BlogUtil util = new BlogUtil();
+        	jsonArray = util.searchBlogger(getFeatured());
             getCategory(jsonArray);
             
             return "";

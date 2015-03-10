@@ -1,8 +1,8 @@
 package info.happyretired.service;
 
-import info.happyretired.HomeActivity;
-import info.happyretired.MainActivity;
 import info.happyretired.R;
+import info.happyretired.activity.HomeActivity;
+import info.happyretired.activity.MainActivity;
 import info.happyretired.activity.blog.BlogDetailsActivity;
 import info.happyretired.activity.blog.BlogTabsFragment;
 import info.happyretired.activity.event.EventDetailsActivity;

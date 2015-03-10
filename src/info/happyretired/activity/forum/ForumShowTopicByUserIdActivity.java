@@ -17,6 +17,9 @@ import info.happyretired.R.string;
 
 
 import info.happyretired.ult.CommonConstant;
+import info.happyretired.ult.ForumWebserviceUtil;
+import info.happyretired.ult.UserFunctionsUtil;
+import info.happyretired.ult.UserWebserviceUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,9 +28,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.example.android.common.view.SlidingTabLayout;
-import com.example.androidhive.library.ForumWebserviceUtil;
-import com.example.androidhive.library.UserFunctions;
-import com.example.androidhive.library.UserWebserviceUtil;
 import com.google.analytics.tracking.android.Fields;
 import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.google.analytics.tracking.android.MapBuilder;
@@ -161,7 +161,7 @@ public class ForumShowTopicByUserIdActivity  extends ListActivity   {
         	if(this.isCancelled())
         		return "";
         	
-        	UserFunctions userFunction = new UserFunctions();
+        	UserFunctionsUtil userFunction = new UserFunctionsUtil();
         	HashMap user = userFunction.getUserDetails(getApplicationContext());
         	
         	ForumWebserviceUtil forumWebserviceUtil = new ForumWebserviceUtil();

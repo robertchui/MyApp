@@ -1,5 +1,6 @@
 package info.happyretired.activity.userprofile;
 
+import info.happyretired.activity.HomeActivity;
 import info.happyretired.activity.LoginActivity;
 import info.happyretired.activity.UserSettingActivity;
 import info.happyretired.activity.ViewPagerExampleActivity;
@@ -22,17 +23,16 @@ import info.happyretired.adapter.NavDrawerListAdapter;
 import info.happyretired.communicator.FrontCommunicator;
 import info.happyretired.communicator.ProfileCommunicator;
 import info.happyretired.model.NavDrawerItem;
-import info.happyretired.HomeActivity;
 import info.happyretired.R;
 import info.happyretired.service.MyService;
 import info.happyretired.ult.CommonConstant;
 import info.happyretired.ult.MyGoogleAnalytics;
+import info.happyretired.ult.UserFunctionsUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
-import com.example.androidhive.library.UserFunctions;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.Fields;
 import com.google.analytics.tracking.android.GoogleAnalytics;
@@ -95,7 +95,7 @@ public class ProfileActivity extends FragmentActivity implements ProfileCommunic
 	
 	private ShareActionProvider mShareActionProvider;
 	
-	private UserFunctions userFunction = new UserFunctions();
+	private UserFunctionsUtil userFunction = new UserFunctionsUtil();
 	Dialog settingsDialog;
 	 
 	@Override
@@ -193,12 +193,12 @@ public class ProfileActivity extends FragmentActivity implements ProfileCommunic
 		TextView ref = (TextView) mRoot.findViewById(R.id.member_id);
 		ImageView imageView = (ImageView) mRoot.findViewById(R.id.card);
 		
-		UserFunctions userFunction = new UserFunctions();
+		UserFunctionsUtil userFunction = new UserFunctionsUtil();
 		HashMap user = userFunction.getUserDetails(getApplicationContext().getApplicationContext());
 		 
 		int yournumber = Integer.parseInt((String)user.get("uid"));
 		
-		ref.setText("會員編號 : " + String.format("%07d", yournumber));
+		ref.setText("會員編號 : HR" + String.format("%07d", yournumber));
 		
 		/*
 		Matrix matrix=new Matrix();

@@ -7,14 +7,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import info.happyretired.HomeActivity;
-import info.happyretired.MainActivity;
+import info.happyretired.activity.HomeActivity;
 import info.happyretired.activity.LoginActivity;
+import info.happyretired.activity.MainActivity;
 import info.happyretired.activity.forum.ReplyActivity;
 import info.happyretired.db.MySQLiteHelper;
+import info.happyretired.ult.UserFunctionsUtil;
+import info.happyretired.ult.UserWebserviceUtil;
 
-import com.example.androidhive.library.UserFunctions;
-import com.example.androidhive.library.UserWebserviceUtil;
 
 import info.happyretired.R;
 import android.app.ActionBar;
@@ -124,7 +124,7 @@ public class PersonalDetailsActivity extends Activity {
         	if(this.isCancelled())
         		return "";
         	
-        	UserFunctions userFunction = new UserFunctions();
+        	UserFunctionsUtil userFunction = new UserFunctionsUtil();
         	HashMap user = userFunction.getUserDetails(c);
         	UserWebserviceUtil userWebserviceUtil = new UserWebserviceUtil();
             json = userWebserviceUtil.getProfileDetails((String)user.get("uid"), (String)user.get("email"));

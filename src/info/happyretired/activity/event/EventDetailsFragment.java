@@ -27,6 +27,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
+import info.happyretired.activity.HomeActivity;
 import info.happyretired.activity.MapActivity;
 import info.happyretired.activity.ViewPagerExampleActivity;
 import info.happyretired.activity.blog.BlogDetailsActivity;
@@ -34,7 +35,6 @@ import info.happyretired.adapter.EventListAdapter;
 import info.happyretired.model.ActivityItem;
 import info.happyretired.ult.CommonConstant;
 import info.happyretired.ult.URLImageParser;
-import info.happyretired.HomeActivity;
 import info.happyretired.R;
 import info.happyretired.R.id;
 import info.happyretired.R.layout;

@@ -8,6 +8,7 @@ import info.happyretired.communicator.ForumCommunicator;
 import info.happyretired.model.ActivityItem;
 import info.happyretired.model.BlogPostItem;
 import info.happyretired.model.Blogger;
+import info.happyretired.ult.BlogUtil;
 import info.happyretired.R;
 import info.happyretired.R.id;
 import info.happyretired.R.layout;
@@ -170,8 +171,6 @@ public class BlogTabsFragment extends ListFragment implements SwipeRefreshLayout
 		linlaHeaderProgress.setVisibility(View.GONE);
 	}
 
-	
-
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		setRetainInstance(true);
@@ -192,8 +191,6 @@ public class BlogTabsFragment extends ListFragment implements SwipeRefreshLayout
 			list.add(item);
 		}
 		
-		
-		
 		communicator.respondReadArticle(position, list);
 		
 		
@@ -208,43 +205,6 @@ public class BlogTabsFragment extends ListFragment implements SwipeRefreshLayout
 		this.categoryId = categoryId;
 	}
 
-
-	public String readActivityFeed() {
-    	   	
-    	StrictMode.ThreadPolicy policy = new StrictMode.
-    	          ThreadPolicy.Builder().permitAll().build();
-    	        StrictMode.setThreadPolicy(policy); 
-    	        
-        StringBuilder builder = new StringBuilder();
-        HttpClient client = new DefaultHttpClient();
-        HttpGet httpGet = new HttpGet(getActivity().getResources().getString(R.string.WEBSERVICE_BLOG)+"?action=searchBlog&blogcat_id="+categoryId);
-        
-        try {
-          HttpResponse response = client.execute(httpGet);
-          StatusLine statusLine = response.getStatusLine();
-          int statusCode = statusLine.getStatusCode();
-          if (statusCode == 200) {
-            HttpEntity entity = response.getEntity();
-            InputStream content = entity.getContent();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-            String line;
-            while ((line = reader.readLine()) != null) {
-              builder.append(line);
-            }
-          } else {
-            Log.e(BlogTabsFragment.class.toString(), "Failed to download file");
-          }
-        } catch (ClientProtocolException e) {
-          e.printStackTrace();
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-        catch(Exception e){
-        	e.printStackTrace();
-        }
-        return builder.toString();
-      }
-    
       
     protected void getItem(JSONArray jsonArray){
     	mlist = new ArrayList();    
@@ -278,15 +238,9 @@ public class BlogTabsFragment extends ListFragment implements SwipeRefreshLayout
         @Override
         protected String doInBackground(String... urls) {
         	
-            String readTwitterFeed = readActivityFeed();
-            
-            try {
-            	jsonArray = new JSONArray(readTwitterFeed);
-            } 
-            catch (Exception e) {
-            	e.printStackTrace();
-            }
-
+            BlogUtil util = new BlogUtil();
+        	jsonArray = util.searchBlog(null, categoryId);
+        	
             if(jsonArray!=null && jsonArray.length()>0)
             	getItem(jsonArray);
             

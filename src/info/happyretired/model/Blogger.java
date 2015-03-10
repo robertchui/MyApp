@@ -25,6 +25,7 @@ public class Blogger implements Parcelable {
 	private String content;
 	private String shareUrl;
 	private String advertisementImgUrl;
+	private String advertisementUrl;
 	private String[] imageURLs;
 	
 	public Blogger(){
@@ -60,6 +61,7 @@ public class Blogger implements Parcelable {
 		content = in.readString();
 		shareUrl= in.readString();
 		advertisementImgUrl = in.readString();
+		advertisementUrl =	in.readString();
 	}
 	
 
@@ -83,10 +85,16 @@ public class Blogger implements Parcelable {
 		dest.writeString(content);
 		dest.writeString(shareUrl);
 		dest.writeString(advertisementImgUrl);
-		
+		dest.writeString(advertisementUrl);
 	}
 
 	
+	public String getAdvertisementUrl() {
+		return advertisementUrl;
+	}
+	public void setAdvertisementUrl(String advertisementUrl) {
+		this.advertisementUrl = advertisementUrl;
+	}
 	public String getAdvertisementImgUrl() {
 		return advertisementImgUrl;
 	}
@@ -223,6 +231,7 @@ public class Blogger implements Parcelable {
 	    	this.setListType("");
 	    	this.setShareUrl(jsonObject.getString("shareUrl"));
 	    	this.setAdvertisementImgUrl(jsonObject.getString("advertisementImgUrl"));
+	    	this.setAdvertisementUrl(jsonObject.getString("advertisementUrl"));
 	    	
 	    	if(jsonObject.has("imageURLs")){
 		    	

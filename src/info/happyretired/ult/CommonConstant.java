@@ -36,8 +36,10 @@ public class CommonConstant {
 	static public final String NOTIFICATION = "notification";
 	static public final String FONT_SIZE = "fontsize";
 	static public final String FONT_SIZE_DEFAULT = "24";
-	static public final String forumUrl = "https://www.happy-retired.com/forumwebservice";
-	static public final String commonUrl = "https://www.happy-retired.com/commonwebservice";
+	static public final String host = "https://www.happy-retired.com/";
+	static public final String forumUrl = host+"forumwebservice";
+	static public final String blogUrl = host+"blogwebservice";
+	static public final String commonUrl = host+"commonwebservice";
 	
 	private static CommonConstant instance = null;
 	
@@ -49,9 +51,9 @@ public class CommonConstant {
 	
 	
 	
-	public final String forumCategoryUrl = "https://www.happy-retired.com/forumwebservice?action=getCategory";
-	public final String blogCategoryUrl = "https://www.happy-retired.com/blogwebservice?action=getCategory";
-	public final String jetsoCategoryUrl = "https://www.happy-retired.com/jetsowebservice?action=getCategory";
+	public final String forumCategoryUrl = host+"forumwebservice?action=getCategory";
+	public final String blogCategoryUrl = host+"blogwebservice?action=getCategory";
+	public final String jetsoCategoryUrl = host+"jetsowebservice?action=getCategory";
 	
 	 private CommonConstant(){ }
 	   

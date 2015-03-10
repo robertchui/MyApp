@@ -10,6 +10,7 @@ import info.happyretired.communicator.ProfileCommunicator;
 import info.happyretired.model.ActivityItem;
 import info.happyretired.model.ForumCategoryItem;
 import info.happyretired.model.NavDrawerItem;
+import info.happyretired.ult.UserFunctionsUtil;
 import info.happyretired.R;
 import info.happyretired.R.id;
 import info.happyretired.R.layout;
@@ -48,7 +49,6 @@ import org.apache.http.impl.conn.SingleClientConnManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.example.androidhive.library.UserFunctions;
 
 import android.app.ActionBar;
 import android.app.ActionBar.TabListener;
@@ -93,7 +93,7 @@ public class ProfileFragment extends ListFragment implements SwipeRefreshLayout.
 	
 	private String[] navMenuTitles;
 	
-	private UserFunctions userFunction = new UserFunctions();
+	private UserFunctionsUtil userFunction = new UserFunctionsUtil();
 	
 	public ProfileFragment(){}
 	

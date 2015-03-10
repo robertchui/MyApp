@@ -10,7 +10,6 @@ import org.json.JSONObject;
 
 
 
-import info.happyretired.HomeActivity;
 import info.happyretired.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -23,10 +22,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
  
-import info.happyretired.MainActivity;
 import info.happyretired.db.MySQLiteHelper;
+import info.happyretired.ult.UserFunctionsUtil;
 
-import com.example.androidhive.library.UserFunctions;
  
 public class LoginActivity extends Activity {
     Button btnLogin;
@@ -66,7 +64,7 @@ public class LoginActivity extends Activity {
             public void onClick(View view) {
                 String email = inputEmail.getText().toString();
                 String password = inputPassword.getText().toString();
-                UserFunctions userFunction = new UserFunctions();
+                UserFunctionsUtil userFunction = new UserFunctionsUtil();
                 JSONObject json = userFunction.loginUser(email, password);
  
                 // check for login response

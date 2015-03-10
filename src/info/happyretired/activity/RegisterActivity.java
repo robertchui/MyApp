@@ -3,11 +3,9 @@ package info.happyretired.activity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import info.happyretired.HomeActivity;
-import info.happyretired.MainActivity;
 import info.happyretired.db.MySQLiteHelper;
+import info.happyretired.ult.UserFunctionsUtil;
 
-import com.example.androidhive.library.UserFunctions;
 
 import info.happyretired.R;
 import android.app.ActionBar;
@@ -130,7 +128,7 @@ public class RegisterActivity extends Activity {
                 	registerErrorMsg.setText("請同意以上兩點");
                 }
                 else{
-	                UserFunctions userFunction = new UserFunctions();
+	                UserFunctionsUtil userFunction = new UserFunctionsUtil();
 	                String device_id = Secure.getString(c.getContentResolver(),
                             Secure.ANDROID_ID); 
 	                JSONObject json = userFunction.registerUser(name, email, password, districtField, ageField, mobileValue, rec_mobileValue, rec_emailValue, device_id);

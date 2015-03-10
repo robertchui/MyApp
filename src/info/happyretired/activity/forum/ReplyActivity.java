@@ -14,7 +14,6 @@ import org.json.JSONObject;
 
 
 
-import info.happyretired.HomeActivity;
 import info.happyretired.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -27,12 +26,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
  
-import info.happyretired.MainActivity;
+import info.happyretired.activity.HomeActivity;
+import info.happyretired.activity.MainActivity;
 import info.happyretired.activity.RegisterActivity;
 import info.happyretired.db.MySQLiteHelper;
+import info.happyretired.ult.ForumWebserviceUtil;
+import info.happyretired.ult.UserFunctionsUtil;
 
-import com.example.androidhive.library.ForumWebserviceUtil;
-import com.example.androidhive.library.UserFunctions;
  
 public class ReplyActivity extends Activity {
     Button btnSend;
